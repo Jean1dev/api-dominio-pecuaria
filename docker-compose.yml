@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "binnosoft"
+      POSTGRES_USER: "jeanfernandes"
+      POSTGRES_PASSWORD: "admin"
+    volumes:
+      - "/var/lib/postgresql/data/"
+    container_name: pg
