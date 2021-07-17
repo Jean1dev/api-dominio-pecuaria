@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.transaction.Transactional;
+import java.util.Objects;
 
 @Service
+@Transactional
 public class UsuarioAcessoService {
 
     @Autowired
@@ -25,7 +27,10 @@ public class UsuarioAcessoService {
     private TenantRepository tenantRepository;
 
     public void criar(UsuarioAcessoDto dto) {
-        Tenant tenant = tenantRepository.findById(dto.getTenant()).orElseThrow();
+        Tenant tenant = tenantRepository.findById(Objects.isNull(dto.getTenant()) ? 99999 : dto.getTenant()).orElseGet(() -> tenantRepository.save(Tenant.builder()
+                .nome(dto.getLogin())
+                .ativo(true)
+                .build()));
 
         repository.save(criarUsuarioAcesso(UsuarioAcessoDto.builder()
                 .login(dto.getLogin())

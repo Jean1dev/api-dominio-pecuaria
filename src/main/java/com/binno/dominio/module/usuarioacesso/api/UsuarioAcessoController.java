@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(path = "usuarioacesso")
 public class UsuarioAcessoController {
@@ -17,7 +19,7 @@ public class UsuarioAcessoController {
     private UsuarioAcessoService service;
 
     @PostMapping(path = "criar")
-    public ResponseEntity criarUsuarioAcesso(@RequestBody UsuarioAcessoDto dto) {
+    public ResponseEntity criarUsuarioAcesso(@RequestBody @Valid UsuarioAcessoDto dto) {
         service.criar(dto);
         return ResponseEntity.status(204).build();
     }
