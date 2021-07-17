@@ -2,7 +2,6 @@ package com.binno.dominio.module.animal.api.dto;
 
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.model.EstadoAtual;
-import com.binno.dominio.module.tenant.model.Tenant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -50,7 +49,7 @@ public class AnimalDto {
                 .raca(animal.getRaca())
                 .apelido(animal.getApelido())
                 .dataNascimento(animal.getDataNascimento())
-                .numeroCria(animal.getNumeroCria())
+                .numeroCria(animal.getNumeroCrias())
                 .estadoAtual(animal.getEstadoAtual())
                 .dataUltimoParto(animal.getDataUltimoParto())
                 .descarteFuturo(animal.getDescarteFuturo())
