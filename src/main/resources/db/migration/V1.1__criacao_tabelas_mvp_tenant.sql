@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS public.fazenda
 (
-    id bigint NOT NULL,
+    id serial NOT NULL,
     cap_maxima_gado bigint,
     cod_estab character varying,
     endereco character varying,
@@ -20,7 +20,7 @@ ALTER TABLE public.fazenda
 
 CREATE TABLE IF NOT EXISTS public.funcionario
 (
-    id bigint NOT NULL,
+    id serial NOT NULL,
     nome character varying NOT NULL,
     tenant int4 NOT NULL,
     cargo character varying,
@@ -36,7 +36,7 @@ ALTER TABLE public.funcionario
 
 CREATE TABLE IF NOT EXISTS public.medicamento
 (
-    id bigint NOT NULL,
+    id serial NOT NULL,
     nome character varying NOT NULL,
     tenant int4 NOT NULL,
     descricao character varying,
@@ -53,8 +53,8 @@ ALTER TABLE public.medicamento
 
 CREATE TABLE IF NOT EXISTS public.animal
 (
-    id bigint NOT NULL,
-    numero bigint,
+    id serial NOT NULL,
+    numero bigint NOT NULL,
     raca character varying,
     apelido character varying,
     tenant int4 NOT NULL,
@@ -62,8 +62,8 @@ CREATE TABLE IF NOT EXISTS public.animal
     numero_crias integer,
     estado_atual character varying,
     data_ultimo_parto date,
-    descarte_futuro boolean,
-    justificativa_descarte character varying,
+    descarte_futuro boolean default false,
+    justificativa_descarte_futuro character varying,
     PRIMARY KEY (id)
 );
 

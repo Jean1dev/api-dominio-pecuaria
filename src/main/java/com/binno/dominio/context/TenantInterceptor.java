@@ -25,12 +25,10 @@ public class TenantInterceptor extends HandlerInterceptorAdapter {
     }
 
     private Integer getUserAccess(HttpServletRequest request) {
-        Integer userAccess = (Integer) request.getAttribute("user_access");
-        return userAccess;
+        return Integer.valueOf(request.getHeader("user_access"));
     }
 
     private Integer getTenant(HttpServletRequest request) {
-        Integer tenant = (Integer) request.getAttribute("tenant");
-        return tenant;
+        return Integer.valueOf(request.getHeader("tenant"));
     }
 }

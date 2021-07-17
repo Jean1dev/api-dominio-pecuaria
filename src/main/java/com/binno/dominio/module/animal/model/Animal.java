@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -21,14 +22,15 @@ public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotNull(message = "O número não pode ser nulo ou vazio.")
     private Integer numero;
     private String raca;
     private String apelido;
     private LocalDate dataNascimento;
-    private Integer numeroCria;
+    private Integer numeroCrias;
     private EstadoAtual estadoAtual;
     private LocalDate dataUltimoParto;
-    private Boolean descarteFuturo;
+    private Boolean descarteFuturo = false;
     private String justificativaDescarteFuturo;
 
     @JsonIgnore
