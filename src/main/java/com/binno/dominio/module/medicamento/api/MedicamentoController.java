@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static com.binno.dominio.module.medicamento.api.dto.MedicamentoDto.pageToDto;
 
 @RestController
@@ -30,7 +32,7 @@ public class MedicamentoController {
     }
 
     @PostMapping
-    public Medicamento create(@RequestBody MedicamentoDto medicamentoDto) {
+    public Medicamento create(@RequestBody @Valid MedicamentoDto medicamentoDto) {
         return repository.save(Medicamento.builder()
                 .nome(medicamentoDto.getNome())
                 .descricao(medicamentoDto.getDescricao())
