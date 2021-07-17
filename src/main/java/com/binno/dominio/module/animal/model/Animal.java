@@ -37,5 +37,4 @@ public class Animal {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant", referencedColumnName = "id")
     private Tenant tenant;
-
 }
