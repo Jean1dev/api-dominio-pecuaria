@@ -37,7 +37,7 @@ public class AnimalController {
                 .raca(animalDto.getRaca())
                 .apelido(animalDto.getApelido())
                 .dataNascimento(animalDto.getDataNascimento())
-                .numeroCria(animalDto.getNumeroCria())
+                .numeroCrias(animalDto.getNumeroCria())
                 .estadoAtual(animalDto.getEstadoAtual())
                 .dataUltimoParto(animalDto.getDataUltimoParto())
                 .descarteFuturo(animalDto.getDescarteFuturo())
