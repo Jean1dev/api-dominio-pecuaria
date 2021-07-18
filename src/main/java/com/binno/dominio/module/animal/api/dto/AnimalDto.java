@@ -4,8 +4,7 @@ import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.model.EstadoAtual;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
@@ -14,30 +13,29 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Data
+@Getter
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class AnimalDto {
-    private Integer id;
+public final class AnimalDto {
+    private final Integer id;
     @NotNull(message = "O número não pode ser nulo ou vazio.")
-    private Integer numero;
-    private String raca;
-    private String apelido;
-    private LocalDate dataNascimento;
-    private Integer numeroCria;
-    private EstadoAtual estadoAtual;
-    private LocalDate dataUltimoParto;
-    private Boolean descarteFuturo;
-    private String justificativaDescarteFuturo;
+    private final Integer numero;
+    private final String raca;
+    private final String apelido;
+    private final LocalDate dataNascimento;
+    private final Integer numeroCria;
+    private final EstadoAtual estadoAtual;
+    private final LocalDate dataUltimoParto;
+    private final Boolean descarteFuturo;
+    private final String justificativaDescarteFuturo;
 
     public static Page<AnimalDto> pageToDto(Page<Animal> animalPage) {
         List<AnimalDto> list = listToDto(animalPage.getContent());
         return new PageImpl<>(list, animalPage.getPageable(), list.size());
     }
 
-    public static List<AnimalDto> listToDto(List<Animal> veiculos) {
-        return veiculos.stream()
+    public static List<AnimalDto> listToDto(List<Animal> animais) {
+        return animais.stream()
                 .map(AnimalDto::toDto)
                 .collect(Collectors.toList());
     }

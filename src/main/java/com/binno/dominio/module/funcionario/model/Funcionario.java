@@ -1,5 +1,6 @@
-package com.binno.dominio.module.fazenda.model;
+package com.binno.dominio.module.funcionario.model;
 
+import com.binno.dominio.module.fazenda.model.Fazenda;
 import com.binno.dominio.module.tenant.model.Tenant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -14,16 +15,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Fazenda {
+public class Funcionario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    private Integer codEstab;
-    private String endereco;
-    private Integer metragem;
-    private Integer capMaximaGado;
+    private String cargo;
+    private String rg;
+    private String cpf;
+    @ManyToOne
+    private Fazenda fazenda;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
