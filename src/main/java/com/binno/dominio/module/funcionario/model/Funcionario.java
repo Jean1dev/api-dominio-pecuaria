@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
@@ -20,11 +21,12 @@ public class Funcionario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotNull(message = "O nome não pode ser nulo ou vazio.")
     private String nome;
     private String cargo;
     private String rg;
     private String cpf;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Fazenda fazenda;
 
     @JsonIgnore

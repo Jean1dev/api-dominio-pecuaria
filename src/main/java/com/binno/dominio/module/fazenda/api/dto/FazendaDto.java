@@ -7,6 +7,7 @@ import lombok.Getter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 @Builder
 public final class FazendaDto {
     private final Integer id;
+    @NotNull(message = "O nome não pode ser nulo ou vazio.")
     private final String nome;
     private final Integer codigoEstab;
     private final String endereco;
