@@ -79,10 +79,4 @@ ALTER TABLE public.funcionario
         REFERENCES public.fazenda (id)
     NOT VALID;
 
-
-ALTER TABLE public.medicamento
-    ADD FOREIGN KEY (id)
-        REFERENCES public.animal (id)
-    NOT VALID;
-
 END;
