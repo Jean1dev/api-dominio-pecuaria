@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class MedicamentoDto {
     private Integer id;
     private String nome;
+    @NotNull(message = "O nome não pode ser nulo ou vazio.")
     private String descricao;
     private LocalDate dataValidade;
 
