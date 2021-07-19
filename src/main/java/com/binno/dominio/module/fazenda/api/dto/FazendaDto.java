@@ -25,7 +25,7 @@ public final class FazendaDto {
 
     public static Page<FazendaDto> pageToDto(Page<Fazenda> fazendaPage) {
         List<FazendaDto> list = listToDto(fazendaPage.getContent());
-        return new PageImpl<>(list, fazendaPage.getPageable(), list.size());
+        return new PageImpl<>(list, fazendaPage.getPageable(), fazendaPage.getTotalElements());
     }
 
     public static List<FazendaDto> listToDto(List<Fazenda> fazendas) {

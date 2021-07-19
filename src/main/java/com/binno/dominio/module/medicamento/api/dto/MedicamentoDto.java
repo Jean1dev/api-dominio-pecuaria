@@ -26,7 +26,7 @@ public class MedicamentoDto {
 
     public static Page<MedicamentoDto> pageToDto(Page<Medicamento> medicamentoPage) {
         List<MedicamentoDto> list = listToDto(medicamentoPage.getContent());
-        return new PageImpl<>(list, medicamentoPage.getPageable(), list.size());
+        return new PageImpl<>(list, medicamentoPage.getPageable(), medicamentoPage.getTotalElements());
     }
 
     public static List<MedicamentoDto> listToDto(List<Medicamento> medicamentos) {

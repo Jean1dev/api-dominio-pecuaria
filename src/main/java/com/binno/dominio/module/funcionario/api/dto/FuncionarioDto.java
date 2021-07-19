@@ -24,7 +24,7 @@ public final class FuncionarioDto {
 
     public static Page<FuncionarioDto> pageToDto(Page<Funcionario> funcionarioPage) {
         List<FuncionarioDto> list = listToDto(funcionarioPage.getContent());
-        return new PageImpl<>(list, funcionarioPage.getPageable(), list.size());
+        return new PageImpl<>(list, funcionarioPage.getPageable(), funcionarioPage.getTotalElements());
     }
 
     public static List<FuncionarioDto> listToDto(List<Funcionario> funcionarios) {

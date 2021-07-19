@@ -31,7 +31,7 @@ public final class AnimalDto {
 
     public static Page<AnimalDto> pageToDto(Page<Animal> animalPage) {
         List<AnimalDto> list = listToDto(animalPage.getContent());
-        return new PageImpl<>(list, animalPage.getPageable(), list.size());
+        return new PageImpl<>(list, animalPage.getPageable(), animalPage.getTotalElements());
     }
 
     public static List<AnimalDto> listToDto(List<Animal> animais) {
