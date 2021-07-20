@@ -1,6 +1,7 @@
 package com.binno.dominio.module.fazenda.api;
 
 import com.binno.dominio.context.AuthenticationHolder;
+import com.binno.dominio.module.fazenda.api.dto.FazendaAgregadaDto;
 import com.binno.dominio.module.fazenda.api.dto.FazendaDto;
 import com.binno.dominio.module.fazenda.model.Fazenda;
 import com.binno.dominio.module.fazenda.repository.FazendaRepository;
@@ -11,7 +12,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
+import static com.binno.dominio.module.fazenda.api.dto.FazendaAgregadaDto.listToDtoAgregado;
 import static com.binno.dominio.module.fazenda.api.dto.FazendaDto.pageToDto;
 
 @RestController
@@ -23,6 +26,11 @@ public class FazendaController {
 
     @Autowired
     private AuthenticationHolder holder;
+
+    @GetMapping(path = "listagem")
+    public List<FazendaAgregadaDto> listagemSimplificada() {
+        return listToDtoAgregado(repository.findAllByTenantId(holder.getTenantId()));
+    }
 
     @GetMapping
     public Page<FazendaDto> fazendasPaginated(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
