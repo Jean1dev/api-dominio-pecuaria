@@ -41,8 +41,13 @@ public class AnimalController {
                 .estadoAtual(animalDto.getEstadoAtual())
                 .dataUltimoParto(animalDto.getDataUltimoParto())
                 .descarteFuturo(animalDto.getDescarteFuturo())
-                .justificativaDescarteFuturo(animalDto.getJustificativaDescarteFuturo() )
+                .justificativaDescarteFuturo(animalDto.getJustificativaDescarteFuturo())
                 .tenant(Tenant.builder().id(holder.getTenantId()).build())
                 .build());
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Integer id) {
+        repository.deleteById(id);
     }
 }
