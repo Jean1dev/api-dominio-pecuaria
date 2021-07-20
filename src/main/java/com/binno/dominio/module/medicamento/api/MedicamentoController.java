@@ -40,4 +40,9 @@ public class MedicamentoController {
                 .tenant(Tenant.builder().id(holder.getTenantId()).build())
                 .build());
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Integer id) {
+        repository.deleteById(id);
+    }
 }
