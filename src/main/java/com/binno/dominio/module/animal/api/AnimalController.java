@@ -42,6 +42,7 @@ public class AnimalController {
                 .dataUltimoParto(animalDto.getDataUltimoParto())
                 .descarteFuturo(animalDto.getDescarteFuturo())
                 .justificativaDescarteFuturo(animalDto.getJustificativaDescarteFuturo())
+                .isFemea(animalDto.getIsFemea())
                 .tenant(Tenant.builder().id(holder.getTenantId()).build())
                 .build());
     }

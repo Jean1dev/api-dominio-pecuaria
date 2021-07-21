@@ -32,6 +32,7 @@ public class Animal {
     private LocalDate dataUltimoParto;
     private Boolean descarteFuturo = false;
     private String justificativaDescarteFuturo;
+    private Boolean isFemea;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)

@@ -51,7 +51,20 @@ public class FazendaController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Integer id) {
+    public void delete(@PathVariable Integer id) {
         repository.deleteById(id);
     }
+
+//    @PutMapping("/{id}")
+//    public Fazenda update(@PathVariable Integer id, @RequestBody FazendaDto dto) {
+//        try {
+//            Fazenda fazenda = repository.findById(id);
+//            copyDtoToEntity(productDTO, product);
+//            product = productRepository.save(product);
+//
+//            return new ProductDTO(product);
+//        } catch (EntityNotFoundException e) {
+//            throw new ResourceNotFoundException("Id não encontrado");
+//        }
+//    }
 }

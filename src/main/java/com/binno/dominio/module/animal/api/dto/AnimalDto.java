@@ -27,6 +27,7 @@ public final class AnimalDto {
     private final EstadoAtual estadoAtual;
     private final LocalDate dataUltimoParto;
     private final Boolean descarteFuturo;
+    private final Boolean isFemea;
     private final String justificativaDescarteFuturo;
 
     public static Page<AnimalDto> pageToDto(Page<Animal> animalPage) {
@@ -51,6 +52,7 @@ public final class AnimalDto {
                 .estadoAtual(animal.getEstadoAtual())
                 .dataUltimoParto(animal.getDataUltimoParto())
                 .descarteFuturo(animal.getDescarteFuturo())
+                .isFemea(animal.getIsFemea())
                 .justificativaDescarteFuturo(animal.getJustificativaDescarteFuturo())
                 .build();
     }
