@@ -2,6 +2,7 @@ package com.binno.dominio.module.animal.api.dto;
 
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.model.EstadoAtual;
+import com.binno.dominio.module.animal.model.PesoAnimal;
 import com.binno.dominio.module.fazenda.model.Fazenda;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

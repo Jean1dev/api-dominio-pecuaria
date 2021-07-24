@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -36,6 +37,8 @@ public class Animal {
     private Boolean isFemea;
     @ManyToOne
     private Fazenda fazenda;
+    @OneToMany
+    private List<PesoAnimal> pesoAnimal;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
