@@ -16,5 +16,5 @@ Uma breve e clara descrição do que você espera que aconteceça.
 **Descreva alternativas que você considerou**
 Uma breve e clara descrição de quais soluções alternativas ou novas features você considerou.
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+**Contexto adicional**
+Adicione qualquer tipo de screenshot, desenho ou algo que possa auxiliar no processo.
