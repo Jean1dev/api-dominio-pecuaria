@@ -2,6 +2,7 @@ package com.binno.dominio.module.animal.api.dto;
 
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.model.EstadoAtual;
+import com.binno.dominio.module.fazenda.model.Fazenda;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public final class AnimalDto {
     private final Boolean descarteFuturo;
     private final Boolean isFemea;
     private final String justificativaDescarteFuturo;
+    private Fazenda fazenda;
 
     public static Page<AnimalDto> pageToDto(Page<Animal> animalPage) {
         List<AnimalDto> list = listToDto(animalPage.getContent());
@@ -54,6 +56,7 @@ public final class AnimalDto {
                 .descarteFuturo(animal.getDescarteFuturo())
                 .isFemea(animal.getIsFemea())
                 .justificativaDescarteFuturo(animal.getJustificativaDescarteFuturo())
+                .fazenda(animal.getFazenda())
                 .build();
     }
 }

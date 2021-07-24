@@ -43,6 +43,7 @@ public class AnimalController {
                 .descarteFuturo(animalDto.getDescarteFuturo())
                 .justificativaDescarteFuturo(animalDto.getJustificativaDescarteFuturo())
                 .isFemea(animalDto.getIsFemea())
+                .fazenda(animalDto.getFazenda())
                 .tenant(Tenant.builder().id(holder.getTenantId()).build())
                 .build());
     }
