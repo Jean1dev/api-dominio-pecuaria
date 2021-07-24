@@ -34,7 +34,7 @@ public class Animal {
     private Boolean descarteFuturo = false;
     private String justificativaDescarteFuturo;
     private Boolean isFemea;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Fazenda fazenda;
 
     @JsonIgnore
