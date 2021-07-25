@@ -1,5 +1,7 @@
 package com.binno.dominio.module.fazenda.model;
 
+import com.binno.dominio.module.animal.model.Animal;
+import com.binno.dominio.module.funcionario.model.Funcionario;
 import com.binno.dominio.module.tenant.model.Tenant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -9,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,6 +29,12 @@ public class Fazenda {
     private String endereco;
     private Integer metragem;
     private Integer capMaximaGado;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fazenda", cascade = CascadeType.ALL)
+    private List<Animal> animais;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fazenda", cascade = CascadeType.ALL)
+    private List<Funcionario> funcionarios;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
