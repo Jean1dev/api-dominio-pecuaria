@@ -1,5 +1,6 @@
 package com.binno.dominio.module.animal.model;
 
+import com.binno.dominio.module.fazenda.model.Fazenda;
 import com.binno.dominio.module.tenant.model.Tenant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,8 @@ public class Animal {
     private Boolean descarteFuturo = false;
     private String justificativaDescarteFuturo;
     private Boolean isFemea;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Fazenda fazenda;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
