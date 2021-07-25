@@ -4,6 +4,7 @@ import com.binno.dominio.context.AuthenticationHolder;
 import com.binno.dominio.module.animal.api.dto.AnimalDto;
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.repository.AnimalRepository;
+import com.binno.dominio.module.fazenda.model.Fazenda;
 import com.binno.dominio.module.tenant.model.Tenant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,6 +45,7 @@ public class AnimalController {
                 .justificativaDescarteFuturo(animalDto.getJustificativaDescarteFuturo())
                 .isFemea(animalDto.getIsFemea())
                 .fazenda(animalDto.getFazenda())
+                .fazenda(Fazenda.builder().id(animalDto.getFazenda().getId()).build())
                 .tenant(Tenant.builder().id(holder.getTenantId()).build())
                 .build());
     }

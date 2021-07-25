@@ -31,7 +31,7 @@ public final class AnimalDto {
     private final Boolean descarteFuturo;
     private final Boolean isFemea;
     private final String justificativaDescarteFuturo;
-    private Fazenda fazenda;
+    private final Fazenda fazenda;
 
     public static Page<AnimalDto> pageToDto(Page<Animal> animalPage) {
         List<AnimalDto> list = listToDto(animalPage.getContent());
