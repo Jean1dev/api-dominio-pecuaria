@@ -1,6 +1,7 @@
 package com.binno.dominio.module.animal.model;
 
 import com.binno.dominio.module.fazenda.model.Fazenda;
+import com.binno.dominio.module.imagem.model.Imagem;
 import com.binno.dominio.module.tenant.model.Tenant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -36,6 +38,9 @@ public class Animal {
     private Boolean isFemea;
     @ManyToOne
     private Fazenda fazenda;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "referenciaAnimal", cascade = CascadeType.ALL)
+    private Set<Imagem> imagems;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)

@@ -32,3 +32,10 @@ spring:
 jwt:
   expiration: 3600000
   secret: ${JWT_KEY}
+
+aws:
+  access_key_id: ${AWS_KEY}
+  secret_access_key: ${AWS_SECRET}
+  s3:
+    bucket: ${S3_BUCKET}
+    region: ${S3_REGION}
