@@ -31,7 +31,7 @@ public class S3Config {
 
     @Bean
     public AmazonS3 s3client() {
-        if (Objects.nonNull(host))
+        if (!host.isEmpty())
             return criarS3Fake();
 
         BasicAWSCredentials awsCred = new BasicAWSCredentials(awsId, awsKey);
