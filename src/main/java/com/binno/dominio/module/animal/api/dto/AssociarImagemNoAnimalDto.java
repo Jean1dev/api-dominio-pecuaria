@@ -7,8 +7,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 @Builder
-public class AssociarImagemNoAnimalDto {
+public final class AssociarImagemNoAnimalDto {
 
-    private Integer animalId;
-    private String imagemUrl;
+    private final Integer animalId;
+    private final String imagemUrl;
 }

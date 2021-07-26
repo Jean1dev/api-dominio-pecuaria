@@ -9,11 +9,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(path = "file")
-public class FIleController {
+public class FileController {
 
     private final StorageProvider storageService;
 
-    public FIleController(@Qualifier("s3") StorageProvider storageService) {
+    public FileController(@Qualifier("s3") StorageProvider storageService) {
         this.storageService = storageService;
     }
 
