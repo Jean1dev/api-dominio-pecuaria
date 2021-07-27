@@ -38,6 +38,8 @@ public class Animal {
     private Boolean isFemea;
     @ManyToOne
     private Fazenda fazenda;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "animal", cascade = CascadeType.ALL)
+    private Set<PesoAnimal> pesoAnimal;
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "referenciaAnimal", cascade = CascadeType.ALL)
     private Set<Imagem> imagems;

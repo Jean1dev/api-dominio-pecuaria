@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class AssociarImagem implements RegraNegocioService<Animal, AssociarImagemNoAnimalDto> {
+public class AssociarImagemService implements RegraNegocioService<Animal, AssociarImagemNoAnimalDto> {
 
     @Autowired
     private AnimalRepository animalRepository;
