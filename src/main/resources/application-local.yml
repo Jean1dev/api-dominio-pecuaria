@@ -32,3 +32,11 @@ spring:
 jwt:
   expiration: 36000000
   secret: SECRETO
+
+aws:
+  access_key_id: AKIAIOSFODNN7EXAMPLE
+  secret_access_key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+  host: http://localhost:9444/s3
+  s3:
+    bucket: binno-agro
+    region: us-east-1

@@ -12,3 +12,9 @@ services:
     volumes:
       - "/var/lib/postgresql/data/"
     container_name: pgbinno
+
+  s3ninja:
+    image: kcomlabs/s3ninja
+    ports:
+      - "9444:9444"
+    container_name: s3
