@@ -1,15 +1,12 @@
 package com.binno.dominio.module.animal.api;
 
 import com.binno.dominio.context.AuthenticationHolder;
-import com.binno.dominio.module.animal.api.dto.AnimalComPesoDto;
+import com.binno.dominio.module.animal.api.dto.CriarAnimalDto;
 import com.binno.dominio.module.animal.api.dto.AnimalDto;
 import com.binno.dominio.module.animal.api.dto.AssociarImagemNoAnimalDto;
-import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.repository.AnimalRepository;
 import com.binno.dominio.module.animal.service.CriarAnimalService;
-import com.binno.dominio.module.animal.service.AssociarImagem;
-import com.binno.dominio.module.fazenda.model.Fazenda;
-import com.binno.dominio.module.tenant.model.Tenant;
+import com.binno.dominio.module.animal.service.AssociarImagemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +29,9 @@ public class AnimalController {
 
     private final AuthenticationHolder holder;
 
-    private final AssociarImagem associarImagemService;
+    private final AssociarImagemService associarImagemService;
 
-    @Autowired
-    private CriarAnimalService service;
+    private final CriarAnimalService service;
 
     @GetMapping
     public Page<AnimalDto> animaisPaginated(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
@@ -50,15 +46,10 @@ public class AnimalController {
     }
 
     @PostMapping
-    public Animal create(@RequestBody @Valid AnimalComPesoDto animalComPesoDto) {
-        return service.executar(animalComPesoDto);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void create(@RequestBody @Valid CriarAnimalDto criarAnimalDto) {
+        service.executar(criarAnimalDto);
     }
-
-//    @PostMapping
-//    public Animal insert(@RequestBody @Valid AnimalDto animalDto) {
-//        return repository.save(Animal.builder()
-//                .build());
-//    }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Integer id) {

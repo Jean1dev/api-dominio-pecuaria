@@ -8,11 +8,12 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @AllArgsConstructor
 @Builder
-public final class AnimalComPesoDto {
+public final class CriarAnimalDto {
     @NotNull(message = "O número não pode ser nulo ou vazio.")
     private final Integer numero;
     private final String raca;
@@ -25,7 +26,8 @@ public final class AnimalComPesoDto {
     private final Boolean isFemea;
     private final String justificativaDescarteFuturo;
     private final Fazenda fazenda;
-    private LocalDate dataPesagem;
-    private Integer peso;
-    private Integer idadeEmDias;
+    private final LocalDate dataPesagem;
+    private final Integer peso;
+    private final Integer idadeEmDias;
+    private final Set<String> imagens;
 }

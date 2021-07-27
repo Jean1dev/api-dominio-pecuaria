@@ -57,6 +57,7 @@ public final class AnimalDto {
                 .descarteFuturo(animal.getDescarteFuturo())
                 .isFemea(animal.getIsFemea())
                 .justificativaDescarteFuturo(animal.getJustificativaDescarteFuturo())
+                //TODO:: ALTERAR A REFERENCIA DE FAZENDA PARA UMA FAZENDA AGREGADA DTO
                 .fazenda(animal.getFazenda())
                 .build();
     }

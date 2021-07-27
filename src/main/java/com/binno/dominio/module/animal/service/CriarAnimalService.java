@@ -1,22 +1,24 @@
 package com.binno.dominio.module.animal.service;
 
 import com.binno.dominio.context.AuthenticationHolder;
-import com.binno.dominio.module.animal.api.dto.AnimalComPesoDto;
+import com.binno.dominio.module.animal.api.dto.CriarAnimalDto;
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.model.PesoAnimal;
 import com.binno.dominio.module.animal.repository.AnimalRepository;
 import com.binno.dominio.module.animal.repository.PesoAnimalRepository;
+import com.binno.dominio.module.imagem.model.Imagem;
+import com.binno.dominio.module.imagem.repository.ImagemRepository;
 import com.binno.dominio.module.tenant.model.Tenant;
+import com.binno.dominio.shared.RegraNegocioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.Objects;
 
 @Service
 @Transactional
-public class CriarAnimalService {
+public class CriarAnimalService implements RegraNegocioService<Animal, CriarAnimalDto> {
 
     @Autowired
     private AnimalRepository animalRepository;
@@ -27,31 +29,53 @@ public class CriarAnimalService {
     @Autowired
     private PesoAnimalRepository pesoAnimalRepository;
 
-    public Animal executar(AnimalComPesoDto animalComPesoDto) {
-        PesoAnimal pesoAnimal = null;
-        if (!Objects.isNull(animalComPesoDto.getPeso())) {
-            pesoAnimal = pesoAnimalRepository.save(PesoAnimal.builder()
-                    .dataPesagem(animalComPesoDto.getDataPesagem())
-                    .peso(animalComPesoDto.getPeso())
-                    .idadeEmDias(animalComPesoDto.getIdadeEmDias())
-                    .build());
-        }
+    @Autowired
+    private ImagemRepository imagemRepository;
 
-        return animalRepository.save(Animal.builder()
-                .numero(animalComPesoDto.getNumero())
-                .raca(animalComPesoDto.getRaca())
-                .apelido(animalComPesoDto.getApelido())
-                .dataNascimento(animalComPesoDto.getDataNascimento())
-                .numeroCrias(animalComPesoDto.getNumeroCrias())
-                .estadoAtual(animalComPesoDto.getEstadoAtual())
-                .dataUltimoParto(animalComPesoDto.getDataUltimoParto())
-                .descarteFuturo(animalComPesoDto.getDescarteFuturo())
-                .isFemea(animalComPesoDto.getIsFemea())
-                .justificativaDescarteFuturo(animalComPesoDto.getJustificativaDescarteFuturo())
-                .fazenda(animalComPesoDto.getFazenda())
+    @Override
+    public Animal executar(CriarAnimalDto criarAnimalDto) {
+        Animal animal = animalRepository.save(Animal.builder()
+                .numero(criarAnimalDto.getNumero())
+                .raca(criarAnimalDto.getRaca())
+                .apelido(criarAnimalDto.getApelido())
+                .dataNascimento(criarAnimalDto.getDataNascimento())
+                .numeroCrias(criarAnimalDto.getNumeroCrias())
+                .estadoAtual(criarAnimalDto.getEstadoAtual())
+                .dataUltimoParto(criarAnimalDto.getDataUltimoParto())
+                .descarteFuturo(criarAnimalDto.getDescarteFuturo())
+                .isFemea(criarAnimalDto.getIsFemea())
+                .justificativaDescarteFuturo(criarAnimalDto.getJustificativaDescarteFuturo())
+                .fazenda(criarAnimalDto.getFazenda())
                 .tenant(Tenant.of(holder.getTenantId()))
-                .pesoAnimal(Collections.singletonList(pesoAnimal))
                 .build());
 
+        registrarPesoAnimal(animal, criarAnimalDto);
+        registrarImagens(animal, criarAnimalDto);
+        return animal;
+    }
+
+    private void registrarImagens(Animal animal, CriarAnimalDto criarAnimalDto) {
+        if (Objects.isNull(criarAnimalDto.getImagens()))
+            return;
+
+        criarAnimalDto
+                .getImagens()
+                .forEach(imgUrl -> {
+                    imagemRepository.save(Imagem.builder()
+                            .url(imgUrl)
+                            .referenciaAnimal(animal)
+                            .build());
+                });
+    }
+
+    private void registrarPesoAnimal(Animal animal, CriarAnimalDto criarAnimalDto) {
+        if (Objects.nonNull(criarAnimalDto.getPeso())) {
+            pesoAnimalRepository.save(PesoAnimal.builder()
+                    .dataPesagem(criarAnimalDto.getDataPesagem())
+                    .peso(criarAnimalDto.getPeso())
+                    .idadeEmDias(criarAnimalDto.getIdadeEmDias())
+                    .animal(animal)
+                    .build());
+        }
     }
 }

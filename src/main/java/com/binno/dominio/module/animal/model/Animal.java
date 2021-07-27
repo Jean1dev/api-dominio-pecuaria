@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -40,7 +39,7 @@ public class Animal {
     @ManyToOne
     private Fazenda fazenda;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "animal", cascade = CascadeType.ALL)
-    private List<PesoAnimal> pesoAnimal;
+    private Set<PesoAnimal> pesoAnimal;
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "referenciaAnimal", cascade = CascadeType.ALL)
     private Set<Imagem> imagems;

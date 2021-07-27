@@ -1,5 +1,6 @@
 package com.binno.dominio.module.animal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +24,8 @@ public class PesoAnimal {
     private Integer peso;
     @Column(name = "idade_em_dias")
     private Integer idadeEmDias;
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "animal_id", referencedColumnName = "id")
     private Animal animal;
 }
