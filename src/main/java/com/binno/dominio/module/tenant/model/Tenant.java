@@ -20,4 +20,10 @@ public class Tenant {
     private String nome;
 
     private Boolean ativo = true;
+
+    public static Tenant of(Integer id) {
+        return Tenant.builder()
+                .id(id)
+                .build();
+    }
 }

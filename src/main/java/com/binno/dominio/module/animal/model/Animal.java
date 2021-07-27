@@ -37,7 +37,7 @@ public class Animal {
     private Boolean isFemea;
     @ManyToOne
     private Fazenda fazenda;
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "animal", cascade = CascadeType.ALL)
     private List<PesoAnimal> pesoAnimal;
 
     @JsonIgnore

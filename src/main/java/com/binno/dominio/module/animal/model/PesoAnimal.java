@@ -1,7 +1,5 @@
 package com.binno.dominio.module.animal.model;
 
-import com.binno.dominio.module.tenant.model.Tenant;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,4 +23,6 @@ public class PesoAnimal {
     private Integer peso;
     @Column(name = "idade_em_dias")
     private Integer idadeEmDias;
+    @ManyToOne
+    private Animal animal;
 }
