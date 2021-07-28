@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+
+  flyway:
+    clean-disabled: false
+    clean-on-validation-error: false
+    locations: classpath:db/migration
+    table: schema_history
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 3
+
+    platform: postgres
+    url: jdbc:postgresql://ec2-34-233-114-40.compute-1.amazonaws.com:5432/dbdddk4ukgbn66
+    username: vfteulbqcmbgjl
+    password: c50256b8ca315c69fdd1250f65c8cc503f0814eaf6c48dac9e5fa31690d6d361
+    driverClassName: org.postgresql.Driver
+
+jwt:
+  expiration: 36000000
+  secret: SECRETO
+
+aws:
+  access_key_id: AKIAIOSFODNN7EXAMPLE
+  secret_access_key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+  host: http://localhost:9444/s3
+  s3:
+    bucket: binno-agro
+    region: us-east-1
