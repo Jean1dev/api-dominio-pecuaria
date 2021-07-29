@@ -53,7 +53,8 @@ public class FazendaController {
                 .nome(fazendaDto.getNome())
                 .codEstab(fazendaDto.getCodigoEstab())
                 .endereco(fazendaDto.getEndereco())
-                .metragem(fazendaDto.getTamanhoHectare())
+                .metragem(fazendaDto.getMetragem())
+                .tipoMetragem(fazendaDto.getTipoMetragem())
                 .capMaximaGado(fazendaDto.getCapacidadeMaxGado())
                 .tenant(Tenant.builder().id(holder.getTenantId()).build())
                 .build());

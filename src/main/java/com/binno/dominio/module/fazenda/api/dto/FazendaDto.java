@@ -1,6 +1,7 @@
 package com.binno.dominio.module.fazenda.api.dto;
 
 import com.binno.dominio.module.fazenda.model.Fazenda;
+import com.binno.dominio.module.fazenda.model.TipoMetragem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +21,8 @@ public final class FazendaDto {
     private final String nome;
     private final Integer codigoEstab;
     private final String endereco;
-    private final Integer tamanhoHectare;
+    private final Integer metragem;
+    private final TipoMetragem tipoMetragem;
     private final Integer capacidadeMaxGado;
 
     public static Page<FazendaDto> pageToDto(Page<Fazenda> fazendaPage) {
@@ -40,7 +42,8 @@ public final class FazendaDto {
                 .nome(fazenda.getNome())
                 .codigoEstab(fazenda.getCodEstab())
                 .endereco(fazenda.getEndereco())
-                .tamanhoHectare(fazenda.getMetragem())
+                .metragem(fazenda.getMetragem())
+                .tipoMetragem(fazenda.getTipoMetragem())
                 .capacidadeMaxGado(fazenda.getCapMaximaGado())
                 .build();
     }

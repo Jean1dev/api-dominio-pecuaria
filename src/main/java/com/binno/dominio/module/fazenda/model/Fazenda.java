@@ -28,6 +28,7 @@ public class Fazenda {
     private Integer codEstab;
     private String endereco;
     private Integer metragem;
+    private TipoMetragem tipoMetragem;
     private Integer capMaximaGado;
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "fazenda", cascade = CascadeType.ALL)
