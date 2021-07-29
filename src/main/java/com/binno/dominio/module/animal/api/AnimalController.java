@@ -4,6 +4,7 @@ import com.binno.dominio.context.AuthenticationHolder;
 import com.binno.dominio.module.animal.api.dto.AnimalDto;
 import com.binno.dominio.module.animal.api.dto.AssociarImagemNoAnimalDto;
 import com.binno.dominio.module.animal.api.dto.CriarAnimalDto;
+import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.repository.AnimalRepository;
 import com.binno.dominio.module.animal.service.AssociarImagemService;
 import com.binno.dominio.module.animal.service.CriarAnimalService;
@@ -12,12 +13,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.Objects;
+
 import static com.binno.dominio.module.animal.api.dto.AnimalDto.pageToDto;
+import static com.binno.dominio.module.animal.specification.AnimalSpecification.numero;
+import static com.binno.dominio.module.animal.specification.AnimalSpecification.tenant;
 
 @RestController
 @RequestMapping(AnimalController.PATH)
@@ -36,9 +42,15 @@ public class AnimalController {
     private final CriarAnimalService service;
 
     @GetMapping
-    public Page<AnimalDto> animaisPaginated(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
-                                            @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
-        return pageToDto(repository.findAllByTenantId(PageRequest.of(page, size), holder.getTenantId()));
+    public Page<AnimalDto> animaisPaginated(
+            @RequestParam(value = "numero", required = false) Integer numero,
+            @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
+        Specification<Animal> specs = Specification.where(tenant(holder.getTenantId()));
+        if (Objects.nonNull(numero))
+            specs = specs.and(numero(numero));
+
+        return pageToDto(repository.findAll(specs, PageRequest.of(page, size)));
     }
 
     @PostMapping(path = "adicionar-imagem")

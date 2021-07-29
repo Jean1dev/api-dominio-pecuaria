@@ -6,29 +6,38 @@ import com.binno.dominio.module.funcionario.api.dto.FuncionarioDto;
 import com.binno.dominio.module.funcionario.model.Funcionario;
 import com.binno.dominio.module.funcionario.repository.FuncionarioRepository;
 import com.binno.dominio.module.tenant.model.Tenant;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 import static com.binno.dominio.module.funcionario.api.dto.FuncionarioDto.pageToDto;
+import static com.binno.dominio.module.funcionario.specification.FuncionarioSpecification.nome;
+import static com.binno.dominio.module.funcionario.specification.FuncionarioSpecification.tenant;
 
+@Slf4j
 @RestController
-@RequestMapping("/funcionarios")
+@RequestMapping(FuncionarioController.PATH)
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class FuncionarioController {
 
-    @Autowired
-    private FuncionarioRepository repository;
+    public static final String PATH = "funcionarios";
 
-    @Autowired
-    private AuthenticationHolder holder;
+    private final FuncionarioRepository repository;
+
+    private final AuthenticationHolder holder;
 
     @GetMapping
-    public Page<FuncionarioDto> funcionariosPaginated(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
-                                                      @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
-        return pageToDto(repository.findAllByTenantId(PageRequest.of(page, size), holder.getTenantId()));
+    public Page<FuncionarioDto> funcionariosPaginated(
+            @RequestParam(value = "nome", defaultValue = "", required = false) String nome,
+            @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
+        return pageToDto(repository.findAll(Specification.where(tenant(holder.getTenantId()).and(nome(nome))), PageRequest.of(page, size)));
     }
 
     @PostMapping
