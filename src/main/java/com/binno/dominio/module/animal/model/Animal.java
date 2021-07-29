@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.Collection;
 
 @Data
 @NoArgsConstructor
@@ -38,11 +38,12 @@ public class Animal {
     private Boolean isFemea;
     @ManyToOne
     private Fazenda fazenda;
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "animal", cascade = CascadeType.ALL)
-    private Set<PesoAnimal> pesoAnimal;
+    private Collection<PesoAnimal> pesoAnimal;
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "referenciaAnimal", cascade = CascadeType.ALL)
-    private Set<Imagem> imagems;
+    private Collection<Imagem> imagems;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
