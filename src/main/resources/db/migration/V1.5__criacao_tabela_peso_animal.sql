@@ -9,4 +9,6 @@ CREATE TABLE IF NOT EXISTS public.peso_animal
     FOREIGN KEY (animal_id) REFERENCES animal (id)
 );
 
-ALTER TABLE public.peso_animal ADD CONSTRAINT animal_peso FOREIGN KEY (animal_id) REFERENCES animal(id) ON UPDATE CASCADE ON DELETE SET NULL;
+ALTER TABLE public.peso_animal
+    ADD CONSTRAINT animal_peso FOREIGN KEY (animal_id)
+        REFERENCES animal (id) ON UPDATE CASCADE ON DELETE SET NULL;

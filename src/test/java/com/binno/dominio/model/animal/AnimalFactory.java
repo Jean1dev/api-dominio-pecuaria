@@ -3,6 +3,7 @@ package com.binno.dominio.model.animal;
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.model.EstadoAtual;
 import com.binno.dominio.module.animal.model.PesoAnimal;
+import com.binno.dominio.module.animal.model.RacaAnimal;
 import com.binno.dominio.module.animal.repository.AnimalRepository;
 import com.binno.dominio.module.imagem.model.Imagem;
 import com.binno.dominio.module.tenant.model.Tenant;
@@ -19,7 +20,7 @@ public class AnimalFactory {
     public static Animal umAnimalCompleto(Tenant tenant) {
         return Animal.builder()
                 .numero(1)
-                .raca("BOI GORDO")
+                .raca(RacaAnimal.NELORE)
                 .apelido("BOI GORDO")
                 .numeroCrias(0)
                 .estadoAtual(EstadoAtual.VAZIA)

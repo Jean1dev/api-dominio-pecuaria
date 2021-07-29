@@ -1,6 +1,7 @@
 package com.binno.dominio.module.animal.api.dto;
 
 import com.binno.dominio.module.animal.model.EstadoAtual;
+import com.binno.dominio.module.animal.model.RacaAnimal;
 import com.binno.dominio.module.fazenda.model.Fazenda;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +17,7 @@ import java.util.Set;
 public final class CriarAnimalDto {
     @NotNull(message = "O número não pode ser nulo ou vazio.")
     private final Integer numero;
-    private final String raca;
+    private final RacaAnimal raca;
     private final String apelido;
     private final LocalDate dataNascimento;
     private final Integer numeroCrias;

@@ -27,7 +27,7 @@ public class Animal {
     private Integer id;
     @NotNull(message = "O número não pode ser nulo ou vazio.")
     private Integer numero;
-    private String raca;
+    private RacaAnimal raca;
     private String apelido;
     private LocalDate dataNascimento;
     private Integer numeroCrias;
@@ -43,7 +43,7 @@ public class Animal {
     private Collection<PesoAnimal> pesoAnimal;
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "referenciaAnimal", cascade = CascadeType.ALL)
-    private Collection<Imagem> imagems;
+    private Collection<Imagem> imagens;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
