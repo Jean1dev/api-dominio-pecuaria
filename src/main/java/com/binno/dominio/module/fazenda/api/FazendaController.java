@@ -6,9 +6,12 @@ import com.binno.dominio.module.fazenda.api.dto.FazendaDto;
 import com.binno.dominio.module.fazenda.model.Fazenda;
 import com.binno.dominio.module.fazenda.repository.FazendaRepository;
 import com.binno.dominio.module.tenant.model.Tenant;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,16 +19,20 @@ import java.util.List;
 
 import static com.binno.dominio.module.fazenda.api.dto.FazendaAgregadaDto.listToDtoAgregado;
 import static com.binno.dominio.module.fazenda.api.dto.FazendaDto.pageToDto;
+import static com.binno.dominio.module.fazenda.specification.FazendaSpecification.nome;
+import static com.binno.dominio.module.fazenda.specification.FazendaSpecification.tenant;
 
 @RestController
-@RequestMapping("/fazendas")
+@Slf4j
+@RequestMapping(FazendaController.PATH)
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class FazendaController {
 
-    @Autowired
-    private FazendaRepository repository;
+    public static final String PATH = "fazendas";
 
-    @Autowired
-    private AuthenticationHolder holder;
+    private final FazendaRepository repository;
+
+    private final AuthenticationHolder holder;
 
     @GetMapping(path = "listagem")
     public List<FazendaAgregadaDto> listagemSimplificada() {
@@ -33,9 +40,11 @@ public class FazendaController {
     }
 
     @GetMapping
-    public Page<FazendaDto> fazendasPaginated(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
-                                              @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
-        return pageToDto(repository.findAllByTenantId(PageRequest.of(page, size), holder.getTenantId()));
+    public Page<FazendaDto> fazendasPaginated(
+            @RequestParam(value = "nome", defaultValue = "", required = false) String nome,
+            @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
+        return pageToDto(repository.findAll(Specification.where(tenant(holder.getTenantId()).and(nome(nome))), PageRequest.of(page, size)));
     }
 
     @PostMapping
@@ -54,17 +63,4 @@ public class FazendaController {
     public void delete(@PathVariable Integer id) {
         repository.deleteById(id);
     }
-
-//    @PutMapping("/{id}")
-//    public Fazenda update(@PathVariable Integer id, @RequestBody FazendaDto dto) {
-//        try {
-//            Fazenda fazenda = repository.findById(id);
-//            copyDtoToEntity(productDTO, product);
-//            product = productRepository.save(product);
-//
-//            return new ProductDTO(product);
-//        } catch (EntityNotFoundException e) {
-//            throw new ResourceNotFoundException("Id não encontrado");
-//        }
-//    }
 }
