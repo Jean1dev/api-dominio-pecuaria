@@ -6,6 +6,7 @@ import com.binno.dominio.module.animal.api.dto.CriarAnimalDto;
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.model.EstadoAtual;
 import com.binno.dominio.module.animal.model.PesoAnimal;
+import com.binno.dominio.module.animal.model.RacaAnimal;
 import com.binno.dominio.module.animal.repository.AnimalRepository;
 import com.binno.dominio.module.animal.repository.PesoAnimalRepository;
 import com.binno.dominio.module.animal.service.CriarAnimalService;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -48,7 +48,7 @@ public class CriarAnimalServiceTest extends ApplicationConfigIT {
                 .apelido("Apelido")
                 .dataNascimento(LocalDate.now())
                 .numero(1)
-                .raca("BOI GORDO")
+                .raca(RacaAnimal.NELORE)
                 .descarteFuturo(false)
                 .estadoAtual(EstadoAtual.VAZIA)
                 .build();
@@ -70,7 +70,7 @@ public class CriarAnimalServiceTest extends ApplicationConfigIT {
                 .apelido("Apelido")
                 .dataNascimento(LocalDate.now())
                 .numero(1)
-                .raca("BOI GORDO")
+                .raca(RacaAnimal.NELORE)
                 .descarteFuturo(false)
                 .estadoAtual(EstadoAtual.VAZIA)
                 .peso(80)
