@@ -1,12 +1,12 @@
 package com.binno.dominio.module.animal.api;
 
 import com.binno.dominio.context.AuthenticationHolder;
-import com.binno.dominio.module.animal.api.dto.CriarAnimalDto;
 import com.binno.dominio.module.animal.api.dto.AnimalDto;
 import com.binno.dominio.module.animal.api.dto.AssociarImagemNoAnimalDto;
+import com.binno.dominio.module.animal.api.dto.CriarAnimalDto;
 import com.binno.dominio.module.animal.repository.AnimalRepository;
-import com.binno.dominio.module.animal.service.CriarAnimalService;
 import com.binno.dominio.module.animal.service.AssociarImagemService;
+import com.binno.dominio.module.animal.service.CriarAnimalService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +20,12 @@ import javax.validation.Valid;
 import static com.binno.dominio.module.animal.api.dto.AnimalDto.pageToDto;
 
 @RestController
-@RequestMapping("/animais")
+@RequestMapping(AnimalController.PATH)
 @Slf4j
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AnimalController {
+
+    public static final String PATH = "animais";
 
     private final AnimalRepository repository;
 
