@@ -18,10 +18,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
 import java.util.Objects;
 
 import static com.binno.dominio.module.animal.api.dto.AnimalDto.pageToDto;
+import static com.binno.dominio.module.animal.api.dto.AnimalDto.toDto;
 import static com.binno.dominio.module.animal.specification.AnimalSpecification.numero;
 import static com.binno.dominio.module.animal.specification.AnimalSpecification.tenant;
 
@@ -69,4 +69,9 @@ public class AnimalController {
     public void delete(@PathVariable("id") Integer id) {
         repository.deleteById(id);
     }
-};
+
+    @GetMapping("/{id}")
+    public AnimalDto animal(@PathVariable("id") Integer id){
+        return toDto(repository.findById(id).orElseThrow());
+    }
+}
