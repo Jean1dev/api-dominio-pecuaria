@@ -36,7 +36,7 @@ public class AnimalFactory {
     public static PesoAnimal umPesoAnimal(Animal animal) {
         return PesoAnimal.builder()
                 .animal(animal)
-                .peso(85)
+                .peso(85.0)
                 .dataPesagem(LocalDate.now())
                 .idadeEmDias(25)
                 .build();

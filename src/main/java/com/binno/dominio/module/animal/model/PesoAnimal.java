@@ -21,7 +21,7 @@ public class PesoAnimal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private LocalDate dataPesagem;
-    private float peso;
+    private Double peso;
     @Column(name = "idade_em_dias")
     private Integer idadeEmDias;
     @JsonIgnore
