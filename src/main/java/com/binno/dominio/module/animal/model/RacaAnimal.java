@@ -1,5 +1,28 @@
 package com.binno.dominio.module.animal.model;
 
-public enum RacaAnimal {
-    NELORE, SENEPOL, ANGUS, BRAHMAN, BRANGUS, HEREFORD, CARACU, CHAROLES, GUZERA, TABAPUA, BUFALO
+import com.binno.dominio.shared.EnumApplication;
+
+public enum RacaAnimal implements EnumApplication {
+    NELORE("Nelore"),
+    SENEPOL("Senepol"),
+    ANGUS("Angus"),
+    BRAHMAN("Brahman"),
+    BRANGUS("Brangus"),
+    HEREFORD("Hereford"),
+    CARACU("Caracu"),
+    CHAROLES("Charoles"),
+    GUZERA("Guzera"),
+    TABAPUA("Tabupua"),
+    BUFALO("Bufalo");
+
+    private String description;
+
+    RacaAnimal(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
 }
