@@ -1,6 +1,6 @@
 package com.binno.dominio.shared;
 
-public interface EnumApplication<T extends Enum<T>>{
+public interface EnumApplication {
 
     String name();
 

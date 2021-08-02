@@ -2,7 +2,7 @@ package com.binno.dominio.module.animal.model;
 
 import com.binno.dominio.shared.EnumApplication;
 
-public enum RacaAnimal implements EnumApplication<RacaAnimal> {
+public enum RacaAnimal implements EnumApplication {
     NELORE("Nelore"),
     SENEPOL("Senepol"),
     ANGUS("Angus"),

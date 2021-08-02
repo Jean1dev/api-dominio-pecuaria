@@ -2,7 +2,7 @@ package com.binno.dominio.module.fazenda.model;
 
 import com.binno.dominio.shared.EnumApplication;
 
-public enum TipoMetragem implements EnumApplication<TipoMetragem> {
+public enum TipoMetragem implements EnumApplication {
     HECTARE("Hectare"), ALQUEIRE("Alqueire");
 
     private String description;

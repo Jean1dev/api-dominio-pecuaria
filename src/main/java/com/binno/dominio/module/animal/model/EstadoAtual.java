@@ -2,7 +2,7 @@ package com.binno.dominio.module.animal.model;
 
 import com.binno.dominio.shared.EnumApplication;
 
-public enum EstadoAtual implements EnumApplication<EstadoAtual> {
+public enum EstadoAtual implements EnumApplication {
     VAZIA("vazia"), PARIDA("Parida"), PRENHA("Prenha");
 
     private String description;
