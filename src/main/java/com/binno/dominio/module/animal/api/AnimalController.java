@@ -71,7 +71,7 @@ public class AnimalController {
     }
 
     @GetMapping("/{id}")
-    public AnimalDto animal(@PathVariable("id") Integer id){
+    public AnimalDto getAnimalById(@PathVariable("id") Integer id){
         return toDto(repository.findById(id).orElseThrow());
     }
 }
