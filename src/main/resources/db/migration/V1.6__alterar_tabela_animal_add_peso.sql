@@ -1,0 +1,1 @@
+ALTER TABLE public.peso_animal ALTER COLUMN peso TYPE NUMERIC(7,3);

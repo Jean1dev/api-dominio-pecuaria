@@ -32,6 +32,7 @@ public final class AnimalDto {
     private final Boolean isFemea;
     private final String justificativaDescarteFuturo;
     private final Fazenda fazenda;
+    private final List<PesoDto> pesos;
 
     public static Page<AnimalDto> pageToDto(Page<Animal> animalPage) {
         List<AnimalDto> list = listToDto(animalPage.getContent());
@@ -59,6 +60,7 @@ public final class AnimalDto {
                 .justificativaDescarteFuturo(animal.getJustificativaDescarteFuturo())
                 //TODO:: ALTERAR A REFERENCIA DE FAZENDA PARA UMA FAZENDA AGREGADA DTO
                 .fazenda(animal.getFazenda())
+                .pesos(PesoDto.listToDto(animal.getPesoAnimal()))
                 .build();
     }
 }
