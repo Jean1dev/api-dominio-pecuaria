@@ -28,7 +28,7 @@ public final class CriarAnimalDto {
     private final String justificativaDescarteFuturo;
     private final Fazenda fazenda;
     private final LocalDate dataPesagem;
-    private final Integer peso;
+    private final Double peso;
     private final Integer idadeEmDias;
     private final Set<String> imagens;
 }
