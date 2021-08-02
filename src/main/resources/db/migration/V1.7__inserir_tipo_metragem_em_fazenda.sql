@@ -1,0 +1,2 @@
+ALTER TABLE fazenda
+    ADD COLUMN tipo_metragem INTEGER DEFAULT 0;
