@@ -40,3 +40,7 @@ aws:
   s3:
     bucket: binno-agro
     region: us-east-1
+
+mail:
+  domain: central.binnoapp.com
+  api_key: nao_tem

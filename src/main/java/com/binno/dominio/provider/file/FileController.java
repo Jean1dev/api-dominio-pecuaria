@@ -1,4 +1,4 @@
-package com.binno.dominio.provider;
+package com.binno.dominio.provider.file;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
