@@ -2,6 +2,8 @@ server:
   port: ${PORT}
 
 spring:
+  profiles:
+    active: default
   jackson:
     serialization:
       fail-on-empty-beans: false

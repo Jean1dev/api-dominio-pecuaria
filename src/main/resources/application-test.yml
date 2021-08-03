@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  profiles:
+    active: test
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
