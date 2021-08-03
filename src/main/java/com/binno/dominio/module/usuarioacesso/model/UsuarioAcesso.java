@@ -19,6 +19,10 @@ public class UsuarioAcesso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String nome;
+
+    private String email;
+
     private String login;
 
     private String password;

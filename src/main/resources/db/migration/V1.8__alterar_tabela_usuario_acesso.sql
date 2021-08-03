@@ -1,0 +1,1 @@
+ALTER TABLE public.usuario_acesso ADD COLUMN nome VARCHAR, ADD COLUMN email VARCHAR;
