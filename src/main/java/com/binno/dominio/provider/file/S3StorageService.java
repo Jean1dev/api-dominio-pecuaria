@@ -1,4 +1,4 @@
-package com.binno.dominio.provider;
+package com.binno.dominio.provider.file;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;

@@ -2,6 +2,8 @@ server:
   port: ${PORT}
 
 spring:
+  profiles:
+    active: default
   jackson:
     serialization:
       fail-on-empty-beans: false
@@ -40,3 +42,7 @@ aws:
   s3:
     bucket: ${S3_BUCKET}
     region: ${S3_REGION}
+
+mail:
+  domain: central.binnoapp.com
+  api_key: ${API_KEY_MAIL}
