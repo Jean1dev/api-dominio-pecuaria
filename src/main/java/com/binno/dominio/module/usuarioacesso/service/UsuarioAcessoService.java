@@ -38,6 +38,8 @@ public class UsuarioAcessoService {
                 .build()));
 
         repository.save(criarUsuarioAcesso(UsuarioAcessoDto.builder()
+                .nome(dto.getNome())
+                .email(dto.getEmail())
                 .login(dto.getLogin())
                 .password(dto.getPassword())
                 .tenant(tenant.getId())
@@ -53,6 +55,8 @@ public class UsuarioAcessoService {
 
     public UsuarioAcesso criarUsuarioAcesso(UsuarioAcessoDto dto) {
         return UsuarioAcesso.builder()
+                .nome(dto.getNome())
+                .email(dto.getEmail())
                 .login(dto.getLogin())
                 .password(new BCryptPasswordEncoder().encode(dto.getPassword()))
                 .tenant(Tenant.of(dto.getTenant()))
