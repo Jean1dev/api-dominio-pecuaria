@@ -6,6 +6,7 @@ import com.binno.dominio.module.animal.api.dto.AssociarImagemNoAnimalDto;
 import com.binno.dominio.module.animal.api.dto.CriarAnimalDto;
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.repository.AnimalRepository;
+import com.binno.dominio.module.animal.service.AnimalConsultasService;
 import com.binno.dominio.module.animal.service.AssociarImagemService;
 import com.binno.dominio.module.animal.service.CriarAnimalService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.binno.dominio.module.animal.api.dto.AnimalDto.pageToDto;
@@ -34,12 +38,24 @@ public class AnimalController {
     public static final String PATH = "animais";
 
     private final AnimalRepository repository;
-
     private final AuthenticationHolder holder;
-
     private final AssociarImagemService associarImagemService;
-
     private final CriarAnimalService service;
+    private final AnimalConsultasService consultasService;
+
+    @GetMapping(path = "total-por-sexo")
+    public Map totalPorSexo(@RequestParam(value = "femea", required = false, defaultValue = "false") Boolean isFemea) {
+        long totalPorSexo = consultasService.totalPorSexo(isFemea);
+        long total = consultasService.total();
+        BigDecimal porcetagem = BigDecimal.valueOf((double) totalPorSexo / (double) total)
+                .setScale(2, RoundingMode.HALF_UP)
+                .multiply(new BigDecimal(100));
+        return Map.of(
+                "totalSolicitado", totalPorSexo,
+                "total", total,
+                "porcetagem", porcetagem
+        );
+    }
 
     @GetMapping
     public Page<AnimalDto> animaisPaginated(
@@ -71,7 +87,7 @@ public class AnimalController {
     }
 
     @GetMapping("/{id}")
-    public AnimalDto getAnimalById(@PathVariable("id") Integer id){
+    public AnimalDto getAnimalById(@PathVariable("id") Integer id) {
         return toDto(repository.findById(id).orElseThrow());
     }
 }
