@@ -36,7 +36,8 @@ public class Animal {
     private LocalDate dataUltimoParto;
     private Boolean descarteFuturo = false;
     private String justificativaDescarteFuturo;
-    private Boolean isFemea;
+    @NotNull(message = "É obrigatorio informar o sexo do animal")
+    private Boolean isFemea = true;
     @ManyToOne
     private Fazenda fazenda;
     @JsonIgnore
