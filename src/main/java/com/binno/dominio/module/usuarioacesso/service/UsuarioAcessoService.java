@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -30,6 +31,14 @@ public class UsuarioAcessoService {
 
     @Autowired
     private MailProvider mailProvider;
+
+    public void criarUsuarioCasoNaoExista(UsuarioAcessoDto dto) {
+        Optional<UsuarioAcesso> usuarioAcesso = repository.findByLogin(dto.getLogin());
+
+        if (usuarioAcesso.isEmpty()) {
+            criar(dto);
+        }
+    }
 
     public void criar(UsuarioAcessoDto dto) {
         Tenant tenant = tenantRepository.findById(Objects.isNull(dto.getTenant()) ? 99999 : dto.getTenant()).orElseGet(() -> tenantRepository.save(Tenant.builder()
