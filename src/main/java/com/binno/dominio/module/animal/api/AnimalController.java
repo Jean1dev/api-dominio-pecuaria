@@ -47,9 +47,13 @@ public class AnimalController {
     public Map totalPorSexo(@RequestParam(value = "femea", required = false, defaultValue = "false") Boolean isFemea) {
         long totalPorSexo = consultasService.totalPorSexo(isFemea);
         long total = consultasService.total();
-        BigDecimal porcetagem = BigDecimal.valueOf((double) totalPorSexo / (double) total)
-                .setScale(2, RoundingMode.HALF_UP)
-                .multiply(new BigDecimal(100));
+        BigDecimal porcetagem = BigDecimal.valueOf(0);
+        if (totalPorSexo != 0L && total != 0L){
+            porcetagem = BigDecimal.valueOf((double) totalPorSexo / (double) total)
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .multiply(new BigDecimal(100));
+        }
+
         return Map.of(
                 "totalSolicitado", totalPorSexo,
                 "total", total,
