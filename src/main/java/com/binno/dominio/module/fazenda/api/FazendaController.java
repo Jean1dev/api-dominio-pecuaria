@@ -56,6 +56,21 @@ public class FazendaController {
 
     @PostMapping
     public Fazenda create(@RequestBody @Valid FazendaDto fazendaDto) {
+        if (null != fazendaDto.getId()){
+            Fazenda fazenda = repository.findById(fazendaDto.getId()).orElse(null);
+            if (null != fazenda){
+                return repository.save(Fazenda.builder()
+                        .id(fazendaDto.getId())
+                        .nome(fazendaDto.getNome())
+                        .codEstab(fazendaDto.getCodigoEstab())
+                        .endereco(fazendaDto.getEndereco())
+                        .metragem(fazendaDto.getMetragem())
+                        .tipoMetragem(fazendaDto.getTipoMetragem())
+                        .capMaximaGado(fazendaDto.getCapacidadeMaxGado())
+                        .tenant(Tenant.builder().id(holder.getTenantId()).build())
+                        .build());
+            }
+        }
         return repository.save(Fazenda.builder()
                 .nome(fazendaDto.getNome())
                 .codEstab(fazendaDto.getCodigoEstab())
@@ -65,15 +80,6 @@ public class FazendaController {
                 .capMaximaGado(fazendaDto.getCapacidadeMaxGado())
                 .tenant(Tenant.builder().id(holder.getTenantId()).build())
                 .build());
-    }
-
-    @PutMapping
-    public void update(@RequestBody @Valid FazendaDto fazendaDto) {
-        Optional<Fazenda> fazenda = repository.findById(fazendaDto.getId());
-        if (fazenda.isPresent()){
-            BeanUtils.copyProperties(fazendaDto, fazenda);
-            //repository.save(fazenda);
-        }
     }
 
     @DeleteMapping("/{id}")
