@@ -8,6 +8,7 @@ import com.binno.dominio.module.fazenda.repository.FazendaRepository;
 import com.binno.dominio.module.tenant.model.Tenant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 import static com.binno.dominio.module.fazenda.api.dto.FazendaAgregadaDto.listToDtoAgregado;
 import static com.binno.dominio.module.fazenda.api.dto.FazendaDto.pageToDto;
@@ -39,6 +41,11 @@ public class FazendaController {
         return listToDtoAgregado(repository.findAllByTenantId(holder.getTenantId()));
     }
 
+    @GetMapping(path = "/{id}")
+    public Optional<Fazenda> getOne(@PathVariable Integer id) {
+        return repository.findById(id);
+    }
+
     @GetMapping
     public Page<FazendaDto> fazendasPaginated(
             @RequestParam(value = "nome", defaultValue = "", required = false) String nome,
@@ -58,6 +65,15 @@ public class FazendaController {
                 .capMaximaGado(fazendaDto.getCapacidadeMaxGado())
                 .tenant(Tenant.builder().id(holder.getTenantId()).build())
                 .build());
+    }
+
+    @PutMapping
+    public void update(@RequestBody @Valid FazendaDto fazendaDto) {
+        Optional<Fazenda> fazenda = repository.findById(fazendaDto.getId());
+        if (fazenda.isPresent()){
+            BeanUtils.copyProperties(fazendaDto, fazenda);
+            //repository.save(fazenda);
+        }
     }
 
     @DeleteMapping("/{id}")
