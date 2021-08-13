@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 import static com.binno.dominio.module.fazenda.api.dto.FazendaAgregadaDto.listToDtoAgregado;
+import static com.binno.dominio.module.fazenda.api.dto.FazendaDto.toDto;
 import static com.binno.dominio.module.fazenda.api.dto.FazendaDto.pageToDto;
 import static com.binno.dominio.module.fazenda.specification.FazendaSpecification.nome;
 import static com.binno.dominio.module.fazenda.specification.FazendaSpecification.tenant;
@@ -39,6 +40,11 @@ public class FazendaController {
         return listToDtoAgregado(repository.findAllByTenantId(holder.getTenantId()));
     }
 
+    @GetMapping(path = "/{id}")
+    public FazendaDto getOne(@PathVariable Integer id) {
+        return toDto(repository.findById(id).orElseThrow());
+    }
+
     @GetMapping
     public Page<FazendaDto> fazendasPaginated(
             @RequestParam(value = "nome", defaultValue = "", required = false) String nome,
@@ -50,6 +56,21 @@ public class FazendaController {
     @PostMapping
     public Fazenda create(@RequestBody @Valid FazendaDto fazendaDto) {
         return repository.save(Fazenda.builder()
+                .nome(fazendaDto.getNome())
+                .codEstab(fazendaDto.getCodigoEstab())
+                .endereco(fazendaDto.getEndereco())
+                .metragem(fazendaDto.getMetragem())
+                .tipoMetragem(fazendaDto.getTipoMetragem())
+                .capMaximaGado(fazendaDto.getCapacidadeMaxGado())
+                .tenant(Tenant.builder().id(holder.getTenantId()).build())
+                .build());
+    }
+
+    @PutMapping
+    public Fazenda update(@RequestBody @Valid FazendaDto fazendaDto){
+        repository.findById(fazendaDto.getId()).orElseThrow();
+        return repository.save(Fazenda.builder()
+                .id(fazendaDto.getId())
                 .nome(fazendaDto.getNome())
                 .codEstab(fazendaDto.getCodigoEstab())
                 .endereco(fazendaDto.getEndereco())
