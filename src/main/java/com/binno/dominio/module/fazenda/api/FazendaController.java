@@ -8,7 +8,6 @@ import com.binno.dominio.module.fazenda.repository.FazendaRepository;
 import com.binno.dominio.module.tenant.model.Tenant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 import static com.binno.dominio.module.fazenda.api.dto.FazendaAgregadaDto.listToDtoAgregado;
 import static com.binno.dominio.module.fazenda.api.dto.FazendaDto.toDto;
