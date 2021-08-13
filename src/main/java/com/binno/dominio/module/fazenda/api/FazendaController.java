@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static com.binno.dominio.module.fazenda.api.dto.FazendaAgregadaDto.listToDtoAgregado;
+import static com.binno.dominio.module.fazenda.api.dto.FazendaDto.toDto;
 import static com.binno.dominio.module.fazenda.api.dto.FazendaDto.pageToDto;
 import static com.binno.dominio.module.fazenda.specification.FazendaSpecification.nome;
 import static com.binno.dominio.module.fazenda.specification.FazendaSpecification.tenant;
@@ -42,8 +44,8 @@ public class FazendaController {
     }
 
     @GetMapping(path = "/{id}")
-    public Optional<Fazenda> getOne(@PathVariable Integer id) {
-        return repository.findById(id);
+    public FazendaDto getOne(@PathVariable Integer id) {
+        return toDto(repository.findById(id).orElseThrow());
     }
 
     @GetMapping
@@ -56,22 +58,22 @@ public class FazendaController {
 
     @PostMapping
     public Fazenda create(@RequestBody @Valid FazendaDto fazendaDto) {
-        if (null != fazendaDto.getId()){
-            Fazenda fazenda = repository.findById(fazendaDto.getId()).orElse(null);
-            if (null != fazenda){
-                return repository.save(Fazenda.builder()
-                        .id(fazendaDto.getId())
-                        .nome(fazendaDto.getNome())
-                        .codEstab(fazendaDto.getCodigoEstab())
-                        .endereco(fazendaDto.getEndereco())
-                        .metragem(fazendaDto.getMetragem())
-                        .tipoMetragem(fazendaDto.getTipoMetragem())
-                        .capMaximaGado(fazendaDto.getCapacidadeMaxGado())
-                        .tenant(Tenant.builder().id(holder.getTenantId()).build())
-                        .build());
-            }
-        }
         return repository.save(Fazenda.builder()
+                .nome(fazendaDto.getNome())
+                .codEstab(fazendaDto.getCodigoEstab())
+                .endereco(fazendaDto.getEndereco())
+                .metragem(fazendaDto.getMetragem())
+                .tipoMetragem(fazendaDto.getTipoMetragem())
+                .capMaximaGado(fazendaDto.getCapacidadeMaxGado())
+                .tenant(Tenant.builder().id(holder.getTenantId()).build())
+                .build());
+    }
+
+    @PutMapping
+    public Fazenda update(@RequestBody @Valid FazendaDto fazendaDto){
+        repository.findById(fazendaDto.getId()).orElseThrow();
+        return repository.save(Fazenda.builder()
+                .id(fazendaDto.getId())
                 .nome(fazendaDto.getNome())
                 .codEstab(fazendaDto.getCodigoEstab())
                 .endereco(fazendaDto.getEndereco())
