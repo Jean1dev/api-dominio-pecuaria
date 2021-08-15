@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import static com.binno.dominio.module.funcionario.api.dto.FuncionarioDto.pageToDto;
+import static com.binno.dominio.module.funcionario.api.dto.FuncionarioDto.toDto;
 import static com.binno.dominio.module.funcionario.specification.FuncionarioSpecification.nome;
 import static com.binno.dominio.module.funcionario.specification.FuncionarioSpecification.tenant;
 
@@ -40,9 +41,28 @@ public class FuncionarioController {
         return pageToDto(repository.findAll(Specification.where(tenant(holder.getTenantId()).and(nome(nome))), PageRequest.of(page, size)));
     }
 
+    @GetMapping(path = "/{id}")
+    public FuncionarioDto getOne(@PathVariable Integer id) {
+        return toDto(repository.findById(id).orElseThrow());
+    }
+
     @PostMapping
     public Funcionario create(@RequestBody @Valid FuncionarioDto funcionarioDto) {
         return repository.save(Funcionario.builder()
+                .nome(funcionarioDto.getNome())
+                .cargo(funcionarioDto.getCargo())
+                .rg(funcionarioDto.getRg())
+                .cpf(funcionarioDto.getCpf())
+                .fazenda(Fazenda.builder().id(funcionarioDto.getFazenda().getId()).build())
+                .tenant(Tenant.builder().id(holder.getTenantId()).build())
+                .build());
+    }
+
+    @PutMapping
+    public Funcionario update(@RequestBody @Valid FuncionarioDto funcionarioDto) {
+        repository.findById(funcionarioDto.getId()).orElseThrow();
+        return repository.save(Funcionario.builder()
+                .id(funcionarioDto.getId())
                 .nome(funcionarioDto.getNome())
                 .cargo(funcionarioDto.getCargo())
                 .rg(funcionarioDto.getRg())
