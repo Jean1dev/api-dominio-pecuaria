@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @Builder
 public final class ImagemAnimalDto {
 
+    private final Integer id;
     private final Integer animalId;
     private final String imagemUrl;
 
@@ -24,6 +25,7 @@ public final class ImagemAnimalDto {
 
     private static ImagemAnimalDto toDto(Imagem imagem) {
         return ImagemAnimalDto.builder()
+                .id(imagem.getId())
                 .animalId(imagem.getReferenciaAnimal().getId())
                 .imagemUrl(imagem.getUrl())
                 .build();

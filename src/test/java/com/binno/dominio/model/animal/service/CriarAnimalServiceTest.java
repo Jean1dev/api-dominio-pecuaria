@@ -73,10 +73,10 @@ public class CriarAnimalServiceTest extends ApplicationConfigIT {
                 .raca(RacaAnimal.NELORE)
                 .descarteFuturo(false)
                 .estadoAtual(EstadoAtual.VAZIA)
-                .peso(80.0)
+                //.peso(80.0)
                 .dataPesagem(LocalDate.now())
                 .idadeEmDias(25)
-                .imagens(Set.of("url1", "url2"))
+                //.imagens(Set.of("url1", "url2"))
                 .build();
 
         Animal animal = mock(Animal.class);
