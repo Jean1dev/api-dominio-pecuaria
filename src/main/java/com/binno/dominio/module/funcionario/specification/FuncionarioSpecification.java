@@ -6,7 +6,7 @@ import org.springframework.data.jpa.domain.Specification;
 public class FuncionarioSpecification {
 
     public static Specification<Funcionario> nome(String nome) {
-        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("nome"), "%" + nome);
+        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("nome"), "%" + nome + "%");
     }
 
     public static Specification<Funcionario> tenant(Integer id) {
