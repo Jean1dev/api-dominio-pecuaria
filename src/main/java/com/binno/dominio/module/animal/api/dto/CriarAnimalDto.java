@@ -15,6 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public final class CriarAnimalDto {
+    private final Integer id;
     @NotNull(message = "O número não pode ser nulo ou vazio.")
     private final Integer numero;
     private final RacaAnimal raca;

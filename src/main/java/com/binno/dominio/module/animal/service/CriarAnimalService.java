@@ -35,6 +35,7 @@ public class CriarAnimalService implements RegraNegocioService<Animal, CriarAnim
     @Override
     public Animal executar(CriarAnimalDto criarAnimalDto) {
         Animal animal = animalRepository.save(Animal.builder()
+                .id(criarAnimalDto.getId())
                 .numero(criarAnimalDto.getNumero())
                 .raca(criarAnimalDto.getRaca())
                 .apelido(criarAnimalDto.getApelido())
