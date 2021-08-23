@@ -2,7 +2,7 @@ package com.binno.dominio.module.animal.api;
 
 import com.binno.dominio.context.AuthenticationHolder;
 import com.binno.dominio.module.animal.api.dto.AnimalDto;
-import com.binno.dominio.module.animal.api.dto.AssociarImagemNoAnimalDto;
+import com.binno.dominio.module.animal.api.dto.ImagemAnimalDto;
 import com.binno.dominio.module.animal.api.dto.CriarAnimalDto;
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.repository.AnimalRepository;
@@ -75,13 +75,19 @@ public class AnimalController {
 
     @PostMapping(path = "adicionar-imagem")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void linkarImagem(@RequestBody AssociarImagemNoAnimalDto dto) {
+    public void linkarImagem(@RequestBody ImagemAnimalDto dto) {
         associarImagemService.executar(dto);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody @Valid CriarAnimalDto criarAnimalDto) {
+        service.executar(criarAnimalDto);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void update(@RequestBody @Valid CriarAnimalDto criarAnimalDto) {
         service.executar(criarAnimalDto);
     }
 

@@ -1,6 +1,6 @@
 package com.binno.dominio.module.animal.service;
 
-import com.binno.dominio.module.animal.api.dto.AssociarImagemNoAnimalDto;
+import com.binno.dominio.module.animal.api.dto.ImagemAnimalDto;
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.repository.AnimalRepository;
 import com.binno.dominio.module.imagem.model.Imagem;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class AssociarImagemService implements RegraNegocioService<Animal, AssociarImagemNoAnimalDto> {
+public class AssociarImagemService implements RegraNegocioService<Animal, ImagemAnimalDto> {
 
     @Autowired
     private AnimalRepository animalRepository;
@@ -21,7 +21,7 @@ public class AssociarImagemService implements RegraNegocioService<Animal, Associ
     private ImagemRepository imagemRepository;
 
     @Override
-    public Animal executar(AssociarImagemNoAnimalDto dto) {
+    public Animal executar(ImagemAnimalDto dto) {
         Animal animal = animalRepository.findById(dto.getAnimalId()).orElseThrow();
         Imagem imagem = imagemRepository.save(Imagem.builder()
                 .url(dto.getImagemUrl())
