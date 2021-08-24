@@ -51,7 +51,6 @@ public class AnimalApiIT extends ApplicationConfigIT {
     @Autowired
     private PesoAnimalRepository pesoAnimalRepository;
 
-
     @Test
     @DisplayName("deve excluir um animal e seus dependentes")
     public void deveExcluirAnimalESeusDependentes() throws Exception {

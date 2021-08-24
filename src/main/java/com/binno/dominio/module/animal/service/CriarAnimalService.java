@@ -71,9 +71,9 @@ public class CriarAnimalService implements RegraNegocioService<Animal, CriarAnim
     }
 
     private void registrarPesoAnimal(Animal animal, CriarAnimalDto criarAnimalDto) {
-        if (Objects.isNull(criarAnimalDto.getPesos())) {
+        if (Objects.isNull(criarAnimalDto.getPesos()))
             return;
-        }
+
         criarAnimalDto
                 .getPesos()
                 .forEach(peso -> {

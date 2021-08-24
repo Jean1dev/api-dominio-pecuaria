@@ -3,6 +3,8 @@ package com.binno.dominio.model.animal.service;
 import com.binno.dominio.ApplicationConfigIT;
 import com.binno.dominio.context.AuthenticationHolder;
 import com.binno.dominio.module.animal.api.dto.CriarAnimalDto;
+import com.binno.dominio.module.animal.api.dto.ImagemAnimalDto;
+import com.binno.dominio.module.animal.api.dto.PesoDto;
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.model.EstadoAtual;
 import com.binno.dominio.module.animal.model.PesoAnimal;
@@ -66,6 +68,15 @@ public class CriarAnimalServiceTest extends ApplicationConfigIT {
     @Test
     @DisplayName("deve criar um animal com peso e imagens")
     public void deveCriarAnimalCompleto() {
+        ImagemAnimalDto imagemAnimalDto = ImagemAnimalDto.builder()
+                .animalId(null)
+                .imagemUrl("url1")
+                .build();
+
+        PesoDto pesoDto = PesoDto.builder()
+                .peso(20.2)
+                .build();
+
         CriarAnimalDto dto = CriarAnimalDto.builder()
                 .apelido("Apelido")
                 .dataNascimento(LocalDate.now())
@@ -73,10 +84,10 @@ public class CriarAnimalServiceTest extends ApplicationConfigIT {
                 .raca(RacaAnimal.NELORE)
                 .descarteFuturo(false)
                 .estadoAtual(EstadoAtual.VAZIA)
-                //.peso(80.0)
                 .dataPesagem(LocalDate.now())
                 .idadeEmDias(25)
-                //.imagens(Set.of("url1", "url2"))
+                .imagens(Set.of(imagemAnimalDto))
+                .pesos(Set.of(pesoDto))
                 .build();
 
         Animal animal = mock(Animal.class);
@@ -84,8 +95,8 @@ public class CriarAnimalServiceTest extends ApplicationConfigIT {
 
         service.executar(dto);
 
-        //verify(pesoAnimalRepository, times(1)).save(any(PesoAnimal.class));
-        //verify(imagemRepository, times(2)).save(any(Imagem.class));
+        verify(pesoAnimalRepository, times(1)).save(any(PesoAnimal.class));
+        verify(imagemRepository, times(1)).save(any(Imagem.class));
         verify(animalRepository, times(1)).save(any(Animal.class));
     }
 }
