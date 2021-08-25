@@ -77,12 +77,12 @@ public class CriarAnimalService implements RegraNegocioService<Animal, CriarAnim
         criarAnimalDto
                 .getPesos()
                 .forEach(peso -> {
-                    pesoAnimalRepository.save(PesoAnimal.builder()
-                            .id(peso.getId())
-                            .dataPesagem(peso.getDataPesagem())
-                            .peso(peso.getPeso())
-                            .animal(animal)
-                            .build());
+                        pesoAnimalRepository.save(PesoAnimal.builder()
+                                .id(peso.getId())
+                                .dataPesagem(peso.getDataPesagem())
+                                .peso(peso.getPeso())
+                                .animal(animal)
+                                .build());
                 });
     }
 }
