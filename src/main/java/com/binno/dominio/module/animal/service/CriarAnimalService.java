@@ -77,7 +77,7 @@ public class CriarAnimalService implements RegraNegocioService<Animal, CriarAnim
         criarAnimalDto
                 .getPesos()
                 .forEach(peso -> {
-                    if(peso.getPeso() >= 0) {
+                    if(peso.getPeso() > 0) {
                         pesoAnimalRepository.save(PesoAnimal.builder()
                                 .id(peso.getId())
                                 .dataPesagem(peso.getDataPesagem())
