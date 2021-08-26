@@ -17,4 +17,6 @@ public interface BasicRepository<T, ID> extends PagingAndSortingRepository<T, ID
     List<T> findAllByTenantId(Integer tenantId);
 
     Optional<T> findOneByTenantId(Integer tenantId);
+
+    long countAllByTenantId(Integer tenantId);
 }
