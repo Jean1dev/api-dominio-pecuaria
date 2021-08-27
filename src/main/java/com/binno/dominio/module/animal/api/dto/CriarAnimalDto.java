@@ -16,7 +16,7 @@ import java.util.Set;
 @Builder
 public final class CriarAnimalDto {
     private final Integer id;
-    @NotNull(message = "O número não pode ser nulo ou vazio.")
+    @NotNull(message = "{animal.numero.notnull}")
     private final Integer numero;
     private final RacaAnimal raca;
     private final String apelido;
@@ -27,6 +27,7 @@ public final class CriarAnimalDto {
     private final Boolean descarteFuturo;
     private final Boolean isFemea;
     private final String justificativaDescarteFuturo;
+    @NotNull(message = "{fazenda.fazenda.notnull}")
     private final Fazenda fazenda;
     private final LocalDate dataPesagem;
     private final Integer idadeEmDias;
