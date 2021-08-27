@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import javax.validation.constraints.Min;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,7 +16,9 @@ import java.util.stream.Collectors;
 public final class PesoDto {
     private final Integer id;
     private final LocalDate dataPesagem;
+    @Min(value = 0, message = "O peso precisa ser maior que 0")
     private final Double peso;
+    private final Integer animalId;
 
     public static List<PesoDto> listToDto(List<PesoAnimal> pesoAnimal) {
         return pesoAnimal.stream()
@@ -26,6 +29,7 @@ public final class PesoDto {
     private static PesoDto toDto(PesoAnimal pesoAnimal) {
         return PesoDto.builder()
                 .id(pesoAnimal.getId())
+                .animalId(pesoAnimal.getAnimal().getId())
                 .dataPesagem(pesoAnimal.getDataPesagem())
                 .peso(pesoAnimal.getPeso())
                 .build();

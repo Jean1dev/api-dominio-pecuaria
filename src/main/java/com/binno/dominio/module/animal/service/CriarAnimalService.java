@@ -35,6 +35,7 @@ public class CriarAnimalService implements RegraNegocioService<Animal, CriarAnim
     @Override
     public Animal executar(CriarAnimalDto criarAnimalDto) {
         Animal animal = animalRepository.save(Animal.builder()
+                .id(criarAnimalDto.getId())
                 .numero(criarAnimalDto.getNumero())
                 .raca(criarAnimalDto.getRaca())
                 .apelido(criarAnimalDto.getApelido())
@@ -60,22 +61,28 @@ public class CriarAnimalService implements RegraNegocioService<Animal, CriarAnim
 
         criarAnimalDto
                 .getImagens()
-                .forEach(imgUrl -> {
+                .forEach(img -> {
                     imagemRepository.save(Imagem.builder()
-                            .url(imgUrl)
+                            .id(img.getId())
+                            .url(img.getImagemUrl())
                             .referenciaAnimal(animal)
                             .build());
                 });
     }
 
     private void registrarPesoAnimal(Animal animal, CriarAnimalDto criarAnimalDto) {
-        if (Objects.nonNull(criarAnimalDto.getPeso())) {
-            pesoAnimalRepository.save(PesoAnimal.builder()
-                    .dataPesagem(criarAnimalDto.getDataPesagem())
-                    .peso(criarAnimalDto.getPeso())
-                    .idadeEmDias(criarAnimalDto.getIdadeEmDias())
-                    .animal(animal)
-                    .build());
-        }
+        if (Objects.isNull(criarAnimalDto.getPesos()))
+            return;
+
+        criarAnimalDto
+                .getPesos()
+                .forEach(peso -> {
+                        pesoAnimalRepository.save(PesoAnimal.builder()
+                                .id(peso.getId())
+                                .dataPesagem(peso.getDataPesagem())
+                                .peso(peso.getPeso())
+                                .animal(animal)
+                                .build());
+                });
     }
 }

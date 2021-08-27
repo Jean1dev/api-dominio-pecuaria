@@ -46,8 +46,7 @@ public class Animal {
     private List<PesoAnimal> pesoAnimal;
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "referenciaAnimal", cascade = CascadeType.ALL)
-    private Collection<Imagem> imagens;
-
+    private List<Imagem> imagens;
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant", referencedColumnName = "id")

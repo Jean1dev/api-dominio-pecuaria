@@ -15,6 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public final class CriarAnimalDto {
+    private final Integer id;
     @NotNull(message = "{animal.numero.notnull}")
     private final Integer numero;
     private final RacaAnimal raca;
@@ -29,7 +30,7 @@ public final class CriarAnimalDto {
     @NotNull(message = "{fazenda.fazenda.notnull}")
     private final Fazenda fazenda;
     private final LocalDate dataPesagem;
-    private final Double peso;
     private final Integer idadeEmDias;
-    private final Set<String> imagens;
+    private final Set<ImagemAnimalDto> imagens;
+    private final Set<PesoDto> pesos;
 }
