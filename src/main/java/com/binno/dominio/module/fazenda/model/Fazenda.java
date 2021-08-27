@@ -23,7 +23,7 @@ public class Fazenda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull(message = "O nome não pode ser nulo ou vazio.")
+    @NotNull(message = "{fazenda.nome.notnull}")
     private String nome;
     private Integer codEstab;
     private String endereco;

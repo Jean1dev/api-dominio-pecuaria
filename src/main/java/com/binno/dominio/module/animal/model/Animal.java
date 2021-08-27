@@ -26,7 +26,7 @@ public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull(message = "O número não pode ser nulo ou vazio.")
+    @NotNull(message = "{animal.numero.notnull}")
     private Integer numero;
     private RacaAnimal raca;
     private String apelido;
@@ -36,8 +36,9 @@ public class Animal {
     private LocalDate dataUltimoParto;
     private Boolean descarteFuturo = false;
     private String justificativaDescarteFuturo;
-    @NotNull(message = "É obrigatorio informar o sexo do animal")
+    @NotNull(message = "{animal.isFemea.notnull}")
     private Boolean isFemea = true;
+    @NotNull(message = "{fazenda.fazenda.notnull}")
     @ManyToOne
     private Fazenda fazenda;
     @JsonIgnore

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Builder
 public final class AnimalDto {
     private final Integer id;
-    @NotNull(message = "O número não pode ser nulo ou vazio.")
+    @NotNull(message = "{animal.numero.notnull}")
     private final Integer numero;
     private final RacaAnimal raca;
     private final String apelido;
@@ -31,6 +31,8 @@ public final class AnimalDto {
     private final Boolean descarteFuturo;
     private final Boolean isFemea;
     private final String justificativaDescarteFuturo;
+
+    @NotNull(message = "{fazenda.fazenda.notnull}")
     private final Fazenda fazenda;
     private final List<PesoDto> pesos;
 

@@ -21,11 +21,12 @@ public class Funcionario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull(message = "O nome não pode ser nulo ou vazio.")
+    @NotNull(message = "{funcionario.nome.notnull}")
     private String nome;
     private String cargo;
     private String rg;
     private String cpf;
+    @NotNull(message = "{fazenda.fazenda.notnull}")
     @ManyToOne(fetch = FetchType.LAZY)
     private Fazenda fazenda;
 
