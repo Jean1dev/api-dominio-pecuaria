@@ -67,6 +67,7 @@ public class UsuarioAcessoService {
                 .login(dto.getLogin())
                 .password(new BCryptPasswordEncoder().encode(dto.getPassword()))
                 .tenant(Tenant.of(dto.getTenant()))
+                .imagemPerfilUrl(dto.getPhotoURL())
                 .ativo(true)
                 .build();
     }

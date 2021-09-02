@@ -20,6 +20,7 @@ public class UsuarioAutenticado implements UserDetails {
     private String login;
     private String password;
     private Integer tenantId;
+    private String imagePerfilUrl;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
