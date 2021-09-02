@@ -1,5 +1,6 @@
 package com.binno.dominio.provider.mail;
 
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 @EnableAsync
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class MailgunService implements MailProvider {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MailgunService.class);
@@ -29,13 +31,12 @@ public class MailgunService implements MailProvider {
     @Value("${mail.api_key}")
     private String apiKey;
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     @Override
     @Async
     public void send(SendEmailPayload payload) {
-        if (activeProfile.equals("local"))
+        if (activeProfile.equals("local") || activeProfile.equals("test"))
             return;
 
         String uri = UriComponentsBuilder.fromHttpUrl("https://api.mailgun.net/v3/")

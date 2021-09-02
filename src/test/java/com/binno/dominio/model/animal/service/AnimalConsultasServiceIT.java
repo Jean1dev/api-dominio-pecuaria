@@ -1,13 +1,16 @@
 package com.binno.dominio.model.animal.service;
 
 import com.binno.dominio.ApplicationConfigIT;
-import com.binno.dominio.ContextFactory;
 import com.binno.dominio.auth.TokenService;
 import com.binno.dominio.context.AuthenticationHolder;
-import com.binno.dominio.model.animal.AnimalFactory;
+import com.binno.dominio.factory.AnimalFactory;
+import com.binno.dominio.factory.ContextFactory;
+import com.binno.dominio.factory.FazendaFactory;
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.repository.AnimalRepository;
 import com.binno.dominio.module.animal.service.AnimalConsultasService;
+import com.binno.dominio.module.fazenda.model.Fazenda;
+import com.binno.dominio.module.fazenda.repository.FazendaRepository;
 import com.binno.dominio.module.tenant.model.Tenant;
 import com.binno.dominio.module.tenant.repository.TenantRepository;
 import com.binno.dominio.module.usuarioacesso.repository.UsuarioAcessoRepository;
@@ -37,17 +40,21 @@ public class AnimalConsultasServiceIT extends ApplicationConfigIT {
     @Autowired
     private UsuarioAcessoRepository usuarioAcessoRepository;
 
+    @Autowired
+    private FazendaRepository fazendaRepository;
+
     @Test
     @DisplayName("deve trazer o total de animais corretamente por contexto")
     public void deveContar() {
         ContextFactory contextFactory = new ContextFactory(tenantRepository, tokenService, usuarioAcessoRepository);
         Tenant tenant = contextFactory.umTenantSalvo();
         Tenant tenant2 = contextFactory.umTenantSalvo();
-        Animal femea1 = AnimalFactory.umAnimalCompleto(tenant);
-        Animal femea2 = AnimalFactory.umAnimalCompleto(tenant);
+        Fazenda fazenda = FazendaFactory.persistir(fazendaRepository, FazendaFactory.umaFazendaCompleta(tenant));
+        Animal femea1 = AnimalFactory.umAnimalCompleto(tenant, fazenda);
+        Animal femea2 = AnimalFactory.umAnimalCompleto(tenant, fazenda);
         AnimalFactory.persistir(animalRepository, femea1);
         AnimalFactory.persistir(animalRepository, femea2);
-        AnimalFactory.persistir(animalRepository,  AnimalFactory.umAnimalCompleto(tenant2));
+        AnimalFactory.persistir(animalRepository,  AnimalFactory.umAnimalCompleto(tenant2, fazenda));
 
         holder.setTenantId(tenant.getId());
         long deveSer2 = service.total();
@@ -65,8 +72,9 @@ public class AnimalConsultasServiceIT extends ApplicationConfigIT {
     @DisplayName("deve trazer a quantidade correta de animal")
     public void deveTrazerQuantidadeCorreta() {
         Tenant tenant = new ContextFactory(tenantRepository, tokenService, usuarioAcessoRepository).umTenantSalvo();
-        Animal femea1 = AnimalFactory.umAnimalCompleto(tenant);
-        Animal femea2 = AnimalFactory.umAnimalCompleto(tenant);
+        Fazenda fazenda = FazendaFactory.persistir(fazendaRepository, FazendaFactory.umaFazendaCompleta(tenant));
+        Animal femea1 = AnimalFactory.umAnimalCompleto(tenant, fazenda);
+        Animal femea2 = AnimalFactory.umAnimalCompleto(tenant, fazenda);
         AnimalFactory.persistir(animalRepository, femea1);
         AnimalFactory.persistir(animalRepository, femea2);
 

@@ -1,4 +1,4 @@
-package com.binno.dominio;
+package com.binno.dominio.factory;
 
 import com.binno.dominio.auth.TokenService;
 import com.binno.dominio.auth.UsuarioAutenticado;
@@ -7,8 +7,8 @@ import com.binno.dominio.module.tenant.repository.TenantRepository;
 import com.binno.dominio.module.usuarioacesso.model.UsuarioAcesso;
 import com.binno.dominio.module.usuarioacesso.repository.UsuarioAcessoRepository;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import static org.mockito.Mockito.mock;
@@ -23,6 +23,8 @@ public class ContextFactory {
     private final UsuarioAcessoRepository repository;
 
     private Tenant tenant;
+
+    private UsuarioAutenticado usuario;
 
     public ContextFactory(TenantRepository tenantRepository, TokenService tokenService, UsuarioAcessoRepository repository) {
         this.tenantRepository = tenantRepository;
@@ -42,6 +44,7 @@ public class ContextFactory {
     public String gerarToken() {
         Authentication authentication = mock(Authentication.class);
         String login = UUID.randomUUID().toString();
+        verificarSeJaExisteTenant();
         repository.save(UsuarioAcesso.builder()
                 .login(login)
                 .password("senha")
@@ -49,7 +52,7 @@ public class ContextFactory {
                 .ativo(true)
                 .build());
 
-        UsuarioAutenticado usuario = UsuarioAutenticado.builder()
+        usuario = UsuarioAutenticado.builder()
                 .tenantId(tenant.getId())
                 .password("senha")
                 .login(login)
@@ -58,5 +61,15 @@ public class ContextFactory {
         when(authentication.getPrincipal()).thenReturn(usuario);
 
         return tokenService.gerarToken(authentication);
+    }
+
+    private void verificarSeJaExisteTenant() {
+        if (Objects.isNull(tenant)) {
+            tenant = umTenantSalvo();
+        }
+    }
+
+    public UsuarioAutenticado getUsuarioAutenticado() {
+        return usuario;
     }
 }

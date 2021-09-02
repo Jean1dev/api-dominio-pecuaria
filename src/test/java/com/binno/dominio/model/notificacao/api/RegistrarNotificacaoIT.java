@@ -1,9 +1,9 @@
-package com.binno.dominio.model.notificao.service;
+package com.binno.dominio.model.notificacao.api;
 
 import com.binno.dominio.ApplicationConfigIT;
-import com.binno.dominio.ContextFactory;
 import com.binno.dominio.auth.TokenService;
 import com.binno.dominio.context.AuthenticationHolder;
+import com.binno.dominio.factory.ContextFactory;
 import com.binno.dominio.module.notificacao.model.Notificacao;
 import com.binno.dominio.module.notificacao.service.RegistrarNotificacao;
 import com.binno.dominio.module.tenant.model.Tenant;

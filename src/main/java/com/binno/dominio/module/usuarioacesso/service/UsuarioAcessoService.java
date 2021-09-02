@@ -8,6 +8,7 @@ import com.binno.dominio.module.usuarioacesso.model.UsuarioAcesso;
 import com.binno.dominio.module.usuarioacesso.repository.UsuarioAcessoRepository;
 import com.binno.dominio.provider.mail.MailProvider;
 import com.binno.dominio.provider.mail.SendEmailPayload;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,19 +19,16 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UsuarioAcessoService {
 
-    @Autowired
-    private UsuarioAcessoRepository repository;
+    private final UsuarioAcessoRepository repository;
 
-    @Autowired
-    private AuthenticationHolder holder;
+    private final AuthenticationHolder holder;
 
-    @Autowired
-    private TenantRepository tenantRepository;
+    private final TenantRepository tenantRepository;
 
-    @Autowired
-    private MailProvider mailProvider;
+    private final MailProvider mailProvider;
 
     public void criarUsuarioCasoNaoExista(UsuarioAcessoDto dto) {
         Optional<UsuarioAcesso> usuarioAcesso = repository.findByLogin(dto.getLogin());
