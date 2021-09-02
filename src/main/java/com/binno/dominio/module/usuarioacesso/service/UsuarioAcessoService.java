@@ -50,6 +50,7 @@ public class UsuarioAcessoService {
                 .login(dto.getLogin())
                 .password(dto.getPassword())
                 .tenant(tenant.getId())
+                .photoURL(dto.getPhotoURL())
                 .build()));
 
         mailProvider.send(SendEmailPayload.builder()
