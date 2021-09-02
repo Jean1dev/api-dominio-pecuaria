@@ -1,26 +1,36 @@
 package com.binno.dominio.module.usuarioacesso.api;
 
+import com.binno.dominio.module.usuarioacesso.api.dto.AlterarUsuarioDto;
 import com.binno.dominio.module.usuarioacesso.api.dto.UsuarioAcessoDto;
+import com.binno.dominio.module.usuarioacesso.service.AlterarDadosUsuarioService;
 import com.binno.dominio.module.usuarioacesso.service.UsuarioAcessoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(path = "usuarioacesso")
+@RequestMapping(path = UsuarioAcessoController.PATH)
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UsuarioAcessoController {
 
-    @Autowired
-    private UsuarioAcessoService service;
+    public static final String PATH = "usuarioacesso";
+
+    private final UsuarioAcessoService service;
+
+    private final AlterarDadosUsuarioService alterarDadosUsuarioService;
 
     @PostMapping(path = "criar")
-    public ResponseEntity criarUsuarioAcesso(@RequestBody @Valid UsuarioAcessoDto dto) {
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void criarUsuarioAcesso(@RequestBody @Valid UsuarioAcessoDto dto) {
         service.criar(dto);
-        return ResponseEntity.status(204).build();
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void alterarUsuario(@RequestBody AlterarUsuarioDto dto) {
+        alterarDadosUsuarioService.executar(dto);
     }
 }

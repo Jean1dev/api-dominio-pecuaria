@@ -29,6 +29,12 @@ public class UsuarioAcesso {
 
     private Boolean ativo = true;
 
+    private String imagemPerfilUrl;
+
+    private String sobrenome;
+
+    private String numero;
+
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant", referencedColumnName = "id")

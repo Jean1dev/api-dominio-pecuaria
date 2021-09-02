@@ -1,10 +1,11 @@
-package com.binno.dominio.model.animal;
+package com.binno.dominio.factory;
 
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.model.EstadoAtual;
 import com.binno.dominio.module.animal.model.PesoAnimal;
 import com.binno.dominio.module.animal.model.RacaAnimal;
 import com.binno.dominio.module.animal.repository.AnimalRepository;
+import com.binno.dominio.module.fazenda.model.Fazenda;
 import com.binno.dominio.module.imagem.model.Imagem;
 import com.binno.dominio.module.tenant.model.Tenant;
 
@@ -17,7 +18,7 @@ public class AnimalFactory {
         return animal;
     }
 
-    public static Animal umAnimalCompleto(Tenant tenant) {
+    public static Animal umAnimalCompleto(Tenant tenant, Fazenda fazenda) {
         return Animal.builder()
                 .numero(1)
                 .raca(RacaAnimal.NELORE)
@@ -30,6 +31,7 @@ public class AnimalFactory {
                 .justificativaDescarteFuturo("nao tem")
                 .isFemea(true)
                 .tenant(tenant)
+                .fazenda(fazenda)
                 .build();
     }
 
