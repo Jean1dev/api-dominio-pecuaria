@@ -1,29 +1,25 @@
 package com.binno.dominio.module.usuarioacesso.api.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Value;
 
 @Builder
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Value
 public class AlterarUsuarioDto {
 
-    private Integer id;
+    Integer id;
 
-    private String nome;
+    String nome;
 
-    private String email;
+    String email;
 
-    private String login;
+    String login;
 
-    private String password;
+    String password;
 
-    private String imagemPerfilUrl;
+    String imagemPerfilUrl;
 
-    private String sobrenome;
+    String sobrenome;
 
-    private String numero;
+    String numero;
 }
