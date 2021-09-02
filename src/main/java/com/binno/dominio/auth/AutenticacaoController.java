@@ -41,6 +41,7 @@ public class AutenticacaoController {
                 .email(form.getEmail())
                 .login(form.getEmail())
                 .password(form.getUid())
+                .photoURL(form.getPhotoURL())
                 .build();
 
         usuarioAcessoService.criarUsuarioCasoNaoExista(acessoDto);
