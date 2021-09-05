@@ -97,7 +97,6 @@ public class UsuarioApiIT extends ApplicationConfigIT {
         UsuarioAcesso usuarioAlterado = repository.findById(usuarioAcesso.getId()).orElseThrow();
         Assertions.assertEquals("novo nome", usuarioAlterado.getNome());
         Assertions.assertEquals("novo sobrenome", usuarioAlterado.getSobrenome());
-        Assertions.assertEquals("url", usuarioAlterado.getImagemPerfilUrl());
         Assertions.assertEquals("jeanluca_fp@hotmail.com", usuarioAlterado.getEmail());
         Assertions.assertEquals(login, usuarioAlterado.getLogin());
     }

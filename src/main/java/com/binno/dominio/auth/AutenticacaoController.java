@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "auth")
+@RequestMapping(path = AutenticacaoController.PATH)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AutenticacaoController {
+
+    public static final String PATH = "auth";
 
     private final AuthenticationManager manager;
 

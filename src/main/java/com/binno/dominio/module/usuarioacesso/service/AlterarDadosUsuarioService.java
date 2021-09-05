@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ValidationException;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -24,10 +25,14 @@ public class AlterarDadosUsuarioService implements RegraNegocioService<UsuarioAc
     @Override
     public UsuarioAcesso executar(AlterarUsuarioDto dto) {
         UsuarioAcesso usuarioAcesso = repository.findById(dto.getId()).orElseThrow();
+
+        if (dto.getAlterarSomenteAImagem()) {
+            return alterarSomenteAImagem(usuarioAcesso, dto.getImagemPerfilUrl());
+        }
+
         usuarioAcesso.setNome(dto.getNome());
         usuarioAcesso.setSobrenome(dto.getSobrenome());
         usuarioAcesso.setNumero(dto.getNumero());
-        usuarioAcesso.setImagemPerfilUrl(dto.getImagemPerfilUrl());
 
         verificarSePodeAlterarLoginSePuderAlterar(usuarioAcesso, dto.getLogin());
         seAlterouEmailNotificar(usuarioAcesso, dto.getEmail());
@@ -35,16 +40,22 @@ public class AlterarDadosUsuarioService implements RegraNegocioService<UsuarioAc
         return repository.save(usuarioAcesso);
     }
 
+    private UsuarioAcesso alterarSomenteAImagem(UsuarioAcesso usuarioAcesso, String imagemPerfilUrl) {
+        usuarioAcesso.setImagemPerfilUrl(imagemPerfilUrl);
+        return repository.save(usuarioAcesso);
+    }
+
     private void verificarSePodeAlterarLoginSePuderAlterar(UsuarioAcesso usuarioAcesso, String login) {
-        repository.findByLogin(login).ifPresent(usuarioAcesso1 -> {
-            throw new ValidationException("Já existe um usuario utilizando esse Login");
+        repository.findByLogin(login).ifPresent(usuarioEncontrado -> {
+            if (!usuarioEncontrado.getId().equals(usuarioAcesso.getId()))
+                throw new ValidationException("Já existe um usuario utilizando esse Login");
         });
 
         usuarioAcesso.setLogin(login);
     }
 
     private void seAlterouSenhaCriptografar(UsuarioAcesso usuarioAcesso, String password) {
-        if (password.isEmpty())
+        if (Objects.isNull(password))
             return;
 
         usuarioAcesso.setPassword(new BCryptPasswordEncoder().encode(password));

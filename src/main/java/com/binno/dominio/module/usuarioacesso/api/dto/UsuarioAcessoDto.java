@@ -1,5 +1,6 @@
 package com.binno.dominio.module.usuarioacesso.api.dto;
 
+import com.binno.dominio.module.usuarioacesso.model.UsuarioAcesso;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,9 +27,24 @@ public final class UsuarioAcessoDto {
 
     private final String nome;
 
+    private final String sobrenome;
+
+    private final String fone;
+
     @NotNull(message = "E-mail obrigatório")
     @Length(min = 5, max = 200, message = "o comprimento do e-mail deve ser entre 5 e 200")
     private final String email;
 
     private final String photoURL;
+
+    public static UsuarioAcessoDto toDto(UsuarioAcesso usuarioAcesso) {
+        return UsuarioAcessoDto.builder()
+                .nome(usuarioAcesso.getNome())
+                .photoURL(usuarioAcesso.getImagemPerfilUrl())
+                .login(usuarioAcesso.getLogin())
+                .email(usuarioAcesso.getEmail())
+                .sobrenome(usuarioAcesso.getSobrenome())
+                .fone(usuarioAcesso.getNumero())
+                .build();
+    }
 }
