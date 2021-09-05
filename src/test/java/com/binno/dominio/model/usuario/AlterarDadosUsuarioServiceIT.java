@@ -45,6 +45,7 @@ public class AlterarDadosUsuarioServiceIT extends ApplicationConfigIT {
         ContextFactory contextFactory = new ContextFactory(tenantRepository, tokenService, usuarioAcessoRepository);
         Tenant tenant = contextFactory.umTenantSalvo();
         String login = "jucas carlos";
+        String loginDoSegundoUsuario = "joao gilberto";
         UsuarioAcesso usuarioAcesso = repository.save(UsuarioAcesso.builder()
                 .login(login)
                 .password("password")
@@ -52,13 +53,20 @@ public class AlterarDadosUsuarioServiceIT extends ApplicationConfigIT {
                 .tenant(tenant)
                 .build());
 
+        repository.save(UsuarioAcesso.builder()
+                .login(loginDoSegundoUsuario)
+                .password("password")
+                .email("email")
+                .tenant(tenant)
+                .build());
+
         AlterarUsuarioDto usuarioDto = AlterarUsuarioDto.builder()
                 .id(usuarioAcesso.getId())
-                .login(usuarioAcesso.getLogin())
+                .login(loginDoSegundoUsuario)
                 .build();
 
         Assertions.assertThrows(ValidationException.class, () -> service.executar(usuarioDto), "Já existe um usuario utilizando esse Login");
 
-        repository.delete(usuarioAcesso);
+        repository.deleteAll();
     }
 }

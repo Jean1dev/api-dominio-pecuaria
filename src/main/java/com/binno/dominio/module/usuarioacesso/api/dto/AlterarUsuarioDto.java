@@ -22,4 +22,6 @@ public class AlterarUsuarioDto {
     String sobrenome;
 
     String numero;
+
+    Boolean alterarSomenteAImagem = false;
 }
