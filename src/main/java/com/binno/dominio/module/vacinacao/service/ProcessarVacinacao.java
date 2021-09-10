@@ -44,7 +44,8 @@ public class ProcessarVacinacao implements RegraNegocioService<ProcessoVacinacao
     public ProcessoVacinacao executar(ProcessarVacinacaoDto dto) {
         Medicamento medicamento = medicamentoRepository.findById(dto.getMedicamentoId()).orElseThrow();
 
-        verificarValidadeDoMedicamente(medicamento);
+        if (!verificarValidadeDoMedicamente(medicamento))
+            return null;
 
         List<String> animaisVacinados = new ArrayList<>();
         /*
@@ -68,9 +69,12 @@ public class ProcessarVacinacao implements RegraNegocioService<ProcessoVacinacao
         return processoVacinacao;
     }
 
-    private void verificarValidadeDoMedicamente(Medicamento medicamento) {
-        if (LocalDate.now().isBefore(medicamento.getDataValidade())) {
-            throw new ValidationException("Medicamento esta com data de validade expirada");
+    private boolean verificarValidadeDoMedicamente(Medicamento medicamento) {
+        if (medicamento.getDataValidade().isBefore(LocalDate.now())) {
+            notificacao.executar("Processo de vacinação falhou por que o Medicamento esta com data de validade expirada");
+            return false;
         }
+
+        return true;
     }
 }

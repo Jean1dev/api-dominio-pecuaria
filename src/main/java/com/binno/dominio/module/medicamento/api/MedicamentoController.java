@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
+import static com.binno.dominio.module.medicamento.api.dto.MedicamentoDto.listToDto;
 import static com.binno.dominio.module.medicamento.api.dto.MedicamentoDto.pageToDto;
 
 @RestController
@@ -31,6 +34,11 @@ public class MedicamentoController {
                                                       @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
 
         return pageToDto(repository.findAllByTenantId(PageRequest.of(page, size), holder.getTenantId()));
+    }
+
+    @GetMapping(path = "listagem")
+    public List<MedicamentoDto> medicamentoList() {
+        return listToDto(repository.findAllByTenantId(holder.getTenantId()));
     }
 
     @PostMapping
