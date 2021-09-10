@@ -25,7 +25,7 @@ public class NotificacaoController {
 
     @GetMapping
     public List<NotificacaoDto> list() {
-        return listToDto(repository.findAllByTenantId(holder.getTenantId()));
+        return listToDto(repository.findAllByTenantIdOrderByIdDesc(holder.getTenantId()));
     }
 
     @GetMapping(path = "tenho-notificacoes")
