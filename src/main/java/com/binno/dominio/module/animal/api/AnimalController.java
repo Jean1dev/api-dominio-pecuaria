@@ -4,10 +4,12 @@ import com.binno.dominio.context.AuthenticationHolder;
 import com.binno.dominio.module.animal.api.dto.AnimalDto;
 import com.binno.dominio.module.animal.api.dto.CriarAnimalDto;
 import com.binno.dominio.module.animal.api.dto.ImagemAnimalDto;
+import com.binno.dominio.module.animal.api.dto.TransferirAnimalEntreFazendaDto;
 import com.binno.dominio.module.animal.repository.AnimalRepository;
 import com.binno.dominio.module.animal.service.AnimalConsultasService;
 import com.binno.dominio.module.animal.service.AssociarImagemService;
 import com.binno.dominio.module.animal.service.CriarAnimalService;
+import com.binno.dominio.module.animal.service.TransferirAnimalEntreFazendasService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,7 @@ public class AnimalController {
     private final AssociarImagemService associarImagemService;
     private final CriarAnimalService service;
     private final AnimalConsultasService consultasService;
+    private final TransferirAnimalEntreFazendasService entreFazendasService;
 
     @GetMapping(path = "total-por-sexo")
     public Map totalPorSexo(@RequestParam(value = "femea", required = false, defaultValue = "false") Boolean isFemea) {
@@ -68,6 +71,12 @@ public class AnimalController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void linkarImagem(@RequestBody ImagemAnimalDto dto) {
         associarImagemService.executar(dto);
+    }
+
+    @PostMapping(path = "transferencia-entre-fazendas")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void transferenciaDeAnimais(@RequestBody TransferirAnimalEntreFazendaDto dto) {
+        entreFazendasService.executar(dto);
     }
 
     @PostMapping

@@ -10,6 +10,7 @@ import com.binno.dominio.module.imagem.model.Imagem;
 import com.binno.dominio.module.imagem.repository.ImagemRepository;
 import com.binno.dominio.module.tenant.model.Tenant;
 import com.binno.dominio.shared.RegraNegocioService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,19 +19,16 @@ import java.util.Objects;
 
 @Service
 @Transactional
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CriarAnimalService implements RegraNegocioService<Animal, CriarAnimalDto> {
 
-    @Autowired
-    private AnimalRepository animalRepository;
+    private final AnimalRepository animalRepository;
 
-    @Autowired
-    private AuthenticationHolder holder;
+    private final AuthenticationHolder holder;
 
-    @Autowired
-    private PesoAnimalRepository pesoAnimalRepository;
+    private final PesoAnimalRepository pesoAnimalRepository;
 
-    @Autowired
-    private ImagemRepository imagemRepository;
+    private final ImagemRepository imagemRepository;
 
     @Override
     public Animal executar(CriarAnimalDto criarAnimalDto) {
@@ -77,12 +75,12 @@ public class CriarAnimalService implements RegraNegocioService<Animal, CriarAnim
         criarAnimalDto
                 .getPesos()
                 .forEach(peso -> {
-                        pesoAnimalRepository.save(PesoAnimal.builder()
-                                .id(peso.getId())
-                                .dataPesagem(peso.getDataPesagem())
-                                .peso(peso.getPeso())
-                                .animal(animal)
-                                .build());
+                    pesoAnimalRepository.save(PesoAnimal.builder()
+                            .id(peso.getId())
+                            .dataPesagem(peso.getDataPesagem())
+                            .peso(peso.getPeso())
+                            .animal(animal)
+                            .build());
                 });
     }
 }
