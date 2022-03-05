@@ -11,5 +11,7 @@ public interface AnimalRepository extends BasicRepository<Animal, Integer> {
 
     long countAllByTenantId(Integer tenant);
 
+    long countAllByTenantIdAndFazendaId(Integer integer, Integer fazendaId);
+
     List<Animal> findAllByFazendaId(Integer fazendaId);
 }

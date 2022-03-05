@@ -12,8 +12,10 @@ import com.binno.dominio.module.animal.model.RacaAnimal;
 import com.binno.dominio.module.animal.repository.AnimalRepository;
 import com.binno.dominio.module.animal.repository.PesoAnimalRepository;
 import com.binno.dominio.module.animal.service.CriarAnimalService;
+import com.binno.dominio.module.fazenda.model.Fazenda;
 import com.binno.dominio.module.imagem.model.Imagem;
 import com.binno.dominio.module.imagem.repository.ImagemRepository;
+import com.binno.dominio.module.notificacao.service.RegistrarNotificacao;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,9 @@ public class CriarAnimalServiceTest extends ApplicationConfigIT {
     @MockBean
     private AnimalRepository animalRepository;
 
+    @MockBean
+    private RegistrarNotificacao registrarNotificacao;
+
     @Test
     @DisplayName("deve criar uma animal sem peso e sem imagens")
     public void deveCriarAnimal() {
@@ -55,7 +60,9 @@ public class CriarAnimalServiceTest extends ApplicationConfigIT {
                 .estadoAtual(EstadoAtual.VAZIA)
                 .build();
 
+        Fazenda fazenda = mock(Fazenda.class);
         Animal animal = mock(Animal.class);
+        when(animal.getFazenda()).thenReturn(fazenda);
         when(animalRepository.save(any(Animal.class))).thenReturn(animal);
 
         service.executar(dto);
@@ -90,7 +97,9 @@ public class CriarAnimalServiceTest extends ApplicationConfigIT {
                 .pesos(Set.of(pesoDto))
                 .build();
 
+        Fazenda fazenda = mock(Fazenda.class);
         Animal animal = mock(Animal.class);
+        when(animal.getFazenda()).thenReturn(fazenda);
         when(animalRepository.save(any(Animal.class))).thenReturn(animal);
 
         service.executar(dto);
