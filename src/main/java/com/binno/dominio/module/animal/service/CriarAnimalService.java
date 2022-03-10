@@ -7,6 +7,7 @@ import com.binno.dominio.module.animal.model.PesoAnimal;
 import com.binno.dominio.module.animal.repository.AnimalRepository;
 import com.binno.dominio.module.animal.repository.PesoAnimalRepository;
 import com.binno.dominio.module.fazenda.model.Fazenda;
+import com.binno.dominio.module.fazenda.repository.FazendaRepository;
 import com.binno.dominio.module.imagem.model.Imagem;
 import com.binno.dominio.module.imagem.repository.ImagemRepository;
 import com.binno.dominio.module.notificacao.service.RegistrarNotificacao;
@@ -34,6 +35,8 @@ public class CriarAnimalService implements RegraNegocioService<Animal, CriarAnim
 
     private final RegistrarNotificacao registrarNotificacao;
 
+    private final FazendaRepository fazendaRepository;
+
     @Override
     public Animal executar(CriarAnimalDto criarAnimalDto) {
         Animal animal = animalRepository.save(Animal.builder()
@@ -59,6 +62,10 @@ public class CriarAnimalService implements RegraNegocioService<Animal, CriarAnim
     }
 
     private void verificarCapacidadeFazenda(Fazenda fazenda) {
+        if (Objects.isNull(fazenda.getNome())) {
+            fazenda = fazendaRepository.findById(fazenda.getId()).orElseThrow();
+        }
+
         if (Objects.isNull(fazenda.getCapMaximaGado())) {
             registrarNotificacao.executar("A fazenda " + fazenda.getNome() + " não tem a capacidade maxima de gado preenchida");
             return;

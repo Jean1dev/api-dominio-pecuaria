@@ -13,6 +13,7 @@ import com.binno.dominio.module.animal.repository.AnimalRepository;
 import com.binno.dominio.module.animal.repository.PesoAnimalRepository;
 import com.binno.dominio.module.animal.service.CriarAnimalService;
 import com.binno.dominio.module.fazenda.model.Fazenda;
+import com.binno.dominio.module.fazenda.repository.FazendaRepository;
 import com.binno.dominio.module.imagem.model.Imagem;
 import com.binno.dominio.module.imagem.repository.ImagemRepository;
 import com.binno.dominio.module.notificacao.service.RegistrarNotificacao;
@@ -48,6 +49,9 @@ public class CriarAnimalServiceTest extends ApplicationConfigIT {
     @MockBean
     private RegistrarNotificacao registrarNotificacao;
 
+    @MockBean
+    private FazendaRepository fazendaRepository;
+
     @Test
     @DisplayName("deve criar uma animal sem peso e sem imagens")
     public void deveCriarAnimal() {
@@ -61,6 +65,7 @@ public class CriarAnimalServiceTest extends ApplicationConfigIT {
                 .build();
 
         Fazenda fazenda = mock(Fazenda.class);
+        when(fazenda.getNome()).thenReturn("fazenda");
         Animal animal = mock(Animal.class);
         when(animal.getFazenda()).thenReturn(fazenda);
         when(animalRepository.save(any(Animal.class))).thenReturn(animal);
@@ -98,6 +103,7 @@ public class CriarAnimalServiceTest extends ApplicationConfigIT {
                 .build();
 
         Fazenda fazenda = mock(Fazenda.class);
+        when(fazenda.getNome()).thenReturn("fazenda");
         Animal animal = mock(Animal.class);
         when(animal.getFazenda()).thenReturn(fazenda);
         when(animalRepository.save(any(Animal.class))).thenReturn(animal);
