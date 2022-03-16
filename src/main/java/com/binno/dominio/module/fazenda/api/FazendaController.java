@@ -3,8 +3,10 @@ package com.binno.dominio.module.fazenda.api;
 import com.binno.dominio.context.AuthenticationHolder;
 import com.binno.dominio.module.fazenda.api.dto.FazendaAgregadaDto;
 import com.binno.dominio.module.fazenda.api.dto.FazendaDto;
+import com.binno.dominio.module.fazenda.api.dto.QuantidadeAnimalPorFazendaDto;
 import com.binno.dominio.module.fazenda.model.Fazenda;
 import com.binno.dominio.module.fazenda.repository.FazendaRepository;
+import com.binno.dominio.module.fazenda.service.QuantidadeAnimaisPorFazendaService;
 import com.binno.dominio.module.tenant.model.Tenant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +20,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 import static com.binno.dominio.module.fazenda.api.dto.FazendaAgregadaDto.listToDtoAgregado;
-import static com.binno.dominio.module.fazenda.api.dto.FazendaDto.toDto;
 import static com.binno.dominio.module.fazenda.api.dto.FazendaDto.pageToDto;
+import static com.binno.dominio.module.fazenda.api.dto.FazendaDto.toDto;
 import static com.binno.dominio.module.fazenda.specification.FazendaSpecification.nome;
 import static com.binno.dominio.module.fazenda.specification.FazendaSpecification.tenant;
 
@@ -34,6 +36,13 @@ public class FazendaController {
     private final FazendaRepository repository;
 
     private final AuthenticationHolder holder;
+
+    private final QuantidadeAnimaisPorFazendaService quantidadeAnimaisPorFazendaService;
+
+    @GetMapping(path = "total-animais-por-fazenda")
+    public List<QuantidadeAnimalPorFazendaDto> totalAnimaisPorFazenda() {
+        return quantidadeAnimaisPorFazendaService.gerarConsulta();
+    }
 
     @GetMapping(path = "listagem")
     public List<FazendaAgregadaDto> listagemSimplificada() {
