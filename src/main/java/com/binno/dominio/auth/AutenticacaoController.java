@@ -3,6 +3,7 @@ package com.binno.dominio.auth;
 import com.binno.dominio.auth.dto.LoginDto;
 import com.binno.dominio.auth.dto.LoginGoogleDto;
 import com.binno.dominio.auth.dto.TokenDto;
+import com.binno.dominio.module.tenant.service.RegistrarAcesso;
 import com.binno.dominio.module.usuarioacesso.api.dto.UsuarioAcessoDto;
 import com.binno.dominio.module.usuarioacesso.service.UsuarioAcessoService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,8 @@ public class AutenticacaoController {
 
     private final UsuarioAcessoService usuarioAcessoService;
 
+    private final RegistrarAcesso registrarAcesso;
+
     @PostMapping
     public ResponseEntity<TokenDto> autenticar(@RequestBody LoginDto form) {
         UsernamePasswordAuthenticationToken dadosLogin = form.converter();
@@ -54,6 +57,7 @@ public class AutenticacaoController {
         try {
             Authentication authentication = manager.authenticate(dadosLogin);
             String token = tokenService.gerarToken(authentication);
+            registrarAcesso.executar(dadosLogin.getName());
             return ResponseEntity.ok(new TokenDto(token, "Bearer", (UsuarioAutenticado) authentication.getPrincipal()));
         } catch (AuthenticationException e) {
             return ResponseEntity.badRequest().build();
