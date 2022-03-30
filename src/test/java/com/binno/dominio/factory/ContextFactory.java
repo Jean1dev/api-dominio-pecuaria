@@ -72,4 +72,8 @@ public class ContextFactory {
     public UsuarioAutenticado getUsuarioAutenticado() {
         return usuario;
     }
+
+    public Tenant getTenant() {
+        return tenant;
+    }
 }

@@ -1,5 +1,6 @@
 package com.binno.dominio.module.tenant.service;
 
+import com.binno.dominio.auth.UsuarioAutenticado;
 import com.binno.dominio.context.AuthenticationHolder;
 import com.binno.dominio.module.tenant.model.Acessos;
 import com.binno.dominio.module.tenant.model.Tenant;
@@ -13,18 +14,18 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class RegistrarAcesso implements RegraNegocioService<Acessos, String> {
+public class RegistrarAcesso implements RegraNegocioService<Acessos, UsuarioAutenticado> {
 
     private final AcessoRepository repository;
 
     private final AuthenticationHolder holder;
 
     @Override
-    public Acessos executar(String login) {
+    public Acessos executar(UsuarioAutenticado usuarioAutenticado) {
         return repository.save(Acessos.builder()
                 .dataHoraAcesso(LocalDateTime.now())
-                .login(login)
-                .tenant(Tenant.of(holder.getTenantId()))
+                .login(usuarioAutenticado.getLogin())
+                .tenant(Tenant.of(usuarioAutenticado.getTenantId()))
                 .build());
     }
 }

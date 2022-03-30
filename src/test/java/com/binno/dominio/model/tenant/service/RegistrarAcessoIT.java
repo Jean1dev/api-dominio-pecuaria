@@ -2,6 +2,7 @@ package com.binno.dominio.model.tenant.service;
 
 import com.binno.dominio.ApplicationConfigIT;
 import com.binno.dominio.auth.TokenService;
+import com.binno.dominio.auth.UsuarioAutenticado;
 import com.binno.dominio.context.AuthenticationHolder;
 import com.binno.dominio.factory.ContextFactory;
 import com.binno.dominio.module.tenant.model.Acessos;
@@ -39,7 +40,9 @@ public class RegistrarAcessoIT extends ApplicationConfigIT {
         Tenant tenant = contextFactory.umTenantSalvo();
         holder.setTenantId(tenant.getId());
         String login = "um-login-qualquer";
-        Acessos acesso = registrarAcesso.executar(login);
+        UsuarioAutenticado usuarioAutenticado = contextFactory.getUsuarioAutenticado();
+        usuarioAutenticado.setLogin(login);
+        Acessos acesso = registrarAcesso.executar(usuarioAutenticado);
         Assertions.assertNotNull(acesso);
         Assertions.assertEquals(login, acesso.getLogin());
         Assertions.assertNotNull(acesso.getDataHoraAcesso());

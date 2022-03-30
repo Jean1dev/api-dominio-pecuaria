@@ -19,10 +19,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.List;
 import java.util.UUID;
 
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @DisplayName("usuario acesso Api")
@@ -44,6 +49,54 @@ public class UsuarioApiIT extends ApplicationConfigIT {
 
     @Autowired
     private UsuarioAcessoRepository repository;
+
+    @Test
+    @DisplayName("deve buscar meus usuarios")
+    public void deveBuscarMeusUsuarios() throws Exception {
+        ContextFactory contextFactory = new ContextFactory(tenantRepository, tokenService, usuarioAcessoRepository);
+        String token = contextFactory.gerarToken();
+        UsuarioAutenticado usuarioAutenticado = contextFactory.getUsuarioAutenticado();
+
+        UsuarioAcesso usuarioAcesso = repository.findByLogin(usuarioAutenticado.getLogin()).orElseThrow();
+        String login = usuarioAcesso.getLogin();
+
+        ResultActions resultActions = mockMvc.perform(request(HttpMethod.GET, PATH + "/meus-usuarios")
+                        .header("authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        resultActions
+                .andExpect(jsonPath("$.content.length()", is(1)))
+                .andExpect(jsonPath("$.content..login", hasItems(List.of(login).toArray())));
+    }
+
+    @Test
+    @DisplayName("deve criar um usuario para o mesmo tenant")
+    public void deveCriarUsuarioParaMesmoTenat() throws Exception {
+        ContextFactory contextFactory = new ContextFactory(tenantRepository, tokenService, usuarioAcessoRepository);
+        String token = contextFactory.gerarToken();
+        UsuarioAutenticado usuarioAutenticado = contextFactory.getUsuarioAutenticado();
+
+        UsuarioAcesso usuarioAcesso = repository.findByLogin(usuarioAutenticado.getLogin()).orElseThrow();
+
+        String login = UUID.randomUUID().toString() + "login-de-teste";
+        UsuarioAcessoDto roger = UsuarioAcessoDto.builder()
+                .login(login)
+                .password("roger")
+                .email("roger@gmail.com")
+                .build();
+
+        mockMvc.perform(request(HttpMethod.POST, PATH + "/criar-para-tenant-existente")
+                        .header("authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.objectToJson(roger)))
+                .andExpect(status().isAccepted());
+
+        List<UsuarioAcesso> usuarioAcessos = repository.findAllByTenantId(contextFactory.getTenant().getId());
+        Assertions.assertEquals(2, usuarioAcessos.size());
+        UsuarioAcesso rogerEncontrado = usuarioAcessos.stream().filter(acesso -> acesso.getLogin().equals(login)).findFirst().orElseThrow();
+        Assertions.assertNotNull(rogerEncontrado);
+    }
 
     @Test
     @DisplayName("deve criar um usuario")

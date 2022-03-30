@@ -15,10 +15,8 @@ public class TenantInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        Integer tenant = getTenant(request);
-        Integer userAccess = getUserAccess(request);
-        holder.setTenantId(tenant);
-        holder.setUserAccess(userAccess);
+        holder.setTenantId(getTenant(request));
+        holder.setUserAccess(getUserAccess(request));
         return true;
     }
 

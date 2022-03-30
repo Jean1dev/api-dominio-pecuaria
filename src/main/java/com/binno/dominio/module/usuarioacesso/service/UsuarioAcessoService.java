@@ -4,12 +4,15 @@ import com.binno.dominio.context.AuthenticationHolder;
 import com.binno.dominio.module.tenant.model.Tenant;
 import com.binno.dominio.module.tenant.repository.TenantRepository;
 import com.binno.dominio.module.usuarioacesso.api.dto.UsuarioAcessoDto;
+import com.binno.dominio.module.usuarioacesso.api.dto.UsuarioTenantDto;
 import com.binno.dominio.module.usuarioacesso.model.UsuarioAcesso;
 import com.binno.dominio.module.usuarioacesso.repository.UsuarioAcessoRepository;
 import com.binno.dominio.provider.mail.MailProvider;
 import com.binno.dominio.provider.mail.SendEmailPayload;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +39,18 @@ public class UsuarioAcessoService {
         if (usuarioAcesso.isEmpty()) {
             criar(dto);
         }
+    }
+
+    public void criarUsuarioAcessoParaTenantExistente(UsuarioAcessoDto dto) {
+        criar(UsuarioAcessoDto.builder()
+                .tenant(holder.getTenantId())
+                .fone(dto.getFone())
+                .sobrenome(dto.getSobrenome())
+                .email(dto.getEmail())
+                .login(dto.getLogin())
+                .photoURL(dto.getPhotoURL())
+                .password(dto.getPassword())
+                .build());
     }
 
     public void criar(UsuarioAcessoDto dto) {
@@ -71,5 +86,9 @@ public class UsuarioAcessoService {
                 .imagemPerfilUrl(dto.getPhotoURL())
                 .ativo(true)
                 .build();
+    }
+
+    public Page<UsuarioTenantDto> meusUsuarios(PageRequest pageRequest) {
+        return UsuarioTenantDto.pageToDto(repository.findAllByTenantId(pageRequest, holder.getTenantId()));
     }
 }
