@@ -44,6 +44,7 @@ public class RegistrarAcessoIT extends ApplicationConfigIT {
         String login = UUID.randomUUID().toString();
         UsuarioAutenticado usuarioAutenticado = new UsuarioAutenticado();
         usuarioAutenticado.setLogin(login);
+        usuarioAutenticado.setTenantId(tenant.getId());
         Acessos acesso = registrarAcesso.executar(usuarioAutenticado);
         Assertions.assertNotNull(acesso);
         Assertions.assertEquals(login, acesso.getLogin());

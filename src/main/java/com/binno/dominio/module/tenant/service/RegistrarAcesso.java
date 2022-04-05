@@ -25,7 +25,7 @@ public class RegistrarAcesso implements RegraNegocioService<Acessos, UsuarioAute
         return repository.save(Acessos.builder()
                 .dataHoraAcesso(LocalDateTime.now())
                 .login(usuarioAutenticado.getLogin())
-                .tenant(Tenant.of(holder.getTenantId()))
+                .tenant(Tenant.of(usuarioAutenticado.getTenantId()))
                 .build());
     }
 }
