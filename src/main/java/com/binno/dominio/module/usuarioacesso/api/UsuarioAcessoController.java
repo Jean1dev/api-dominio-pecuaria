@@ -1,5 +1,6 @@
 package com.binno.dominio.module.usuarioacesso.api;
 
+import com.binno.dominio.module.usuarioacesso.api.dto.AlterarSenhaDto;
 import com.binno.dominio.module.usuarioacesso.api.dto.AlterarUsuarioDto;
 import com.binno.dominio.module.usuarioacesso.api.dto.UsuarioAcessoDto;
 import com.binno.dominio.module.usuarioacesso.api.dto.UsuarioTenantDto;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -41,6 +43,15 @@ public class UsuarioAcessoController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void criarUsuarioAcessoParaTenantExistente(@RequestBody @Valid UsuarioAcessoDto dto) {
         service.criarUsuarioAcessoParaTenantExistente(dto);
+    }
+
+    @PostMapping(path = "alterar-senha")
+    public ResponseEntity<String> alterarSenha(@RequestBody @Valid AlterarSenhaDto dto) {
+        if (!service.alterarSenha(dto.getChave(), dto.getNovaSenha())) {
+            return ResponseEntity.badRequest().body("Tempo de alteração de senha expirado");
+        }
+
+        return ResponseEntity.ok("Alterado com sucesso");
     }
 
     @PostMapping(path = "criar")

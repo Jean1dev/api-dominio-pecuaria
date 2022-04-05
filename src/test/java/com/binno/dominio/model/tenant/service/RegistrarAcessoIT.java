@@ -15,6 +15,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.UUID;
+
 @DisplayName("Registrar Acessos Test")
 public class RegistrarAcessoIT extends ApplicationConfigIT {
 
@@ -39,8 +41,8 @@ public class RegistrarAcessoIT extends ApplicationConfigIT {
         ContextFactory contextFactory = new ContextFactory(tenantRepository, tokenService, usuarioAcessoRepository);
         Tenant tenant = contextFactory.umTenantSalvo();
         holder.setTenantId(tenant.getId());
-        String login = "um-login-qualquer";
-        UsuarioAutenticado usuarioAutenticado = contextFactory.getUsuarioAutenticado();
+        String login = UUID.randomUUID().toString();
+        UsuarioAutenticado usuarioAutenticado = new UsuarioAutenticado();
         usuarioAutenticado.setLogin(login);
         Acessos acesso = registrarAcesso.executar(usuarioAutenticado);
         Assertions.assertNotNull(acesso);

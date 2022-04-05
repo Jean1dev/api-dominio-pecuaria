@@ -27,6 +27,10 @@ public class Acessos {
     @NotEmpty
     private String login;
 
+    private String ip;
+
+    private String dispositivo;
+
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant", referencedColumnName = "id")

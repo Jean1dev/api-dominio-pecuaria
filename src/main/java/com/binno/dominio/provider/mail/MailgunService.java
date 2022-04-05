@@ -22,6 +22,8 @@ public class MailgunService implements MailProvider {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MailgunService.class);
 
+    private Boolean jaAdicionadoKeyNoRestTemplate = false;
+
     @Value("${spring.profiles.active}")
     private String activeProfile;
 
@@ -44,7 +46,10 @@ public class MailgunService implements MailProvider {
                 .build()
                 .toUriString();
 
-        restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor("api", apiKey));
+        if (!jaAdicionadoKeyNoRestTemplate) {
+            restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor("api", apiKey));
+            jaAdicionadoKeyNoRestTemplate = true;
+        }
 
         LinkedMultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("from", payload.getFrom());

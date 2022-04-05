@@ -29,6 +29,8 @@ public class UsuarioAcesso {
 
     private Boolean ativo = true;
 
+    private Boolean contaValidada = true;
+
     private String imagemPerfilUrl;
 
     private String sobrenome;

@@ -23,7 +23,7 @@ public class AssociarImagemService implements RegraNegocioService<Animal, Imagem
     @Override
     public Animal executar(ImagemAnimalDto dto) {
         Animal animal = animalRepository.findById(dto.getAnimalId()).orElseThrow();
-        Imagem imagem = imagemRepository.save(Imagem.builder()
+        imagemRepository.save(Imagem.builder()
                 .url(dto.getImagemUrl())
                 .referenciaAnimal(animal)
                 .build());
