@@ -19,6 +19,7 @@ public class UsuarioTenantDto {
 
     private final String login;
     private final String email;
+    private final String imagemUrl;
 
     public static Page<UsuarioTenantDto> pageToDto(Page<UsuarioAcesso> page) {
         List<UsuarioTenantDto> dtos = listToDto(page.getContent());
@@ -33,6 +34,7 @@ public class UsuarioTenantDto {
         return UsuarioTenantDto.builder()
                 .email(usuarioAcesso.getEmail())
                 .login(usuarioAcesso.getLogin())
+                .imagemUrl(usuarioAcesso.getImagemPerfilUrl())
                 .build();
     }
 }
