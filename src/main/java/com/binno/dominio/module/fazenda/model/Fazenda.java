@@ -41,4 +41,7 @@ public class Fazenda {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant", referencedColumnName = "id")
     private Tenant tenant;
+
+    @Transient
+    private Boolean balanceada = false;
 }
