@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,6 +41,7 @@ public class RebalanceamentoAnimaisNasFazendasService {
     public void balancear() {
         List<Fazenda> fazendas = fazendaRepository.findAllByTenantId(holder.getTenantId());
         List<Fazenda> fazendasComCapacidadesEstourada = fazendas.stream()
+                .filter(RebalanceamentoAnimaisNasFazendasService::fazendaValida)
                 .filter(fazenda -> fazenda.getAnimais().size() > fazenda.getCapMaximaGado())
                 .collect(Collectors.toList());
 
@@ -49,6 +51,7 @@ public class RebalanceamentoAnimaisNasFazendasService {
         }
 
         List<Fazenda> fazendasDisponiveis = fazendas.stream()
+                .filter(RebalanceamentoAnimaisNasFazendasService::fazendaValida)
                 .filter(fazenda -> fazenda.getCapMaximaGado() > fazenda.getAnimais().size())
                 .collect(Collectors.toList());
 
@@ -63,6 +66,10 @@ public class RebalanceamentoAnimaisNasFazendasService {
         });
 
         registrarNotificacao.executar("Balanceamento finalizado");
+    }
+
+    private static boolean fazendaValida(Fazenda fazenda) {
+        return !Objects.isNull(fazenda.getCapMaximaGado());
     }
 
     private void levarAnimaisParaOutraFazenda(int quantidadeAnimaisExcedentes, Fazenda fazenda, List<Fazenda> fazendasDisponiveis) {
