@@ -7,6 +7,7 @@ import com.binno.dominio.module.usuarioacesso.api.dto.UsuarioTenantDto;
 import com.binno.dominio.module.usuarioacesso.repository.UsuarioAcessoRepository;
 import com.binno.dominio.module.usuarioacesso.service.AlterarDadosUsuarioService;
 import com.binno.dominio.module.usuarioacesso.service.UsuarioAcessoService;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,6 +53,13 @@ public class UsuarioAcessoController {
         }
 
         return ResponseEntity.ok("Alterado com sucesso");
+    }
+
+    @PostMapping(path = "solicitar-alteracao-senha")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void solicitarAlteracaoSenha(@RequestBody JsonNode body) {
+        String login = body.get("login").asText();
+        service.solicitarAlteracaoSenha(login);
     }
 
     @PostMapping(path = "criar")

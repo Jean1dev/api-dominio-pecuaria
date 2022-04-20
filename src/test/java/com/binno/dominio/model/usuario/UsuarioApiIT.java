@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -71,6 +72,34 @@ public class UsuarioApiIT extends ApplicationConfigIT {
     }
 
     @Test
+    @DisplayName("deve solicitar alteracao de senha para um usuario criado")
+    public void deveSolicitarAlteracaoDeSenha() throws Exception {
+        ContextFactory contextFactory = new ContextFactory(tenantRepository, tokenService, usuarioAcessoRepository);
+        String token = contextFactory.gerarToken();
+        UsuarioAutenticado usuarioAutenticado = contextFactory.getUsuarioAutenticado();
+        String login = UUID.randomUUID().toString();
+        UsuarioAcessoDto roger = UsuarioAcessoDto.builder()
+                .login(login)
+                .password("roger")
+                .email("roger_@gmail.com")
+                .build();
+
+        mockMvc.perform(request(HttpMethod.POST, PATH + "/criar-para-tenant-existente")
+                        .header("authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.objectToJson(roger)))
+                .andExpect(status().isAccepted());
+
+        Map<String, String> payload = Map.of("login", roger.getLogin());
+
+        mockMvc.perform(request(HttpMethod.POST, PATH + "/solicitar-alteracao-senha")
+                        .header("authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.objectToJson(payload)))
+                .andExpect(status().isAccepted());
+    }
+
+    @Test
     @DisplayName("deve criar um usuario para o mesmo tenant")
     public void deveCriarUsuarioParaMesmoTenat() throws Exception {
         ContextFactory contextFactory = new ContextFactory(tenantRepository, tokenService, usuarioAcessoRepository);
@@ -79,7 +108,7 @@ public class UsuarioApiIT extends ApplicationConfigIT {
 
         UsuarioAcesso usuarioAcesso = repository.findByLogin(usuarioAutenticado.getLogin()).orElseThrow();
 
-        String login = UUID.randomUUID().toString() + "login-de-teste";
+        String login = UUID.randomUUID() + "login-de-teste";
         UsuarioAcessoDto roger = UsuarioAcessoDto.builder()
                 .login(login)
                 .password("roger")
@@ -104,7 +133,7 @@ public class UsuarioApiIT extends ApplicationConfigIT {
         ContextFactory contextFactory = new ContextFactory(tenantRepository, tokenService, usuarioAcessoRepository);
         Tenant tenant = contextFactory.umTenantSalvo();
 
-        String login = UUID.randomUUID().toString() + "login-de-teste";
+        String login = UUID.randomUUID() + "login-de-teste";
         UsuarioAcessoDto juqinha = UsuarioAcessoDto.builder()
                 .login(login)
                 .password("juqinha")

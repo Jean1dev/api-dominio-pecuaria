@@ -62,6 +62,13 @@ public class UsuarioAcessoService {
         enviarEmailSolicitandoQueUsuarioAltereSuaSenha(dto.getEmail(), dto.getLogin());
     }
 
+    @Transactional(Transactional.TxType.NOT_SUPPORTED)
+    public void solicitarAlteracaoSenha(String login) {
+        UsuarioAcesso usuarioAcesso = repository.findByLogin(login).orElseThrow();
+        alteracaoSenhaRepository.findByLogin(login).ifPresent(alteracaoSenhaRepository::delete);
+        enviarEmailSolicitandoQueUsuarioAltereSuaSenha(usuarioAcesso.getEmail(), usuarioAcesso.getLogin());
+    }
+
     private void enviarEmailSolicitandoQueUsuarioAltereSuaSenha(String email, String login) {
         UUID chave = UUID.randomUUID();
         AlteracaoSenha alteracaoSenha = alteracaoSenhaRepository.save(AlteracaoSenha.builder()
@@ -146,4 +153,5 @@ public class UsuarioAcessoService {
         alteracaoSenhaRepository.delete(alteracaoSenha);
         return true;
     }
+
 }

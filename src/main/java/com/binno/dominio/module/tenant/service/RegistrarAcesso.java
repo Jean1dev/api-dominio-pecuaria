@@ -26,6 +26,8 @@ public class RegistrarAcesso implements RegraNegocioService<Acessos, UsuarioAute
                 .dataHoraAcesso(LocalDateTime.now())
                 .login(usuarioAutenticado.getLogin())
                 .tenant(Tenant.of(usuarioAutenticado.getTenantId()))
+                .dispositivo(holder.getDispositivo())
+                .ip(holder.getIp())
                 .build());
     }
 }

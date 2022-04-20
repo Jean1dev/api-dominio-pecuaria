@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface AlteracaoSenhaRepository extends JpaRepository<AlteracaoSenha, Integer> {
 
     Optional<AlteracaoSenha> findByChave(String chave);
+
+    Optional<AlteracaoSenha> findByLogin(String login);
 }

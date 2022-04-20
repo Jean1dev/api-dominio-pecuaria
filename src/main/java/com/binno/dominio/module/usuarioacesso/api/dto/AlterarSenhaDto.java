@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class AlterarSenhaDto {
+public final class AlterarSenhaDto {
 
     @NotNull
     private String novaSenha;

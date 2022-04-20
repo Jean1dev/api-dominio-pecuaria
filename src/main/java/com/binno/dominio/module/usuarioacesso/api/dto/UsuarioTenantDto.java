@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Getter
 @AllArgsConstructor
 @Builder
-public class UsuarioTenantDto {
+public final class UsuarioTenantDto {
 
     private final String login;
     private final String email;

@@ -17,6 +17,8 @@ public class TenantInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         holder.setTenantId(getTenant(request));
         holder.setUserAccess(getUserAccess(request));
+        holder.setDispositivo(request.getHeader("dispositivo"));
+        holder.setIp(request.getRemoteHost());
         return true;
     }
 
