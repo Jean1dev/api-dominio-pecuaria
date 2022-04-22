@@ -35,6 +35,9 @@ public class Prontuario {
     @Column(name = "lista_processos_vacinacao")
     private String vacinacaoSeparadoPorVirgula;
 
+    @Column(name = "lista_parecer_veterinario")
+    private String parecerVeterinarioSeparadoPorVirgula;
+
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant", referencedColumnName = "id")

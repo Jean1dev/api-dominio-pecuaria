@@ -3,6 +3,8 @@ package com.binno.dominio.shared.api;
 import com.binno.dominio.module.animal.model.EstadoAtual;
 import com.binno.dominio.module.animal.model.RacaAnimal;
 import com.binno.dominio.module.fazenda.model.TipoMetragem;
+import com.binno.dominio.module.veterinaria.model.PeriodoDia;
+import com.binno.dominio.module.veterinaria.model.StatusAgendamento;
 import com.binno.dominio.shared.EnumApplication;
 import com.binno.dominio.shared.api.dto.KeyAndValueDto;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,9 @@ public class EnumController {
         return Map.of(
                 EstadoAtual.class.getSimpleName(), criarListaDoEnum(EstadoAtual.values()),
                 RacaAnimal.class.getSimpleName(), criarListaDoEnum(RacaAnimal.values()),
-                TipoMetragem.class.getSimpleName(), criarListaDoEnum(TipoMetragem.values())
+                TipoMetragem.class.getSimpleName(), criarListaDoEnum(TipoMetragem.values()),
+                PeriodoDia.class.getSimpleName(), criarListaDoEnum(PeriodoDia.values()),
+                StatusAgendamento.class.getSimpleName(), criarListaDoEnum(StatusAgendamento.values())
         );
     }
 
