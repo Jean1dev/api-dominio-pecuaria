@@ -12,7 +12,7 @@ public class OncePerDayJobsExecutor {
 
     private final ApplicationJobs jobs;
 
-    @Scheduled(cron = "* 00 14 * * *")
+    @Scheduled(cron = "00 03 14 * * *")
     public void onExecute() {
         jobs.getJobs().forEach(IApplicationJobExecutor::run);
     }
