@@ -1,6 +1,7 @@
 package com.binno.dominio.module.medicamento.model;
 
 import com.binno.dominio.module.tenant.model.Tenant;
+import com.binno.dominio.module.veterinaria.model.AgendamentoVeterinario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -25,6 +27,9 @@ public class Medicamento {
     private String nome;
     private String descricao;
     private LocalDate dataValidade;
+
+    @ManyToMany(mappedBy = "medicamentos", fetch = FetchType.LAZY)
+    private Set<AgendamentoVeterinario> agendamentos;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
