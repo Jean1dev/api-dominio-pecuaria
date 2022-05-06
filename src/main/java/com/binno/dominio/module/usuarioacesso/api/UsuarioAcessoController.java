@@ -8,6 +8,7 @@ import com.binno.dominio.module.usuarioacesso.repository.UsuarioAcessoRepository
 import com.binno.dominio.module.usuarioacesso.service.AlterarDadosUsuarioService;
 import com.binno.dominio.module.usuarioacesso.service.UsuarioAcessoService;
 import com.fasterxml.jackson.databind.JsonNode;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,6 +35,7 @@ public class UsuarioAcessoController {
     private final UsuarioAcessoRepository repository;
 
     @GetMapping(path = "meus-usuarios")
+    @ApiOperation("Retorna a lista de usuarios do tenant")
     public Page<UsuarioTenantDto> meusUsuarios(
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
@@ -41,12 +43,14 @@ public class UsuarioAcessoController {
     }
 
     @PostMapping(path = "criar-para-tenant-existente")
+    @ApiOperation("Cria um novo usuario para o tenant existente")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void criarUsuarioAcessoParaTenantExistente(@RequestBody @Valid UsuarioAcessoDto dto) {
         service.criarUsuarioAcessoParaTenantExistente(dto);
     }
 
     @PostMapping(path = "alterar-senha")
+    @ApiOperation("Alterar senha")
     public ResponseEntity<String> alterarSenha(@RequestBody @Valid AlterarSenhaDto dto) {
         if (!service.alterarSenha(dto.getChave(), dto.getNovaSenha())) {
             return ResponseEntity.badRequest().body("Tempo de alteração de senha expirado");
@@ -57,12 +61,14 @@ public class UsuarioAcessoController {
 
     @PostMapping(path = "solicitar-alteracao-senha")
     @ResponseStatus(HttpStatus.ACCEPTED)
+    @ApiOperation("Solicitar alteracao de senha")
     public void solicitarAlteracaoSenha(@RequestBody JsonNode body) {
         String login = body.get("login").asText();
         service.solicitarAlteracaoSenha(login);
     }
 
     @PostMapping(path = "criar")
+    @ApiOperation("Cria um novo usuario")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void criarUsuarioAcesso(@RequestBody @Valid UsuarioAcessoDto dto) {
         service.criar(dto);
@@ -70,11 +76,13 @@ public class UsuarioAcessoController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
+    @ApiOperation("Alterar usuario")
     public void alterarUsuario(@RequestBody AlterarUsuarioDto dto) {
         alterarDadosUsuarioService.executar(dto);
     }
 
     @GetMapping
+    @ApiOperation("Retorna informações do usuario logado")
     public UsuarioAcessoDto getInformacoesUsuario(@RequestParam(value = "usuarioId") Integer id) {
         return toDto(repository.findById(id).orElseThrow());
     }

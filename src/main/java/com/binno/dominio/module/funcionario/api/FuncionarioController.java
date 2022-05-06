@@ -6,6 +6,7 @@ import com.binno.dominio.module.funcionario.api.dto.FuncionarioDto;
 import com.binno.dominio.module.funcionario.model.Funcionario;
 import com.binno.dominio.module.funcionario.repository.FuncionarioRepository;
 import com.binno.dominio.module.tenant.model.Tenant;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class FuncionarioController {
     }
 
     @PostMapping
+    @ApiOperation("Criar um funcionario")
     public Funcionario create(@RequestBody @Valid FuncionarioDto funcionarioDto) {
         return repository.save(Funcionario.builder()
                 .nome(funcionarioDto.getNome())
@@ -59,6 +61,7 @@ public class FuncionarioController {
     }
 
     @PutMapping
+    @ApiOperation("Atualizar Funcionario")
     public Funcionario update(@RequestBody @Valid FuncionarioDto funcionarioDto) {
         repository.findById(funcionarioDto.getId()).orElseThrow();
         return repository.save(Funcionario.builder()
@@ -73,6 +76,7 @@ public class FuncionarioController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation("Excluir funcionario")
     public void delete(@PathVariable("id") Integer id) {
         repository.deleteById(id);
     }

@@ -37,6 +37,7 @@ public class AgendamentoVeterinario {
 
     private String observacoesVeterinario;
 
+    @Enumerated(EnumType.ORDINAL)
     private StatusAgendamento statusAgendamento;
 
     @JsonIgnore
