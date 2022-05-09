@@ -24,4 +24,11 @@ public class RegistrarNotificacao implements RegraNegocioService<Notificacao, St
                 .tenant(Tenant.of(holder.getTenantId()))
                 .build());
     }
+
+    public Notificacao executar(String descricao, Integer tenantId) {
+        return repository.save(Notificacao.builder()
+                .descricao(descricao)
+                .tenant(Tenant.of(tenantId))
+                .build());
+    }
 }

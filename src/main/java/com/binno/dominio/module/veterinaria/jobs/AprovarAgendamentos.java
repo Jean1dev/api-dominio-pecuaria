@@ -1,5 +1,7 @@
 package com.binno.dominio.module.veterinaria.jobs;
 
+import com.binno.dominio.module.notificacao.service.RegistrarNotificacao;
+import com.binno.dominio.module.tenant.model.Tenant;
 import com.binno.dominio.module.veterinaria.model.AgendamentoVeterinario;
 import com.binno.dominio.module.veterinaria.model.StatusAgendamento;
 import com.binno.dominio.module.veterinaria.repository.AgendamentoVeterinarioRepository;
@@ -20,10 +22,12 @@ public class AprovarAgendamentos extends ApplicationJobExecutor {
     private static final Logger LOGGER = LoggerFactory.getLogger(AprovarAgendamentos.class);
 
     private final AgendamentoVeterinarioRepository repository;
+    private final RegistrarNotificacao registrarNotificacao;
 
-    public AprovarAgendamentos(ApplicationJobs applicationJobs, AgendamentoVeterinarioRepository repository) {
+    public AprovarAgendamentos(ApplicationJobs applicationJobs, AgendamentoVeterinarioRepository repository, RegistrarNotificacao registrarNotificacao) {
         super(applicationJobs);
         this.repository = repository;
+        this.registrarNotificacao = registrarNotificacao;
     }
 
     @Override
@@ -36,5 +40,14 @@ public class AprovarAgendamentos extends ApplicationJobExecutor {
 
         LOGGER.info("Quantidade de registros a ser modificada " + collect.size());
         repository.saveAll(collect);
+        enviarNotificacaoes(collect);
+    }
+
+    private void enviarNotificacaoes(List<AgendamentoVeterinario> collect) {
+        collect.stream()
+                .map(AgendamentoVeterinario::getTenant)
+                .map(Tenant::getId)
+                .distinct()
+                .forEach(tenantId -> registrarNotificacao.executar("Seus agendamentos foram aprovados", tenantId));
     }
 }
