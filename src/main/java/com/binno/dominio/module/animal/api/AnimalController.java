@@ -10,11 +10,11 @@ import com.binno.dominio.module.animal.service.AnimalConsultasService;
 import com.binno.dominio.module.animal.service.AssociarImagemService;
 import com.binno.dominio.module.animal.service.CriarAnimalService;
 import com.binno.dominio.module.animal.service.TransferirAnimalEntreFazendasService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,15 +60,17 @@ public class AnimalController {
     }
 
     @GetMapping
+    @ApiOperation("Listagem de animais pageado e com filtros")
     public Page<AnimalDto> animaisPaginated(
             GetAllAnimalFilterRequest filter,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
-        return pageToDto(repository.findAll(filter.buildSpecification(holder.getTenantId()), PageRequest.of(page, size)));
+        return pageToDto(repository.findAll(filter.buildSpecification(holder.getTenantId()), filter.buildSortAndPageable(page, size)));
     }
 
     @PostMapping(path = "adicionar-imagem")
     @ResponseStatus(HttpStatus.ACCEPTED)
+    @ApiOperation("Adiciona uma imagem no Animal")
     public void linkarImagem(@RequestBody ImagemAnimalDto dto) {
         associarImagemService.executar(dto);
     }
