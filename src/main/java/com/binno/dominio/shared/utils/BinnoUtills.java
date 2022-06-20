@@ -16,4 +16,8 @@ public final class BinnoUtills {
     public static String ifNullReturnValue(String value, String another) {
         return Objects.isNull(value) ? another : value;
     }
+
+    public static Object ifNullReturnValue(Object value, Object another) {
+        return Objects.isNull(value) ? another : value;
+    }
 }

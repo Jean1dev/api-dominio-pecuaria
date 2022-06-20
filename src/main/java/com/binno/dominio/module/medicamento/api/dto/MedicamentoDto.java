@@ -1,5 +1,6 @@
 package com.binno.dominio.module.medicamento.api.dto;
 
+import com.binno.dominio.module.medicamento.model.EstadoMedicamento;
 import com.binno.dominio.module.medicamento.model.Medicamento;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,7 @@ public class MedicamentoDto {
     @NotNull(message = "O nome não pode ser nulo ou vazio.")
     private String descricao;
     private LocalDate dataValidade;
+    private EstadoMedicamento estadoMedicamento;
 
     public static Page<MedicamentoDto> pageToDto(Page<Medicamento> medicamentoPage) {
         List<MedicamentoDto> list = listToDto(medicamentoPage.getContent());
@@ -41,6 +43,7 @@ public class MedicamentoDto {
                 .nome(medicamento.getNome())
                 .descricao(medicamento.getDescricao())
                 .dataValidade(medicamento.getDataValidade())
+                .estadoMedicamento(medicamento.getEstadoMedicamento())
                 .build();
     }
 }
