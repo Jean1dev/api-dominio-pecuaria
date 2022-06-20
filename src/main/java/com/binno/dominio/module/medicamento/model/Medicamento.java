@@ -59,7 +59,7 @@ public class Medicamento {
     }
 
     private EstadoMedicamento definirEstado() {
-        if (Objects.isNull(dataValidade) || dataValidade.isAfter(LocalDate.now()))
+        if (Objects.isNull(dataValidade) || dataValidade.isBefore(LocalDate.now()))
             return EstadoMedicamento.VENCIDO;
 
         return EstadoMedicamento.DISPONIVEL;
