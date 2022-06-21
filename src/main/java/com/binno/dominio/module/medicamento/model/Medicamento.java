@@ -4,7 +4,8 @@ import com.binno.dominio.module.tenant.model.Tenant;
 import com.binno.dominio.module.veterinaria.model.AgendamentoVeterinario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,8 +15,9 @@ import java.util.Set;
 
 import static com.binno.dominio.shared.utils.BinnoUtills.ifNullReturnValue;
 
-@Data
+@Getter
 @Builder
+@NoArgsConstructor
 @Entity
 public class Medicamento {
 
@@ -49,16 +51,17 @@ public class Medicamento {
         this.nome = nome;
         this.descricao = descricao;
         this.dataValidade = (LocalDate) ifNullReturnValue(dataValidade, LocalDate.now());
-        this.estadoMedicamento = definirEstado();
+        this.estadoMedicamento = retornaEstadoDisponivel();
         this.agendamentos = agendamentos;
         this.tenant = tenant;
     }
 
-    public Medicamento() {
-        this.estadoMedicamento = definirEstado();
+    @PostLoad
+    public void fillTransientProperties() {
+        this.estadoMedicamento = retornaEstadoDisponivel();
     }
 
-    private EstadoMedicamento definirEstado() {
+    private EstadoMedicamento retornaEstadoDisponivel() {
         if (Objects.isNull(dataValidade) || dataValidade.isBefore(LocalDate.now()))
             return EstadoMedicamento.VENCIDO;
 
