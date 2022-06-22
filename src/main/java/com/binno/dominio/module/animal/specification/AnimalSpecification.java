@@ -14,6 +14,10 @@ public class AnimalSpecification {
         return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("numero"), numero);
     }
 
+    public static Specification<Animal> descarteFuturo() {
+        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("descarteFuturo"), true);
+    }
+
     public static Specification<Animal> intervaloNumeracao(Integer inicial, Integer nfinal) {
         return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.between(root.get("numero"), inicial, nfinal);
     }
