@@ -79,7 +79,7 @@ public class UsuarioAcessoService {
                 .login(login)
                 .build());
 
-        final String link = "https://binnoapp.com/alterar-senha/" + alteracaoSenha.getChave();
+        final String link = "https://binno-agro.netlify.app/alterar-senha/" + alteracaoSenha.getChave();
         mailProvider.send(SendEmailPayload.builder()
                 .from(mailProvider.getFrom())
                 .to(email)

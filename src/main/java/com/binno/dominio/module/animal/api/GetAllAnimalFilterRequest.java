@@ -19,11 +19,15 @@ public class GetAllAnimalFilterRequest {
     private Integer numeroInicial;
     private Integer numeroFinal;
     private String orderByNumero;
+    private Boolean descarteFuturo = false;
 
     public Specification<Animal> buildSpecification(Integer tenantId) {
         Specification<Animal> specs = AnimalSpecification.where();
 
         specs = specs.and(tenant(tenantId));
+
+        if (descarteFuturo)
+            specs = specs.and(AnimalSpecification.descarteFuturo());
 
         if (numero != null)
             specs = specs.and(AnimalSpecification.numero(numero));
