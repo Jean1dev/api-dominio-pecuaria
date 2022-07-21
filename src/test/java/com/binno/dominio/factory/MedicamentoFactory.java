@@ -12,4 +12,11 @@ public class MedicamentoFactory {
                 .nome("medicamento")
                 .build();
     }
+
+    public static Medicamento.MedicamentoBuilder umMedicamentoBuilder(Tenant tenant) {
+        return Medicamento.builder()
+                .tenant(tenant)
+                .descricao("medicamento")
+                .nome("medicamento");
+    }
 }

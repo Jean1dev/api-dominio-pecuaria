@@ -13,7 +13,7 @@ public interface AgendamentoVeterinarioRepository extends BasicRepository<Agenda
 
     List<AgendamentoVeterinario> findAllByDataAgendamento(LocalDate dataAgendamento);
 
-    List<AgendamentoVeterinario> findAllByDataAgendamentoBetweenAndAndTenantId(LocalDate inicio, LocalDate fim, Integer tenantId);
+    List<AgendamentoVeterinario> findAllByDataAgendamentoBetween(LocalDate inicio, LocalDate fim);
 
     @Query("select a from AgendamentoVeterinario a where a.statusAgendamento = '0'")
     List<AgendamentoVeterinario> findAllPendentes();

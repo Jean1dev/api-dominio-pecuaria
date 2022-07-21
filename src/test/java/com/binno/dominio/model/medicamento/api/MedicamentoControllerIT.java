@@ -19,9 +19,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.binno.dominio.factory.MedicamentoFactory.umMedicamento;
+import static com.binno.dominio.factory.MedicamentoFactory.umMedicamentoBuilder;
 import static com.binno.dominio.util.TestUtils.objectToJson;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
@@ -81,7 +83,7 @@ public class MedicamentoControllerIT extends ApplicationConfigIT {
 
         resultActions
                 .andExpect(jsonPath("$.content.length()", is(1)))
-                .andExpect(jsonPath("$.content..estadoMedicamento", hasItems(List.of(EstadoMedicamento.VENCIDO.name()).toArray())))
+                .andExpect(jsonPath("$.content..estadoMedicamento", hasItems(List.of(EstadoMedicamento.DISPONIVEL.name()).toArray())))
                 .andExpect(jsonPath("$.content..nome", hasItems(List.of(medicamento.getNome()).toArray())));
     }
 
@@ -90,7 +92,11 @@ public class MedicamentoControllerIT extends ApplicationConfigIT {
     public void deveBuscarListagem() throws Exception {
         ContextFactory contextFactory = new ContextFactory(tenantRepository, tokenService, usuarioAcessoRepository);
         Tenant tenant = contextFactory.umTenantSalvo();
-        Medicamento medicamento = repository.save(umMedicamento(tenant));
+
+        Medicamento medicamento = repository.save(umMedicamentoBuilder(tenant)
+                .dataValidade(LocalDate.now()
+                        .minusDays(2))
+                .build());
 
         String token = contextFactory.gerarToken();
 

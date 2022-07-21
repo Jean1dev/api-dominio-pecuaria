@@ -1,6 +1,5 @@
 package com.binno.dominio.module.veterinaria.service;
 
-import com.binno.dominio.context.AuthenticationHolder;
 import com.binno.dominio.module.veterinaria.api.dto.DiasEDisponibilidadesDto;
 import com.binno.dominio.module.veterinaria.model.AgendamentoVeterinario;
 import com.binno.dominio.module.veterinaria.model.PeriodoDia;
@@ -22,7 +21,6 @@ import java.util.stream.Collectors;
 public class VerificarDisponibilidadeParaAgendamentos {
 
     private final AgendamentoVeterinarioRepository repository;
-    private final AuthenticationHolder holder;
 
     public List<DiasEDisponibilidadesDto> executar(Integer dias, LocalDate dataPesquisa, Boolean exibirDiasIndisponiveis) {
         if (dias < 0)
@@ -31,7 +29,7 @@ public class VerificarDisponibilidadeParaAgendamentos {
         List<DiasEDisponibilidadesDto> disponibilidadesDtos = new ArrayList<>();
         LocalDate hoje = LocalDate.from(dataPesquisa);
         LocalDate dataFinalConsulta = LocalDate.now().plusDays(dias);
-        List<AgendamentoVeterinario> agendamentos = repository.findAllByDataAgendamentoBetweenAndAndTenantId(hoje, dataFinalConsulta, holder.getTenantId())
+        List<AgendamentoVeterinario> agendamentos = repository.findAllByDataAgendamentoBetween(hoje, dataFinalConsulta)
                 .stream()
                 .filter(agendamentoVeterinario -> !StatusAgendamento.CONCLUIDO.equals(agendamentoVeterinario.getStatusAgendamento()))
                 .collect(Collectors.toList());
