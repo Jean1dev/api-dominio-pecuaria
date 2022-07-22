@@ -68,6 +68,12 @@ public class AnimalController {
         return pageToDto(repository.findAll(filter.buildSpecification(holder.getTenantId()), filter.buildSortAndPageable(page, size)));
     }
 
+    @GetMapping(path = "ultimo-numero")
+    @ApiOperation("Retorna o ultimo numero de animal cadastrado")
+    public long getUltimoNumeroDoAnimalCadastrado() {
+        return consultasService.getUltimoNumeroDoAnimalCadastrado();
+    }
+
     @PostMapping(path = "adicionar-imagem")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @ApiOperation("Adiciona uma imagem no Animal")

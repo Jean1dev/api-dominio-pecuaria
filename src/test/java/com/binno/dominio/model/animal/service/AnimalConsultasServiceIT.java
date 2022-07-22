@@ -87,4 +87,24 @@ public class AnimalConsultasServiceIT extends ApplicationConfigIT {
 
         animalRepository.deleteAll();
     }
+
+    @Test
+    @DisplayName("deve retornar a quantidade correta para o ultimo animal cadastrado")
+    public void ultimoNumeroCorreto() {
+        Tenant tenant = new ContextFactory(tenantRepository, tokenService, usuarioAcessoRepository).umTenantSalvo();
+        holder.setTenantId(tenant.getId());
+
+        long ultimoNumeroDoAnimalCadastrado = service.getUltimoNumeroDoAnimalCadastrado();
+        Assertions.assertEquals(1L, ultimoNumeroDoAnimalCadastrado);
+
+        Fazenda fazenda = FazendaFactory.persistir(fazendaRepository, FazendaFactory.umaFazendaCompleta(tenant));
+        Animal femea1 = AnimalFactory.umAnimalCompleto(tenant, fazenda);
+        Animal femea2 = AnimalFactory.umAnimalCompleto(tenant, fazenda);
+        femea2.setNumero(2);
+
+        AnimalFactory.persistir(animalRepository, femea1);
+        AnimalFactory.persistir(animalRepository, femea2);
+        ultimoNumeroDoAnimalCadastrado = service.getUltimoNumeroDoAnimalCadastrado();
+        Assertions.assertEquals(2L, ultimoNumeroDoAnimalCadastrado);
+    }
 }

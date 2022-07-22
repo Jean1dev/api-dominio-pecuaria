@@ -21,4 +21,8 @@ public class AnimalConsultasService {
     public long total() {
         return repository.countAllByTenantId(holder.getTenantId());
     }
+
+    public long getUltimoNumeroDoAnimalCadastrado() {
+        return repository.findMaxNumero(holder.getTenantId()).orElseGet(() -> 1L);
+    }
 }
