@@ -91,7 +91,7 @@ public class SolicitarAgendamentoVeterinario implements RegraNegocioService<Agen
             throw new ValidationException("Não é possivel agendar para uma data menor que a data de hoje");
         }
 
-        agendamentoVeterinarioRepository.findAllByDataAgendamentoAndTenantId(dto.getDataAgendamento(), holder.getTenantId()).forEach(agendamentoVeterinario -> {
+        agendamentoVeterinarioRepository.findAllByDataAgendamento(dto.getDataAgendamento()).forEach(agendamentoVeterinario -> {
             if (agendamentoVeterinario.getPeriodoDia().equals(dto.getPeriodoDia())) {
                 throw new ValidationException("Ja tem um agendamento para esse periodo");
             }

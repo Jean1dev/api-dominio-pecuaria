@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface AgendamentoVeterinarioRepository extends BasicRepository<AgendamentoVeterinario, Integer> {
 
-    List<AgendamentoVeterinario> findAllByDataAgendamentoAndTenantId(LocalDate dataAgendamento, Integer tenantId);
-
     List<AgendamentoVeterinario> findAllByDataAgendamento(LocalDate dataAgendamento);
 
     List<AgendamentoVeterinario> findAllByDataAgendamentoBetween(LocalDate inicio, LocalDate fim);
