@@ -6,8 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -34,6 +36,15 @@ public class ComercializacaoExternalApis implements IComercializacaoExternalApis
 
     @Override
     public void enviarParaComercializacao(List<EnviarParaComercializacaoDto> items) {
+        String uri = UriComponentsBuilder.fromHttpUrl("https://leilao-app.herokuapp.com")
+                .pathSegment("v1", "comercializacao")
+                .build()
+                .toUriString();
 
+        HttpEntity<List<EnviarParaComercializacaoDto>> httpEntity = new HttpEntity<>(items, null);
+        HttpStatus statusCode = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, Object.class).getStatusCode();
+        if (HttpStatus.OK != statusCode) {
+            throw new HttpClientErrorException(statusCode);
+        }
     }
 }
