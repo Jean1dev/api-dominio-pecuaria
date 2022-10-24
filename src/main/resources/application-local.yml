@@ -2,8 +2,10 @@ server:
   port: 8080
 
 spring:
-  profiles:
-    active: local
+  #pra resolver o problema do openui na versao 2
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
