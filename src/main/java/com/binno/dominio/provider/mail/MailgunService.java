@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
@@ -15,6 +16,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Arrays;
+
 @Service
 @EnableAsync
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -24,9 +27,6 @@ public class MailgunService implements MailProvider {
 
     private Boolean jaAdicionadoKeyNoRestTemplate = false;
 
-    @Value("${spring.profiles.active}")
-    private String activeProfile;
-
     @Value("${mail.domain}")
     private String domain;
 
@@ -35,10 +35,15 @@ public class MailgunService implements MailProvider {
 
     private final RestTemplate restTemplate;
 
+    private final Environment environment;
+
     @Override
     @Async
     public void send(SendEmailPayload payload) {
-        if (activeProfile.equals("local") || activeProfile.equals("test"))
+        String[] activeProfiles = environment.getActiveProfiles();
+        String profiles = Arrays.toString(activeProfiles);
+        LOGGER.info("active profiles: {}", Arrays.toString(activeProfiles));
+        if (profiles.contains("local") || profiles.contains("test"))
             return;
 
         String uri = UriComponentsBuilder.fromHttpUrl("https://api.mailgun.net/v3/")
