@@ -1,11 +1,9 @@
 package com.binno.dominio.module.usuarioacesso.api;
 
-import com.binno.dominio.module.usuarioacesso.api.dto.AlterarSenhaDto;
-import com.binno.dominio.module.usuarioacesso.api.dto.AlterarUsuarioDto;
-import com.binno.dominio.module.usuarioacesso.api.dto.UsuarioAcessoDto;
-import com.binno.dominio.module.usuarioacesso.api.dto.UsuarioTenantDto;
+import com.binno.dominio.module.usuarioacesso.api.dto.*;
 import com.binno.dominio.module.usuarioacesso.repository.UsuarioAcessoRepository;
 import com.binno.dominio.module.usuarioacesso.service.AlterarDadosUsuarioService;
+import com.binno.dominio.module.usuarioacesso.service.AmizadesService;
 import com.binno.dominio.module.usuarioacesso.service.UsuarioAcessoService;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +31,15 @@ public class UsuarioAcessoController {
     private final AlterarDadosUsuarioService alterarDadosUsuarioService;
 
     private final UsuarioAcessoRepository repository;
+
+    private final AmizadesService amizadesService;
+
+    @PostMapping(path = "solicitar-amizade")
+    @ApiOperation("Solicita um convite de amizade")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void solicitarAmizade(@RequestBody @Valid CriarPedidoAmizadeDto dto) {
+        amizadesService.criarPedidoAmizade(dto);
+    }
 
     @GetMapping(path = "meus-usuarios")
     @ApiOperation("Retorna a lista de usuarios do tenant")

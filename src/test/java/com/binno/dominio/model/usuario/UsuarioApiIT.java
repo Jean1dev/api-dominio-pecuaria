@@ -8,8 +8,11 @@ import com.binno.dominio.module.tenant.model.Tenant;
 import com.binno.dominio.module.tenant.repository.TenantRepository;
 import com.binno.dominio.module.usuarioacesso.api.UsuarioAcessoController;
 import com.binno.dominio.module.usuarioacesso.api.dto.AlterarUsuarioDto;
+import com.binno.dominio.module.usuarioacesso.api.dto.CriarPedidoAmizadeDto;
 import com.binno.dominio.module.usuarioacesso.api.dto.UsuarioAcessoDto;
+import com.binno.dominio.module.usuarioacesso.model.ConviteAmizade;
 import com.binno.dominio.module.usuarioacesso.model.UsuarioAcesso;
+import com.binno.dominio.module.usuarioacesso.repository.ConviteAmizadeRepository;
 import com.binno.dominio.module.usuarioacesso.repository.UsuarioAcessoRepository;
 import com.binno.dominio.util.TestUtils;
 import org.junit.jupiter.api.Assertions;
@@ -50,6 +53,43 @@ public class UsuarioApiIT extends ApplicationConfigIT {
 
     @Autowired
     private UsuarioAcessoRepository repository;
+
+    @Autowired
+    private ConviteAmizadeRepository conviteAmizadeRepository;
+
+    @Test
+    @DisplayName("deve enviar um convite de amizade")
+    public void deveEnviarConviteAmizade() throws Exception {
+        ContextFactory contextFactory = new ContextFactory(tenantRepository, tokenService, usuarioAcessoRepository);
+        String token = contextFactory.gerarToken();
+        UsuarioAutenticado usuarioAutenticado = contextFactory.getUsuarioAutenticado();
+
+        UsuarioAcesso usuarioAcesso = repository.save(UsuarioAcesso.builder()
+                .login(UUID.randomUUID().toString())
+                .password(UUID.randomUUID().toString())
+                .tenant(contextFactory.getTenant())
+                .build());
+
+        CriarPedidoAmizadeDto gostariaDeSerSeuAmigo = CriarPedidoAmizadeDto.builder()
+                .mensagem("gostaria de ser seu amigo")
+                .idUsuarioRequistado(usuarioAcesso.getId())
+                .idUsuarioSolicitante(usuarioAutenticado.getId())
+                .build();
+
+        mockMvc.perform(request(HttpMethod.POST, PATH + "/solicitar-amizade")
+                        .header("authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TestUtils.objectToJson(gostariaDeSerSeuAmigo)))
+                .andExpect(status().isAccepted());
+
+        ConviteAmizade conviteAmizade = conviteAmizadeRepository
+                .findByUsuarioRequisitadoIdAndUsuarioSolicitanteId(usuarioAcesso.getId(), usuarioAutenticado.getId())
+                .orElseThrow();
+
+        Assertions.assertEquals("gostaria de ser seu amigo", conviteAmizade.getMensagem());
+        Assertions.assertNull(conviteAmizade.getAceito());
+        Assertions.assertNotNull(conviteAmizade.getDataSolicitacao());
+    }
 
     @Test
     @DisplayName("deve buscar meus usuarios")

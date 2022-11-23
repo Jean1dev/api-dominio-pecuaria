@@ -18,24 +18,16 @@ public class UsuarioAcesso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String nome;
-
     private String email;
-
     private String login;
-
     private String password;
-
     private Boolean ativo = true;
-
     private Boolean contaValidada = true;
-
     private String imagemPerfilUrl;
-
     private String sobrenome;
-
     private String numero;
+    private Boolean contaPublica = true;
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
