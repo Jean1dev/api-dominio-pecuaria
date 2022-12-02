@@ -28,9 +28,9 @@ spring:
       minimum-idle: 3
 
     platform: postgres
-    url: jdbc:postgresql://ec2-34-233-114-40.compute-1.amazonaws.com:5432/dbdddk4ukgbn66
-    username: vfteulbqcmbgjl
-    password: c50256b8ca315c69fdd1250f65c8cc503f0814eaf6c48dac9e5fa31690d6d361
+    url: jdbc:postgresql://postgres:x7vCwu1hfm3GccUSskbS@containers-us-west-114.railway.app:5756/railway
+    username: postgres
+    password: x7vCwu1hfm3GccUSskbS
     driverClassName: org.postgresql.Driver
 
 jwt:
