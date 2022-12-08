@@ -87,7 +87,8 @@ public class UsuarioApiIT extends ApplicationConfigIT {
                 .orElseThrow();
 
         Assertions.assertEquals("gostaria de ser seu amigo", conviteAmizade.getMensagem());
-        Assertions.assertNull(conviteAmizade.getAceito());
+        Assertions.assertFalse(conviteAmizade.getAceito());
+        Assertions.assertFalse(conviteAmizade.getRejeitado());
         Assertions.assertNotNull(conviteAmizade.getDataSolicitacao());
     }
 

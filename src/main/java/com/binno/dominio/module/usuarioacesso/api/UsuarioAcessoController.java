@@ -1,6 +1,7 @@
 package com.binno.dominio.module.usuarioacesso.api;
 
 import com.binno.dominio.module.usuarioacesso.api.dto.*;
+import com.binno.dominio.module.usuarioacesso.model.ConviteAmizade;
 import com.binno.dominio.module.usuarioacesso.repository.UsuarioAcessoRepository;
 import com.binno.dominio.module.usuarioacesso.service.AlterarDadosUsuarioService;
 import com.binno.dominio.module.usuarioacesso.service.AmizadesService;
@@ -16,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.binno.dominio.module.usuarioacesso.api.dto.UsuarioAcessoDto.toDto;
 
@@ -39,6 +42,24 @@ public class UsuarioAcessoController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void solicitarAmizade(@RequestBody @Valid CriarPedidoAmizadeDto dto) {
         amizadesService.criarPedidoAmizade(dto);
+    }
+
+    @GetMapping(path = "meus-convites-amizades")
+    @ApiOperation("Retorna a lista de convites")
+    public List<ConviteAmizade> meusConvites(@RequestParam(value = "idUsuario") int idUsuario) {
+        return amizadesService.meusConvites(idUsuario);
+    }
+
+    @GetMapping(path = "meus-amigos")
+    @ApiOperation("Retorna a lista dos seus amigos")
+    public List<UsuarioAcessoDto> meusAmigos() {
+        return amizadesService.meusAmigos().stream().map(UsuarioAcessoDto::toDto).collect(Collectors.toList());
+    }
+
+    @PutMapping(path = "aceitar-pedido/{id}")
+    @ApiOperation("Aceita um pedido de amizade")
+    public void aceitarPedido(@PathVariable("id") int idPedido) {
+        amizadesService.aceitarPedidoAmizade(idPedido);
     }
 
     @GetMapping(path = "meus-usuarios")

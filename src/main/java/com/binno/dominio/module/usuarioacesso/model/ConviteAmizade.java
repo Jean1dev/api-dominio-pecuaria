@@ -19,7 +19,10 @@ public class ConviteAmizade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String mensagem;
-    private Boolean aceito;
+    @Builder.Default
+    private Boolean aceito = false;
+    @Builder.Default
+    private Boolean rejeitado = false;
     private LocalDate dataSolicitacao;
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
