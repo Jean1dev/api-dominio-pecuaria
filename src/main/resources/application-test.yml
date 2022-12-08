@@ -27,11 +27,16 @@ spring:
       maximum-pool-size: 3
       minimum-idle: 1
 
-    platform: postgres
-    url: jdbc:postgresql://lallah.db.elephantsql.com:5432/sesyduey
-    username: sesyduey
-    password: Idv3bUO_5fr66F0RsGrpcgJHcLJxCbqd
+    url: jdbc:postgresql://containers-us-west-46.railway.app:6947/railway
+    username: postgres
+    password: Ic09I2H8SmBcXuNyFkTy
     driverClassName: org.postgresql.Driver
+
+#    platform: postgres
+#    url: jdbc:postgresql://lallah.db.elephantsql.com:5432/sesyduey
+#    username: sesyduey
+#    password: Idv3bUO_5fr66F0RsGrpcgJHcLJxCbqd
+#    driverClassName: org.postgresql.Driver
 
 jwt:
   expiration: 36000000
