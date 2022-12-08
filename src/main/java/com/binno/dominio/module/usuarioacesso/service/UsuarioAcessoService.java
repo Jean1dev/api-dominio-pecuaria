@@ -122,6 +122,7 @@ public class UsuarioAcessoService {
                 .tenant(Tenant.of(dto.getTenant()))
                 .imagemPerfilUrl(dto.getPhotoURL())
                 .ativo(true)
+                .contaPublica(true)
                 .build();
     }
 

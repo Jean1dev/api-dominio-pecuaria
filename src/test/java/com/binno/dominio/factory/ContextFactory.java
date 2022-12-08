@@ -45,7 +45,7 @@ public class ContextFactory {
         Authentication authentication = mock(Authentication.class);
         String login = UUID.randomUUID().toString();
         verificarSeJaExisteTenant();
-        repository.save(UsuarioAcesso.builder()
+        UsuarioAcesso usuarioAcesso = repository.save(UsuarioAcesso.builder()
                 .login(login)
                 .password("senha")
                 .tenant(tenant)
@@ -53,6 +53,7 @@ public class ContextFactory {
                 .build());
 
         usuario = UsuarioAutenticado.builder()
+                .id(usuarioAcesso.getId())
                 .tenantId(tenant.getId())
                 .password("senha")
                 .login(login)

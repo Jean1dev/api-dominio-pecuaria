@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import javax.validation.ValidationException;
+import java.util.UUID;
 
 @DisplayName("AlterarDadosUsuarioService")
 public class AlterarDadosUsuarioServiceIT extends ApplicationConfigIT {
@@ -44,8 +45,8 @@ public class AlterarDadosUsuarioServiceIT extends ApplicationConfigIT {
     public void naoDeveAlterarUsuario() {
         ContextFactory contextFactory = new ContextFactory(tenantRepository, tokenService, usuarioAcessoRepository);
         Tenant tenant = contextFactory.umTenantSalvo();
-        String login = "jucas carlos";
-        String loginDoSegundoUsuario = "joao gilberto";
+        String login = "jucas carlos" + UUID.randomUUID();
+        String loginDoSegundoUsuario = "joao gilberto" + UUID.randomUUID();
         UsuarioAcesso usuarioAcesso = repository.save(UsuarioAcesso.builder()
                 .login(login)
                 .password("password")
@@ -66,7 +67,5 @@ public class AlterarDadosUsuarioServiceIT extends ApplicationConfigIT {
                 .build();
 
         Assertions.assertThrows(ValidationException.class, () -> service.executar(usuarioDto), "Já existe um usuario utilizando esse Login");
-
-        repository.deleteAll();
     }
 }
