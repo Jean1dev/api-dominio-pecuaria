@@ -63,7 +63,7 @@ public class AnimalApiIT extends ApplicationConfigIT {
 
     @Test
     @DisplayName("deve fazer a transferencia de animais entre fazendas")
-    public void deveTransferirAniamis() throws Exception {
+    void deveTransferirAniamis() throws Exception {
         ContextFactory contextFactory = new ContextFactory(tenantRepository, tokenService, usuarioAcessoRepository);
         Tenant tenant = contextFactory.umTenantSalvo();
         Fazenda fazendaOrigem = FazendaFactory.persistir(fazendaRepository, FazendaFactory.umaFazendaCompleta(tenant));
@@ -88,7 +88,7 @@ public class AnimalApiIT extends ApplicationConfigIT {
 
     @Test
     @DisplayName("deve excluir um animal e seus dependentes")
-    public void deveExcluirAnimalESeusDependentes() throws Exception {
+    void deveExcluirAnimalESeusDependentes() throws Exception {
         ContextFactory contextFactory = new ContextFactory(tenantRepository, tokenService, usuarioAcessoRepository);
         Tenant tenant = contextFactory.umTenantSalvo();
         Animal animalSalvo = umAnimalCompleto(tenant, FazendaFactory.persistir(fazendaRepository, FazendaFactory.umaFazendaCompleta(tenant)));

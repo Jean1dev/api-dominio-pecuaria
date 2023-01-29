@@ -1,6 +1,7 @@
 package com.binno.dominio.module.animal.service;
 
 import com.binno.dominio.context.AuthenticationHolder;
+import com.binno.dominio.module.animal.api.dto.AnimalDto;
 import com.binno.dominio.module.animal.api.dto.CriarAnimalDto;
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.model.PesoAnimal;
@@ -39,21 +40,7 @@ public class CriarAnimalService implements RegraNegocioService<Animal, CriarAnim
 
     @Override
     public Animal executar(CriarAnimalDto criarAnimalDto) {
-        Animal animal = animalRepository.save(Animal.builder()
-                .id(criarAnimalDto.getId())
-                .numero(criarAnimalDto.getNumero())
-                .raca(criarAnimalDto.getRaca())
-                .apelido(criarAnimalDto.getApelido())
-                .dataNascimento(criarAnimalDto.getDataNascimento())
-                .numeroCrias(criarAnimalDto.getNumeroCrias())
-                .estadoAtual(criarAnimalDto.getEstadoAtual())
-                .dataUltimoParto(criarAnimalDto.getDataUltimoParto())
-                .descarteFuturo(criarAnimalDto.getDescarteFuturo())
-                .isFemea(criarAnimalDto.getIsFemea())
-                .justificativaDescarteFuturo(criarAnimalDto.getJustificativaDescarteFuturo())
-                .fazenda(criarAnimalDto.getFazenda())
-                .tenant(Tenant.of(holder.getTenantId()))
-                .build());
+        Animal animal = animalRepository.save(AnimalDto.DtoToAnimal(criarAnimalDto, holder));
 
         registrarPesoAnimal(animal, criarAnimalDto);
         registrarImagens(animal, criarAnimalDto);
