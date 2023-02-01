@@ -2,19 +2,47 @@ version: '3.4'
 
 services:
   postgres:
+    container_name: postgres_container
     image: postgres:alpine
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_DB: "binnosoft"
       POSTGRES_USER: "jeanfernandes"
       POSTGRES_PASSWORD: "admin"
     volumes:
-      - "/var/lib/postgresql/data/"
-    container_name: pgbinno
+      - "/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  postgres_test:
+    container_name: postgres_test
+    image: postgres:alpine
+    environment:
+      POSTGRES_DB: "binnosoft_teste"
+      POSTGRES_USER: "teste"
+      POSTGRES_PASSWORD: "teste"
+    volumes:
+      - "/var/lib/postgresql/data"
+    ports:
+      - "2345:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
 
   s3ninja:
     image: kcomlabs/s3ninja
     ports:
       - "9444:9444"
     container_name: s3
+    depends_on:
+      - postgres
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:

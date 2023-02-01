@@ -32,6 +32,13 @@ spring:
     password: Ic09I2H8SmBcXuNyFkTy
     driverClassName: org.postgresql.Driver
 
+# teste local
+#    platform: postgres
+#    url: jdbc:postgresql://localhost:2345/binnosoft_teste
+#    username: teste
+#    password: teste
+#    driverClassName: org.postgresql.Driver
+
 #    platform: postgres
 #    url: jdbc:postgresql://lallah.db.elephantsql.com:5432/sesyduey
 #    username: sesyduey

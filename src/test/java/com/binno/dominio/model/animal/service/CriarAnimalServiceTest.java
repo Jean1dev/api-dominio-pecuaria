@@ -29,7 +29,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @DisplayName("CriarAnimalService")
-public class CriarAnimalServiceTest extends ApplicationConfigIT {
+class CriarAnimalServiceTest extends ApplicationConfigIT {
 
     @Autowired
     private CriarAnimalService service;
@@ -54,7 +54,7 @@ public class CriarAnimalServiceTest extends ApplicationConfigIT {
 
     @Test
     @DisplayName("deve criar uma animal sem peso e sem imagens")
-    public void deveCriarAnimal() {
+    void deveCriarAnimal() {
         CriarAnimalDto dto = CriarAnimalDto.builder()
                 .apelido("Apelido")
                 .dataNascimento(LocalDate.now())
@@ -79,7 +79,7 @@ public class CriarAnimalServiceTest extends ApplicationConfigIT {
 
     @Test
     @DisplayName("deve criar um animal com peso e imagens")
-    public void deveCriarAnimalCompleto() {
+    void deveCriarAnimalCompleto() {
         ImagemAnimalDto imagemAnimalDto = ImagemAnimalDto.builder()
                 .animalId(null)
                 .imagemUrl("url1")
