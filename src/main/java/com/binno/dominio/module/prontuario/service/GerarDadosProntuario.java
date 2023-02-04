@@ -1,5 +1,6 @@
 package com.binno.dominio.module.prontuario.service;
 
+import com.binno.dominio.context.AuthenticationHolder;
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.prontuario.api.dto.DadosProntuarioDto;
 import com.binno.dominio.module.prontuario.model.Prontuario;
@@ -24,14 +25,30 @@ public class GerarDadosProntuario implements RegraNegocioService<DadosProntuario
 
     private final ProcessoVacinacaoRepository processoVacinacaoRepository;
 
+    private final AuthenticationHolder holder;
+
     @Override
     public DadosProntuarioDto executar(Integer animalId) {
         Prontuario prontuario = repository.findByAnimalId(animalId).orElseThrow();
+        return getProntuarioDto(prontuario);
+    }
+
+    private DadosProntuarioDto getProntuarioDto(Prontuario prontuario) {
         Animal animal = prontuario.getAnimal();
 
-        List<ProcessoVacinacao> vacinacaoList = Arrays.stream(prontuario.getVacinacaoSeparadoPorVirgula()
+        List<ProcessoVacinacao> vacinacaoList = extrairListaVacinacaoByProntuario(prontuario);
+
+        return DadosProntuarioDto.builder()
+                .animal(animal)
+                .prontuario(prontuario)
+                .processoVacinacaoList(vacinacaoList)
+                .build();
+    }
+
+    private List<ProcessoVacinacao> extrairListaVacinacaoByProntuario(Prontuario prontuario) {
+        return Arrays.stream(prontuario.getVacinacaoSeparadoPorVirgula()
                         .split(","))
-                .collect(Collectors.toList())
+                .toList()
                 .stream()
                 .filter(id -> !id.isEmpty())
                 .map(String::trim)
@@ -40,11 +57,12 @@ public class GerarDadosProntuario implements RegraNegocioService<DadosProntuario
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toList());
+    }
 
-        return DadosProntuarioDto.builder()
-                .animal(animal)
-                .prontuario(prontuario)
-                .processoVacinacaoList(vacinacaoList)
-                .build();
+    public List<DadosProntuarioDto> recuperarProntuariosDosMeusAnimais() {
+        return repository.findAllByTenantId(holder.getTenantId())
+                .stream()
+                .map(this::getProntuarioDto)
+                .collect(Collectors.toList());
     }
 }

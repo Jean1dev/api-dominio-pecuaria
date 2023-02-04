@@ -38,7 +38,7 @@ public class Swagger {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Binno Pecuaria Backend")
-                .description("Aplicação para gerenciar o app https://binnoapp.com/app/dashboard")
+                .description("Aplicação para gerenciar o app https://binno-agro.netlify.app/app/dashboard")
                 .version("1.0.0")
                 .license("Apache License Version 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
