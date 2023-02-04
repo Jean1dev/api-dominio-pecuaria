@@ -1,9 +1,11 @@
 package com.binno.dominio.module.animal.api.dto;
 
+import com.binno.dominio.context.AuthenticationHolder;
 import com.binno.dominio.module.animal.model.Animal;
 import com.binno.dominio.module.animal.model.EstadoAtual;
 import com.binno.dominio.module.animal.model.RacaAnimal;
-import com.binno.dominio.module.fazenda.model.Fazenda;
+import com.binno.dominio.module.fazenda.api.dto.FazendaAgregadaDto;
+import com.binno.dominio.module.tenant.model.Tenant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,7 +35,7 @@ public final class AnimalDto {
     private final String justificativaDescarteFuturo;
 
     @NotNull(message = "{fazenda.fazenda.notnull}")
-    private final Fazenda fazenda;
+    private final FazendaAgregadaDto fazenda;
     private final List<PesoDto> pesos;
     private final List<ImagemAnimalDto> imagens;
 
@@ -61,10 +63,27 @@ public final class AnimalDto {
                 .descarteFuturo(animal.getDescarteFuturo())
                 .isFemea(animal.getIsFemea())
                 .justificativaDescarteFuturo(animal.getJustificativaDescarteFuturo())
-                //TODO:: ALTERAR A REFERENCIA DE FAZENDA PARA UMA FAZENDA AGREGADA DTO
-                .fazenda(animal.getFazenda())
+                .fazenda(FazendaAgregadaDto.toDto(animal.getFazenda()))
                 .pesos(PesoDto.listToDto(animal.getPesoAnimal()))
                 .imagens(ImagemAnimalDto.listToDto(animal.getImagens()))
+                .build();
+    }
+
+    public static Animal DtoToAnimal(CriarAnimalDto criarAnimalsDto, AuthenticationHolder holder) {
+        return Animal.builder()
+                .id(criarAnimalsDto.getId())
+                .numero(criarAnimalsDto.getNumero())
+                .raca(criarAnimalsDto.getRaca())
+                .apelido(criarAnimalsDto.getApelido())
+                .dataNascimento(criarAnimalsDto.getDataNascimento())
+                .numeroCrias(criarAnimalsDto.getNumeroCrias())
+                .estadoAtual(criarAnimalsDto.getEstadoAtual())
+                .dataUltimoParto(criarAnimalsDto.getDataUltimoParto())
+                .descarteFuturo(criarAnimalsDto.getDescarteFuturo())
+                .isFemea(criarAnimalsDto.getIsFemea())
+                .justificativaDescarteFuturo(criarAnimalsDto.getJustificativaDescarteFuturo())
+                .fazenda(criarAnimalsDto.getFazenda())
+                .tenant(Tenant.of(holder.getTenantId()))
                 .build();
     }
 }
