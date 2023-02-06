@@ -1,6 +1,7 @@
 package com.binno.dominio.module.prontuario.api;
 
 import com.binno.dominio.module.prontuario.api.dto.DadosProntuarioDto;
+import com.binno.dominio.module.prontuario.service.AtualizarProntuarios;
 import com.binno.dominio.module.prontuario.service.GerarDadosProntuario;
 import com.binno.dominio.module.prontuario.service.GerarProntuarioPDF;
 import com.itextpdf.text.DocumentException;
@@ -11,10 +12,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayInputStream;
 
@@ -28,6 +26,8 @@ public class ProntuarioController {
 
     private final GerarDadosProntuario gerarDadosProntuario;
 
+    private final AtualizarProntuarios atualizarProntuarios;
+
     @GetMapping(path = "imprimir", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> gerarPdfProntuario(@RequestParam(value = "animalId") Integer animalId) throws DocumentException {
         DadosProntuarioDto prontuarioDto = gerarDadosProntuario.executar(animalId);
@@ -40,5 +40,10 @@ public class ProntuarioController {
                 .headers(headers)
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(new InputStreamResource(inputStream));
+    }
+
+    @PostMapping
+    public void atualizarProntuarios() {
+        atualizarProntuarios.atualizarProntuarios();
     }
 }
