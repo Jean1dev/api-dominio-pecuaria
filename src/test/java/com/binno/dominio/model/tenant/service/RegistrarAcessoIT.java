@@ -5,7 +5,7 @@ import com.binno.dominio.auth.TokenService;
 import com.binno.dominio.auth.UsuarioAutenticado;
 import com.binno.dominio.context.AuthenticationHolder;
 import com.binno.dominio.factory.ContextFactory;
-import com.binno.dominio.module.tenant.model.Acessos;
+import com.binno.dominio.module.tenant.model.Acesso;
 import com.binno.dominio.module.tenant.model.Tenant;
 import com.binno.dominio.module.tenant.repository.TenantRepository;
 import com.binno.dominio.module.tenant.service.RegistrarAcesso;
@@ -45,7 +45,7 @@ public class RegistrarAcessoIT extends ApplicationConfigIT {
         UsuarioAutenticado usuarioAutenticado = new UsuarioAutenticado();
         usuarioAutenticado.setLogin(login);
         usuarioAutenticado.setTenantId(tenant.getId());
-        Acessos acesso = registrarAcesso.executar(usuarioAutenticado);
+        Acesso acesso = registrarAcesso.executar(usuarioAutenticado);
         Assertions.assertNotNull(acesso);
         Assertions.assertEquals(login, acesso.getLogin());
         Assertions.assertNotNull(acesso.getDataHoraAcesso());
