@@ -34,7 +34,8 @@ public class AlteracaoSenha {
     @NotNull
     private LocalDateTime dataHoraCriacao;
 
+    //TODO:: Possivel problema de tipos entre diferentes databases aqui
     @NotNull
-    @Column(columnDefinition = "interval")
+    @Column//(columnDefinition = "interval")
     private Duration timeExpiracao;
 }

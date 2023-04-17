@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Acessos {
+public class Acesso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
