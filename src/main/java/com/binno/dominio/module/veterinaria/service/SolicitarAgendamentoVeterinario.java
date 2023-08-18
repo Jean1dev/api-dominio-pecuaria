@@ -14,7 +14,6 @@ import com.binno.dominio.provider.mail.MailProvider;
 import com.binno.dominio.provider.mail.SendEmailPayload;
 import com.binno.dominio.shared.RegraNegocioService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +25,7 @@ import java.util.Set;
 
 @Service
 @Transactional
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class SolicitarAgendamentoVeterinario implements RegraNegocioService<AgendamentoVeterinario, CriarAgendamentoDto> {
 
     private final AuthenticationHolder holder;

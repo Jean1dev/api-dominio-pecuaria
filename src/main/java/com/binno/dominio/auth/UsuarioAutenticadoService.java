@@ -3,13 +3,12 @@ package com.binno.dominio.auth;
 import com.binno.dominio.module.usuarioacesso.model.UsuarioAcesso;
 import com.binno.dominio.module.usuarioacesso.repository.UsuarioAcessoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ValidationException;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class UsuarioAutenticadoService {
 
     private final UsuarioAcessoRepository repository;

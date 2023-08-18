@@ -11,7 +11,6 @@ import com.binno.dominio.module.fazenda.service.RebalanceamentoAnimaisNasFazenda
 import com.binno.dominio.module.tenant.model.Tenant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -30,7 +29,7 @@ import static com.binno.dominio.module.fazenda.specification.FazendaSpecificatio
 @RestController
 @Slf4j
 @RequestMapping(FazendaController.PATH)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class FazendaController {
 
     public static final String PATH = "fazendas";

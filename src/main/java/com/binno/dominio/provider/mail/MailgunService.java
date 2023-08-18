@@ -3,7 +3,6 @@ package com.binno.dominio.provider.mail;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
@@ -20,7 +19,7 @@ import java.util.Arrays;
 
 @Service
 @EnableAsync
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class MailgunService implements MailProvider {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MailgunService.class);

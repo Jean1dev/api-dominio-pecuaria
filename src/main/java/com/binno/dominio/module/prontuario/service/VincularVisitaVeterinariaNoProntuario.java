@@ -5,7 +5,6 @@ import com.binno.dominio.module.prontuario.repository.ProntuarioRepository;
 import com.binno.dominio.module.veterinaria.model.AgendamentoVeterinario;
 import com.binno.dominio.shared.RegraNegocioService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +14,7 @@ import java.util.Objects;
 
 @Service
 @Transactional
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class VincularVisitaVeterinariaNoProntuario implements RegraNegocioService<Prontuario, AgendamentoVeterinario> {
 
     private final ProntuarioRepository repository;

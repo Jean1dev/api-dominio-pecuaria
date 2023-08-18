@@ -10,10 +10,9 @@ import com.binno.dominio.module.animal.service.AnimalConsultasService;
 import com.binno.dominio.module.animal.service.AssociarImagemService;
 import com.binno.dominio.module.animal.service.CriarAnimalService;
 import com.binno.dominio.module.animal.service.TransferirAnimalEntreFazendasService;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +28,7 @@ import static com.binno.dominio.module.animal.api.dto.AnimalDto.toDto;
 @RestController
 @RequestMapping(AnimalController.PATH)
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class AnimalController {
 
     public static final String PATH = "animais";
@@ -60,7 +59,7 @@ public class AnimalController {
     }
 
     @GetMapping
-    @ApiOperation("Listagem de animais pageado e com filtros")
+    @Operation(description = "Listagem de animais pageado e com filtros")
     public Page<AnimalDto> animaisPaginated(
             GetAllAnimalFilterRequest filter,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
@@ -69,14 +68,14 @@ public class AnimalController {
     }
 
     @GetMapping(path = "ultimo-numero")
-    @ApiOperation("Retorna o ultimo numero de animal cadastrado")
+    @Operation(description = "Retorna o ultimo numero de animal cadastrado")
     public long getUltimoNumeroDoAnimalCadastrado() {
         return consultasService.getUltimoNumeroDoAnimalCadastrado();
     }
 
     @PostMapping(path = "adicionar-imagem")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @ApiOperation("Adiciona uma imagem no Animal")
+    @Operation(description = "Adiciona uma imagem no Animal")
     public void linkarImagem(@RequestBody ImagemAnimalDto dto) {
         associarImagemService.executar(dto);
     }

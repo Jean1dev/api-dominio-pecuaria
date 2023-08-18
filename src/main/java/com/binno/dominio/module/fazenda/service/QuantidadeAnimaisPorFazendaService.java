@@ -5,14 +5,13 @@ import com.binno.dominio.module.animal.repository.AnimalRepository;
 import com.binno.dominio.module.fazenda.api.dto.QuantidadeAnimalPorFazendaDto;
 import com.binno.dominio.module.fazenda.repository.FazendaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class QuantidadeAnimaisPorFazendaService {
 
     private final AuthenticationHolder holder;

@@ -7,7 +7,6 @@ import com.binno.dominio.module.tenant.service.RegistrarAcesso;
 import com.binno.dominio.module.usuarioacesso.api.dto.UsuarioAcessoDto;
 import com.binno.dominio.module.usuarioacesso.service.UsuarioAcessoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = AutenticacaoController.PATH)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class AutenticacaoController {
 
     public static final String PATH = "auth";

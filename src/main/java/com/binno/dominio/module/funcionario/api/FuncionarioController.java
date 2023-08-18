@@ -6,10 +6,9 @@ import com.binno.dominio.module.funcionario.api.dto.FuncionarioDto;
 import com.binno.dominio.module.funcionario.model.Funcionario;
 import com.binno.dominio.module.funcionario.repository.FuncionarioRepository;
 import com.binno.dominio.module.tenant.model.Tenant;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -25,7 +24,7 @@ import static com.binno.dominio.module.funcionario.specification.FuncionarioSpec
 @Slf4j
 @RestController
 @RequestMapping(FuncionarioController.PATH)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class FuncionarioController {
 
     public static final String PATH = "funcionarios";
@@ -48,7 +47,7 @@ public class FuncionarioController {
     }
 
     @PostMapping
-    @ApiOperation("Criar um funcionario")
+    @Operation( description = "Criar um funcionario")
     public Funcionario create(@RequestBody @Valid FuncionarioDto funcionarioDto) {
         return repository.save(Funcionario.builder()
                 .nome(funcionarioDto.getNome())
@@ -61,7 +60,7 @@ public class FuncionarioController {
     }
 
     @PutMapping
-    @ApiOperation("Atualizar Funcionario")
+    @Operation( description = "Atualizar Funcionario")
     public Funcionario update(@RequestBody @Valid FuncionarioDto funcionarioDto) {
         repository.findById(funcionarioDto.getId()).orElseThrow();
         return repository.save(Funcionario.builder()
@@ -76,7 +75,7 @@ public class FuncionarioController {
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation("Excluir funcionario")
+    @Operation( description = "Excluir funcionario")
     public void delete(@PathVariable("id") Integer id) {
         repository.deleteById(id);
     }

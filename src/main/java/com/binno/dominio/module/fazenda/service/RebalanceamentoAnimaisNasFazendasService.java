@@ -9,7 +9,6 @@ import com.binno.dominio.module.notificacao.service.RegistrarNotificacao;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @EnableAsync
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class RebalanceamentoAnimaisNasFazendasService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RebalanceamentoAnimaisNasFazendasService.class);

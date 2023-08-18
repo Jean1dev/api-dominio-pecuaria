@@ -1,19 +1,6 @@
-FROM maven:3.8.3-openjdk-17 AS build
+FROM gradle:7.6.1-jdk17-alpine AS builder
 
-RUN mkdir -p /workspace
-
-WORKDIR /workspace
-
-COPY pom.xml /workspace
-
-COPY src /workspace/src
-
-RUN mvn -B -f pom.xml clean package -DskipTests
-
-FROM openjdk:17-jdk-slim
-
-COPY --from=build /workspace/target/*.jar app.jar
-
+WORKDIR /usr/app/
 ENV PORT 8080
 ENV PG_HOST containers-us-west-114.railway.app
 ENV DATABASE_NAME railway
@@ -27,6 +14,16 @@ ENV S3_BUCKET binno-agro
 ENV S3_REGION us-east-1
 ENV API_KEY_MAIL nao_tem
 
-EXPOSE $PORT
+COPY . .
 
-ENTRYPOINT ["java","-jar","app.jar"]
+RUN gradle build -x test
+
+FROM eclipse-temurin:17.0.6_10-jre-alpine
+
+COPY --from=builder /usr/app/build/libs/*.jar /opt/app/application.jar
+
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
+
+RUN ls /opt/app/
+CMD java -jar /opt/app/application.jar

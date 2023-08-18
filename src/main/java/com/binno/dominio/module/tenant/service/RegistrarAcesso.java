@@ -7,13 +7,12 @@ import com.binno.dominio.module.tenant.model.Tenant;
 import com.binno.dominio.module.tenant.repository.AcessoRepository;
 import com.binno.dominio.shared.RegraNegocioService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class RegistrarAcesso implements RegraNegocioService<Acesso, UsuarioAutenticado> {
 
     private final AcessoRepository repository;
