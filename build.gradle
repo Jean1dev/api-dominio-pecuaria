@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.binno'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 
 java {
 	sourceCompatibility = '17'
@@ -39,11 +39,6 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
-}
-
-bootJar {
-	archiveName 'application.jar'
-	destinationDirectory.set(file("${rootProject.buildDir}/libs"))
 }
 
 jar {

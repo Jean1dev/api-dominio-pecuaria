@@ -1,1 +1,1 @@
-web: java -jar build/libs/application.jar
+web: java -jar build/libs/dominio-1.0.0.jar
