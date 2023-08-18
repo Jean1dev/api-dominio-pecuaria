@@ -9,7 +9,6 @@ import com.binno.dominio.module.vacinacao.model.ProcessoVacinacao;
 import com.binno.dominio.module.vacinacao.repository.ProcessoVacinacaoRepository;
 import com.binno.dominio.shared.RegraNegocioService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -18,7 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class GerarDadosProntuario implements RegraNegocioService<DadosProntuarioDto, Integer> {
 
     private final ProntuarioRepository repository;

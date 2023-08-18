@@ -6,13 +6,11 @@ import com.binno.dominio.module.medicamento.model.Medicamento;
 import com.binno.dominio.module.medicamento.repository.MedicamentoRepository;
 import com.binno.dominio.module.tenant.model.Tenant;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
 import java.util.List;
 
 import static com.binno.dominio.module.medicamento.api.dto.MedicamentoDto.listToDto;
@@ -20,7 +18,7 @@ import static com.binno.dominio.module.medicamento.api.dto.MedicamentoDto.pageTo
 
 @RestController
 @RequestMapping(MedicamentoController.PATH)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class MedicamentoController {
 
     public static final String PATH = "medicamentos";

@@ -7,14 +7,13 @@ import com.binno.dominio.module.comercializacao.http.dto.CambioDto;
 import com.binno.dominio.module.comercializacao.http.dto.EnviarParaComercializacaoDto;
 import com.binno.dominio.module.tenant.model.Tenant;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class ComercializacaoService {
 
     private final IComercializacaoExternalApis externalApis;

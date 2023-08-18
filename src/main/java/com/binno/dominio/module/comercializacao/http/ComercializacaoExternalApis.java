@@ -3,7 +3,6 @@ package com.binno.dominio.module.comercializacao.http;
 import com.binno.dominio.module.comercializacao.http.dto.CambioDto;
 import com.binno.dominio.module.comercializacao.http.dto.EnviarParaComercializacaoDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Component
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class ComercializacaoExternalApis implements IComercializacaoExternalApis {
 
     private final RestTemplate restTemplate;

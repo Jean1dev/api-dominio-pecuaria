@@ -6,7 +6,6 @@ import com.binno.dominio.module.veterinaria.model.PeriodoDia;
 import com.binno.dominio.module.veterinaria.model.StatusAgendamento;
 import com.binno.dominio.module.veterinaria.repository.AgendamentoVeterinarioRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ValidationException;
@@ -17,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class VerificarDisponibilidadeParaAgendamentos {
 
     private final AgendamentoVeterinarioRepository repository;

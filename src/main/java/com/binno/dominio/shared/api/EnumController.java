@@ -7,7 +7,7 @@ import com.binno.dominio.module.veterinaria.model.PeriodoDia;
 import com.binno.dominio.module.veterinaria.model.StatusAgendamento;
 import com.binno.dominio.shared.EnumApplication;
 import com.binno.dominio.shared.api.dto.KeyAndValueDto;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +24,7 @@ public class EnumController {
     public static final String PATH = "enums";
 
     @GetMapping
-    @ApiOperation("Retorna os Enums da aplicacao")
+    @Operation( description = "Retorna os Enums da aplicacao")
     public Map getEnums() {
         return Map.of(
                 EstadoAtual.class.getSimpleName(), criarListaDoEnum(EstadoAtual.values()),

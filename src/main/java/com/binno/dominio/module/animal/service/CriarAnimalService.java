@@ -12,10 +12,8 @@ import com.binno.dominio.module.fazenda.repository.FazendaRepository;
 import com.binno.dominio.module.imagem.model.Imagem;
 import com.binno.dominio.module.imagem.repository.ImagemRepository;
 import com.binno.dominio.module.notificacao.service.RegistrarNotificacao;
-import com.binno.dominio.module.tenant.model.Tenant;
 import com.binno.dominio.shared.RegraNegocioService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +21,7 @@ import java.util.Objects;
 
 @Service
 @Transactional
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class CriarAnimalService implements RegraNegocioService<Animal, CriarAnimalDto> {
 
     private final AnimalRepository animalRepository;

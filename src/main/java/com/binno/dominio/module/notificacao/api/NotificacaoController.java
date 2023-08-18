@@ -4,7 +4,6 @@ import com.binno.dominio.context.AuthenticationHolder;
 import com.binno.dominio.module.notificacao.api.dto.NotificacaoDto;
 import com.binno.dominio.module.notificacao.repository.NotificacaoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +13,7 @@ import static com.binno.dominio.module.notificacao.api.dto.NotificacaoDto.listTo
 
 @RestController
 @RequestMapping(NotificacaoController.PATH)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class NotificacaoController {
 
     public static final String PATH = "notificacao";

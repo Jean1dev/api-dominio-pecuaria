@@ -7,9 +7,8 @@ import com.binno.dominio.module.veterinaria.api.dto.DiasEDisponibilidadesDto;
 import com.binno.dominio.module.veterinaria.repository.AgendamentoVeterinarioRepository;
 import com.binno.dominio.module.veterinaria.service.SolicitarAgendamentoVeterinario;
 import com.binno.dominio.module.veterinaria.service.VerificarDisponibilidadeParaAgendamentos;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,7 +23,7 @@ import static com.binno.dominio.module.veterinaria.api.dto.AgendamentoVeterinari
 
 @RestController
 @RequestMapping(AgendamentoVeterinarioController.PATH)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class AgendamentoVeterinarioController {
 
     public static final String PATH = "agendamento-veterinario";
@@ -36,20 +35,20 @@ public class AgendamentoVeterinarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation("Cria um novo agendamento")
+    @Operation( description = "Cria um novo agendamento")
     public void criarAgendamento(@RequestBody @Valid CriarAgendamentoDto dto) {
         solicitarAgendamentoVeterinario.executar(dto);
     }
 
     @GetMapping
-    @ApiOperation("Retorna a lista de agendamentos do usuario")
+    @Operation( description = "Retorna a lista de agendamentos do usuario")
     public Page<AgendamentoVeterinarioDto> findAll(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
                                                    @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
         return pageToDto(repository.findAllByTenantId(PageRequest.of(page, size), holder.getTenantId()));
     }
 
     @GetMapping(path = "disponibilidade")
-    @ApiOperation("Consulta a disponibilidade de dias para agendamento")
+    @Operation( description = "Consulta a disponibilidade de dias para agendamento")
     public List<DiasEDisponibilidadesDto> consultarDisponibilidade(
             @RequestParam("dias") Integer dias,
             @RequestParam("data") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataPesquisa,

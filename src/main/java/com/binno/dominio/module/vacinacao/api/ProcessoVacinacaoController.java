@@ -6,7 +6,6 @@ import com.binno.dominio.module.vacinacao.api.dto.ProcessoVacinacaoDto;
 import com.binno.dominio.module.vacinacao.repository.ProcessoVacinacaoRepository;
 import com.binno.dominio.module.vacinacao.service.ProcessarVacinacao;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,7 @@ import static com.binno.dominio.module.vacinacao.api.dto.ProcessoVacinacaoDto.pa
 
 @RestController
 @RequestMapping(ProcessoVacinacaoController.PATH)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class ProcessoVacinacaoController {
 
     public static final String PATH = "vacinacao";

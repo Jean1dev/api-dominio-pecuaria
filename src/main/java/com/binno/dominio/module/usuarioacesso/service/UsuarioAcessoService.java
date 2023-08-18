@@ -14,7 +14,6 @@ import com.binno.dominio.module.usuarioacesso.repository.UsuarioAcessoRepository
 import com.binno.dominio.provider.mail.MailProvider;
 import com.binno.dominio.provider.mail.SendEmailPayload;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,7 +28,7 @@ import java.util.UUID;
 
 @Service
 @Transactional
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class UsuarioAcessoService {
 
     private final UsuarioAcessoRepository repository;

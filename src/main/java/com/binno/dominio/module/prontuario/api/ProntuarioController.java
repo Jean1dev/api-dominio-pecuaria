@@ -7,7 +7,6 @@ import com.binno.dominio.module.prontuario.service.GerarProntuarioPDF;
 import com.itextpdf.text.DocumentException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,7 +18,7 @@ import java.io.ByteArrayInputStream;
 @RestController
 @RequestMapping(ProntuarioController.PATH)
 @Slf4j
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class ProntuarioController {
 
     public static final String PATH = "prontuario";

@@ -7,13 +7,12 @@ import com.binno.dominio.module.imagem.model.Imagem;
 import com.binno.dominio.module.imagem.repository.ImagemRepository;
 import com.binno.dominio.shared.RegraNegocioService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class AssociarImagemService implements RegraNegocioService<Animal, ImagemAnimalDto> {
 
     private final AnimalRepository animalRepository;

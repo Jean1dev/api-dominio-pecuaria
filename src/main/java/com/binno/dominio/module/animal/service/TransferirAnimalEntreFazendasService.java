@@ -7,7 +7,6 @@ import com.binno.dominio.module.fazenda.model.Fazenda;
 import com.binno.dominio.module.fazenda.repository.FazendaRepository;
 import com.binno.dominio.module.notificacao.service.RegistrarNotificacao;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @EnableAsync
 @Service
 @Transactional
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class TransferirAnimalEntreFazendasService {
 
     private final FazendaRepository fazendaRepository;

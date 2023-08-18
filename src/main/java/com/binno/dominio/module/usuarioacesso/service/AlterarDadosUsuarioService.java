@@ -7,7 +7,6 @@ import com.binno.dominio.provider.mail.MailProvider;
 import com.binno.dominio.provider.mail.SendEmailPayload;
 import com.binno.dominio.shared.RegraNegocioService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ import javax.validation.ValidationException;
 import java.util.Objects;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class AlterarDadosUsuarioService implements RegraNegocioService<UsuarioAcesso, AlterarUsuarioDto> {
 
     private final UsuarioAcessoRepository repository;

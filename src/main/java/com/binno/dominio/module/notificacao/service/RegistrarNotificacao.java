@@ -6,11 +6,10 @@ import com.binno.dominio.module.notificacao.repository.NotificacaoRepository;
 import com.binno.dominio.module.tenant.model.Tenant;
 import com.binno.dominio.shared.RegraNegocioService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class RegistrarNotificacao implements RegraNegocioService<Notificacao, String> {
 
     private final NotificacaoRepository repository;

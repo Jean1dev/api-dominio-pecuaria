@@ -3,26 +3,33 @@ package com.binno.dominio.auth;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.security.Key;
 import java.util.Date;
 
 @Service
+@Slf4j
 public class TokenService {
 
     @Value("${jwt.expiration}")
     private String expiration;
 
-    @Value("{jwt.secret}")
-    private String secret;
+    private final Key secret;
+
+    public TokenService() {
+        secret = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        log.info("{}", secret);
+    }
 
     public String gerarToken(Authentication authentication) {
         UsuarioAutenticado autenticado = (UsuarioAutenticado) authentication.getPrincipal();
         Date hoje = new Date();
         Date dataExpiracao = new Date(hoje.getTime() + Long.parseLong(expiration));
-
         return Jwts.builder()
                 .setIssuer("Poc")
                 .setSubject(autenticado.getLogin())
