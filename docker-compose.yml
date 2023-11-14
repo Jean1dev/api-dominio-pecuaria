@@ -12,23 +12,6 @@ services:
       - "/var/lib/postgresql/data"
     ports:
       - "5432:5432"
-    networks:
-      - postgres
-    restart: unless-stopped
-
-  postgres_test:
-    container_name: postgres_test
-    image: postgres:alpine
-    environment:
-      POSTGRES_DB: "binnosoft_teste"
-      POSTGRES_USER: "teste"
-      POSTGRES_PASSWORD: "teste"
-    volumes:
-      - "/var/lib/postgresql/data"
-    ports:
-      - "2345:5432"
-    networks:
-      - postgres
     restart: unless-stopped
 
   s3ninja:
@@ -36,13 +19,9 @@ services:
     ports:
       - "9444:9444"
     container_name: s3
-    depends_on:
-      - postgres
 
 networks:
-  postgres:
-    driver: bridge
-
-volumes:
-  postgres:
-  pgadmin:
+  default:
+    ipam:
+      config:
+        - subnet: "172.80.0.0/16"
