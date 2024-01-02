@@ -1,12 +1,13 @@
 package com.binno.dominio.module.animal.specification;
 
 import com.binno.dominio.module.animal.model.Animal;
+import com.binno.dominio.module.tenant.model.Tenant;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
 public class AnimalSpecification {
 
@@ -23,7 +24,7 @@ public class AnimalSpecification {
     }
 
     public static Specification<Animal> tenant(Integer id) {
-        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("tenant"), id);
+        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("tenant"), Tenant.of(id));
     }
 
     public static Specification<Animal> where() {

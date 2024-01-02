@@ -11,8 +11,8 @@ import com.binno.dominio.module.usuarioacesso.repository.UsuarioAcessoRepository
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import javax.validation.ValidationException;
+import jakarta.transaction.Transactional;
+import jakarta.validation.ValidationException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;

@@ -4,15 +4,14 @@ import com.binno.dominio.module.fazenda.model.Fazenda;
 import com.binno.dominio.module.imagem.model.Imagem;
 import com.binno.dominio.module.tenant.model.Tenant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
 
 @Data

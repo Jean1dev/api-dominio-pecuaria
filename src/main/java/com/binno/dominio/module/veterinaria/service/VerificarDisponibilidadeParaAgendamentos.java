@@ -8,7 +8,7 @@ import com.binno.dominio.module.veterinaria.repository.AgendamentoVeterinarioRep
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ValidationException;
+import jakarta.validation.ValidationException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;

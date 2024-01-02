@@ -14,7 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import static com.binno.dominio.module.funcionario.api.dto.FuncionarioDto.pageToDto;
 import static com.binno.dominio.module.funcionario.api.dto.FuncionarioDto.toDto;
