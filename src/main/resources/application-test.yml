@@ -15,23 +15,17 @@ spring:
     clean-on-validation-error: false
     locations: classpath:db/migration
     table: schema_history
-    enabled: false
+    enabled: true
 
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+      dialect: org.hibernate.dialect.PostgreSQLDialect
 
   datasource:
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: password
-    url: jdbc:h2:mem:db_test;MODE=POSTGRESQL
-
-  h2:
-    console:
-      enabled: true
-      path: /h2
+    platform: postgres
+    driverClassName: org.postgresql.Driver
 
 jwt:
   expiration: 36000000
