@@ -2,10 +2,10 @@ package com.binno.dominio.auth;
 
 import com.binno.dominio.module.usuarioacesso.model.UsuarioAcesso;
 import com.binno.dominio.module.usuarioacesso.repository.UsuarioAcessoRepository;
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ValidationException;
 
 @Service
 @RequiredArgsConstructor

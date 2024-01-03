@@ -23,13 +23,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
 @EnableAsync
 @Transactional
 @RequiredArgsConstructor
-public class ProcessarVacinacao implements RegraNegocioService<ProcessoVacinacao, ProcessarVacinacaoDto> {
+public class ProcessarVacinacao implements RegraNegocioService<CompletableFuture<ProcessoVacinacao>, ProcessarVacinacaoDto> {
 
     private static final Logger logger = LoggerFactory.getLogger(ProcessarVacinacao.class);
 
@@ -45,9 +46,9 @@ public class ProcessarVacinacao implements RegraNegocioService<ProcessoVacinacao
 
     private final VincularProcessoVacinacaoNoProntuario vincularProcessoVacinacaoNoProntuario;
 
-    @Async
+    @Async("threadPoolTaskExecutor")
     @Override
-    public ProcessoVacinacao executar(ProcessarVacinacaoDto dto) {
+    public CompletableFuture<ProcessoVacinacao> executar(ProcessarVacinacaoDto dto) {
         Medicamento medicamento = medicamentoRepository.findById(dto.getMedicamentoId()).orElseThrow();
 
         if (!applyValidations(medicamento, dto))
@@ -75,7 +76,7 @@ public class ProcessarVacinacao implements RegraNegocioService<ProcessoVacinacao
         });
 
         notificacao.executar("Processo de vacinação finalizado " + LocalDateTime.now());
-        return processoVacinacao;
+        return CompletableFuture.completedFuture(processoVacinacao);
     }
 
     private boolean applyValidations(Medicamento medicamento, ProcessarVacinacaoDto dto) {

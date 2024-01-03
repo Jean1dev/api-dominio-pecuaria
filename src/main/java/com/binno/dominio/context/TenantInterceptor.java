@@ -1,11 +1,10 @@
 package com.binno.dominio.context;
 
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-public class TenantInterceptor extends HandlerInterceptorAdapter {
+public class TenantInterceptor implements HandlerInterceptor {
 
     private final AuthenticationHolder holder;
 

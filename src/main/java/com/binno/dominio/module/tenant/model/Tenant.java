@@ -2,7 +2,7 @@ package com.binno.dominio.module.tenant.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tenant")

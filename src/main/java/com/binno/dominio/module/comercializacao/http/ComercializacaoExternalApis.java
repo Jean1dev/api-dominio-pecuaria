@@ -3,10 +3,7 @@ package com.binno.dominio.module.comercializacao.http;
 import com.binno.dominio.module.comercializacao.http.dto.CambioDto;
 import com.binno.dominio.module.comercializacao.http.dto.EnviarParaComercializacaoDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -41,7 +38,7 @@ public class ComercializacaoExternalApis implements IComercializacaoExternalApis
                 .toUriString();
 
         HttpEntity<List<EnviarParaComercializacaoDto>> httpEntity = new HttpEntity<>(items, null);
-        HttpStatus statusCode = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, Object.class).getStatusCode();
+        HttpStatusCode statusCode = restTemplate.exchange(uri, HttpMethod.POST, httpEntity, Object.class).getStatusCode();
         if (HttpStatus.OK != statusCode) {
             throw new HttpClientErrorException(statusCode);
         }

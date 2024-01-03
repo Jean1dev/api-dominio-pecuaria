@@ -1,6 +1,7 @@
 package com.binno.dominio.module.funcionario.specification;
 
 import com.binno.dominio.module.funcionario.model.Funcionario;
+import com.binno.dominio.module.tenant.model.Tenant;
 import org.springframework.data.jpa.domain.Specification;
 
 public class FuncionarioSpecification {
@@ -10,6 +11,6 @@ public class FuncionarioSpecification {
     }
 
     public static Specification<Funcionario> tenant(Integer id) {
-        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("tenant"), id);
+        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("tenant"), Tenant.of(id));
     }
 }
