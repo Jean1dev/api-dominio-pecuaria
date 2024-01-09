@@ -1,1 +1,1 @@
-web: java -jar build/libs/dominio-1.0.0.jar
+web: java -jar build/libs/dominio-2.0.0.jar
