@@ -19,7 +19,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	// https://mvnrepository.com/artifact/com.itextpdf/itextpdf
-	implementation("com.itextpdf:itextpdf:5.5.13.3")
+	implementation("com.itextpdf:itextpdf:5.5.13.4")
 
 	implementation 'org.springdoc:springdoc-openapi-ui:1.8.0'
 	implementation('io.jsonwebtoken:jjwt-api:0.11.5')
